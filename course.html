@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><script src="assets/auth-demo.js?v=account-2"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>课程 · 云听 AI 智慧心理教室</title>
+<link rel="stylesheet" href="assets/base.css?v=unified-2">
+<link rel="stylesheet" href="assets/stages.css?v=unified-2">
+<link rel="stylesheet" href="assets/support-flow.css?v=flow-1">
+</head>
+<body>
+
+<div id="app"></div>
+
+<!--
+  加载顺序有依赖，不要调整：
+    talk-fallbacks 必须在 dialogue 之前（对话引擎要从兜底池取话术）
+    train-kinds    必须在 engine   之前（引擎要按 kind 分发渲染器）
+    课程包          必须在 engine   之前（引擎启动时按 ?id= 查找）
+
+  file:// 协议下不能用 ES module，所以全部走传统 <script src>，
+  各自挂到 window。这些相对路径资源不受 CORS 限制。
+-->
+<script src="assets/store.js?v=teacher-demo-2"></script>
+<script src="assets/audio.js"></script>
+<script src="assets/talk-fallbacks.js"></script>
+<script src="assets/dialogue.js"></script>
+<script src="assets/train-kinds.js"></script>
+<script src="assets/growth-games.js?v=playground-3"></script>
+
+<script src="courses/lesson-01.js?v=20260917-six-stage-2"></script>
+<script src="courses/lesson-02.js?v=20260917-six-stage-2"></script>
+
+<script src="assets/classroom-state.js?v=platform-4"></script>
+<script src="assets/engine.js?v=unified-2"></script>
+
+<script src="assets/support-flow.js?v=flow-1"></script>
+<script>if("serviceWorker" in navigator){navigator.serviceWorker.register("sw.js?v=6").catch(function(){})}</script></body>
+</html>
