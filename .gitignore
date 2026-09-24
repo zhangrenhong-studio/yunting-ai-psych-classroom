@@ -1,8 +1,24 @@
-backups/
-*.bak
+# Local and editor files
 .DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Runtime / logs
+*.log
+*.tmp
+
+# Local deployment metadata and secrets
+.env
+.env.*
+!.env.example
+*deployment*.json
+*credentials*
+*token*
+
+# Historical local snapshots are intentionally excluded from the baseline repo
+*.before-*.html
+
+# Python
 __pycache__/
-*.pyc
-node_modules/
-playwright-report/
-test-results/
+*.py[cod]

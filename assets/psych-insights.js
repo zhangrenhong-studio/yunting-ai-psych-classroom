@@ -15,10 +15,10 @@ function demoName(classId,index){var offsets={'demo-class-7a':0,'demo-class-7b':
 var CLASS_NAMES={'demo-class-7a':'七年级 · 向阳班（演示）','demo-class-7b':'七年级 · 青禾班（演示）','demo-class-8a':'八年级 · 星河班（演示）'};
 var SCORE_PATTERN=[91,87,83,79,76,73,69,66,61,56,47,81];
 var flagged={
- 'demo-class-7a-student-4':{score:48,confidence:88,sessions:12,summary:'近两周在多次对话中持续出现睡眠受影响、精力下降和反复担忧的表达。',evidence:['连续3次对话出现睡眠受影响的描述','学习与同伴话题中均出现明显担忧','曾主动询问可以向谁寻求帮助'],dimensions:[46,51,55,61,42,38,67,45]},
- 'demo-class-7b-student-2':{score:58,confidence:83,sessions:9,summary:'考试临近后压力表达增多，出现反复自我否定和睡眠节律受影响的描述。',evidence:['7天内4次提到考试压力','两次表达“怎么做都不够好”','愿意尝试向可信任成人求助'],dimensions:[56,48,52,68,51,46,72,55]},
- 'demo-class-8a-student-7':{score:63,confidence:79,sessions:8,summary:'近期同伴冲突相关表达增多，倾向回避沟通，但仍保持稳定的家庭支持感。',evidence:['3次对话围绕同伴误解展开','多次选择回避而不是澄清','提到家人愿意倾听'],dimensions:[62,66,65,44,61,69,81,58]},
- 'demo-class-7a-student-9':{score:67,confidence:76,sessions:7,summary:'在家庭沟通话题中出现紧张和无力感，其他维度暂时保持稳定。',evidence:['近期2次主动谈到家庭沟通压力','表达“说了也不知道会不会被理解”','未出现持续性多维下降'],dimensions:[68,72,70,74,66,63,43,61]}
+ 'demo-class-7a-student-4':{score:48,sessions:12,summary:'近两周在多次对话中持续出现睡眠受影响、精力下降和反复担忧的表达。',evidence:['连续3次对话出现睡眠受影响的描述','学习与同伴话题中均出现明显担忧','曾主动询问可以向谁寻求帮助'],dimensions:[46,51,55,61,42,38,67,45]},
+ 'demo-class-7b-student-2':{score:58,sessions:9,summary:'考试临近后压力表达增多，出现反复自我否定和睡眠节律受影响的描述。',evidence:['7天内4次提到考试压力','两次表达“怎么做都不够好”','愿意尝试向可信任成人求助'],dimensions:[56,48,52,68,51,46,72,55]},
+ 'demo-class-8a-student-7':{score:63,sessions:8,summary:'近期同伴冲突相关表达增多，倾向回避沟通，但仍保持稳定的家庭支持感。',evidence:['3次对话围绕同伴误解展开','多次选择回避而不是澄清','提到家人愿意倾听'],dimensions:[62,66,65,44,61,69,81,58]},
+ 'demo-class-7a-student-9':{score:67,sessions:7,summary:'在家庭沟通话题中出现紧张和无力感，其他维度暂时保持稳定。',evidence:['近期2次主动谈到家庭沟通压力','表达“说了也不知道会不会被理解”','未出现持续性多维下降'],dimensions:[68,72,70,74,66,63,43,61]}
 };
 function clamp(v){return Math.max(0,Math.min(100,Math.round(v)))}
 function average(values){return values.length?Math.round(values.reduce(function(a,b){return a+b},0)/values.length):null}
@@ -30,7 +30,7 @@ function make(id,classId,index,classOffset){
  if(f)score=f.score;
  var dims=DIMENSIONS.map(function(_,i){return clamp(score+((index*5+i*7+classOffset)%15)-7)});
  if(f&&f.dimensions)dims=f.dimensions.slice();
- var item={studentId:id,classId:classId,className:CLASS_NAMES[classId],studentName:demoName(classId,index),gender:genderFor(index+classOffset),score:score,confidence:74+(index+classOffset)%13,sessions:5+(index*2+classOffset)%8,window:'近30天',updatedAt:'2026-09-20 20:10',dimensions:dims,summary:'近期对话覆盖学习、同伴、家庭和日常感受，整体状态相对稳定，仍需结合后续变化持续观察。',evidence:['对话主题覆盖多个生活场景','各维度来自近30天连续表达的综合分析','当前结论仍需结合老师观察'],demo:true};
+ var item={studentId:id,classId:classId,className:CLASS_NAMES[classId],studentName:demoName(classId,index),gender:genderFor(index+classOffset),score:score,sessions:5+(index*2+classOffset)%8,window:'近30天',updatedAt:'2026-09-20 20:10',dimensions:dims,summary:'近期对话覆盖学习、同伴、家庭和日常感受，整体状态相对稳定，仍需结合后续变化持续观察。',evidence:['对话主题覆盖多个生活场景','各维度来自近30天连续表达的综合分析','当前结论仍需结合老师观察'],demo:true};
  if(f)Object.assign(item,f);
  item.level=levelOf(item.score).key;
  item.trend=makeTrend(item.score,index+classOffset);
@@ -47,10 +47,11 @@ function levelDistribution(list){return LEVELS.map(function(level){var count=lis
 function riskOf(item){return item.level==='priority'?'high':item.level==='attention'?'medium':'low'}
 function riskLabel(r){return r==='high'?'重点关注':r==='medium'?'需要关注':'持续观察'}
 function riskRank(r){return r==='high'?3:r==='medium'?2:1}
+function dataSufficiency(item){var sessions=Number(item&&item.sessions)||0,evidence=Array.isArray(item&&item.evidence)?item.evidence.length:0;if(sessions>=9&&evidence>=3)return{key:'enough',label:'较充分',detail:sessions+'次对话 · '+evidence+'条分析依据'};if(sessions>=6&&evidence>=2)return{key:'normal',label:'一般',detail:sessions+'次对话 · '+evidence+'条分析依据'};return{key:'limited',label:'有限',detail:sessions+'次对话 · '+evidence+'条分析依据'}}
 function dimensionSummary(list){list=list||all();return DIMENSIONS.map(function(name,i){var allScore=average(list.map(function(x){return x.dimensions[i]})),boys=filterGender(list,'男'),girls=filterGender(list,'女');return{name:name,score:allScore,boys:average(boys.map(function(x){return x.dimensions[i]})),girls:average(girls.map(function(x){return x.dimensions[i]}))}})}
 function monthlyOverall(list,gender){list=filterGender(list||all(),gender);return MONTHS.map(function(label,i){return{label:label,score:average(list.map(function(x){return x.trend[i]})),count:list.length}})}
 function monthlyDimensions(list,gender){list=filterGender(list||all(),gender);return DIMENSIONS.map(function(name,di){return{name:name,values:MONTHS.map(function(_,mi){return average(list.map(function(x){return x.dimensionTrend[di][mi]}))})}})}
 function classSummary(){return Object.keys(CLASS_NAMES).map(function(id){var list=byClass(id),dist=levelDistribution(list);return{id:id,name:CLASS_NAMES[id],count:list.length,score:average(list.map(function(x){return x.score})),distribution:dist,priority:dist.find(function(x){return x.key==='priority'}).count,attention:dist.find(function(x){return x.key==='attention'}).count,dialogues:list.reduce(function(a,x){return a+x.sessions},0)}})}
 function trend(){var list=all();return monthlyOverall(list,'all').map(function(x,i){var d=levelDistribution(list);return{label:x.label,score:x.score,high:i<3?2:1,medium:i<2?5:4}})}
-global.YTPsychInsights={mode:'demo',dimensions:DIMENSIONS,months:MONTHS,levels:LEVELS,all:all,byStudent:byStudent,byClass:byClass,filterGender:filterGender,levelOf:levelOf,levelDistribution:levelDistribution,riskOf:riskOf,riskLabel:riskLabel,riskRank:riskRank,classSummary:classSummary,trend:trend,dimensionSummary:dimensionSummary,monthlyOverall:monthlyOverall,monthlyDimensions:monthlyDimensions,average:average,updatedAt:'2026-09-20 20:10',window:'近30天'};
+global.YTPsychInsights={mode:'demo',dimensions:DIMENSIONS,months:MONTHS,levels:LEVELS,all:all,byStudent:byStudent,byClass:byClass,filterGender:filterGender,levelOf:levelOf,levelDistribution:levelDistribution,riskOf:riskOf,riskLabel:riskLabel,riskRank:riskRank,dataSufficiency:dataSufficiency,classSummary:classSummary,trend:trend,dimensionSummary:dimensionSummary,monthlyOverall:monthlyOverall,monthlyDimensions:monthlyDimensions,average:average,updatedAt:'2026-09-20 20:10',window:'近30天'};
 })(window);

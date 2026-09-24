@@ -43,7 +43,7 @@
   }
   function classroomOverlay(mount, state) {
     var old=mount.querySelector('.classroom-overlay'); if(old){old.remove();}
-    if(!state.active){return;}
+    if(!state.active||(state.progressMode==='student'&&state.studentCourseCompleted)){return;}
     var el=document.createElement('section'); el.className='classroom-overlay';
     el.innerHTML='<div class="classroom-glow"></div><div class="classroom-call"><p class="eyebrow">'+esc(state.className)+' · 心理成长课进行中</p><h2>'+esc(state.courseTitle)+'</h2><p>老师正在带领大家进入「'+esc({enter:'进入课堂',story:'故事导入',talk:'和小悦悦聊聊',energy:'心理能量补给',playground:'成长训练场',closing:'收束与尾声'}[state.stage]||'课堂')+'」。</p><button class="cta" data-join>进入课堂</button><small>课堂进行中，其他个人功能暂时收起。</small></div>';
     mount.appendChild(el);

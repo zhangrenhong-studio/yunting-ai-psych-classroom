@@ -821,8 +821,8 @@
 
   function next() { goTo(app.index + 1); }
 
-  /* 课堂模式下，学生完成的是“当前环节的个人任务”，不是自行打开
-     下一个大环节。完成后记录匿名流程状态并等待老师统一推进。 */
+  /* 课堂模式下记录学生当前环节的个人任务。统一控制模式完成后等待老师推进；
+     自主探索模式完成后自行进入下一环节，完成整课后自动退出课堂。 */
   function completeCurrentStage() {
     if (app.teacherPreview) {
       var previewSession = global.YTClassroomDemo && global.YTClassroomDemo.read();
@@ -865,8 +865,10 @@
         } else {
           session.studentStage = stage;
           session.studentCourseCompleted = true;
+          session.studentExitedAt = Date.now();
           global.YTClassroomDemo.write(session);
-          setClassroomGate('completed', '这节课已经完成', '先休息一下，等待老师结束本次课堂。');
+          setClassroomGate('completed', '这节课已经完成', '正在退出课堂，返回你的个人空间。');
+          global.setTimeout(function () { global.location.replace('student.html?classroomCompleted=1'); }, 900);
         }
         return;
       }
@@ -1039,8 +1041,9 @@
           setClassroomGate('completed', '教师演示操作已完成', '这是老师的可操作演示视图，不会计入任何学生的课堂进度或私密记录。请从右侧切换环节。');
         } else if (session.progressMode !== 'student' && session.studentProgress && session.studentProgress[STAGE_ORDER[app.index]] && session.studentProgress[STAGE_ORDER[app.index]].status === 'completed') {
           setClassroomGate('completed', '这一部分已经完成', '先休息一下，等待老师带大家继续。');
-        } else if (session.progressMode === 'student' && session.studentCourseCompleted) {
-          setClassroomGate('completed', '这节课已经完成', '先休息一下，等待老师结束本次课堂。');
+        } else if (session.progressMode === 'student' && session.studentCourseCompleted && !app.teacherPreview) {
+          setClassroomGate('completed', '这节课已经完成', '正在退出课堂，返回你的个人空间。');
+          global.setTimeout(function () { global.location.replace('student.html?classroomCompleted=1'); }, 300);
         } else {
           setClassroomGate(null);
         }

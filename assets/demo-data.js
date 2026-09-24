@@ -41,7 +41,6 @@
     try {
       migrateDemoNames();
       migrateDemoRecords();
-      if (global.localStorage.getItem(MARKER)) return;
       var now = Date.now();
       var groups = [
         { id: 'demo-class-7a', grade: '七年级', name: '向阳班（演示）', createdAt: new Date(now - 86400000 * 30).toISOString(), demo: true },
@@ -57,13 +56,13 @@
         { sessionId: 'demo-session-02', classId: 'demo-class-7b', title: '独一无二的我', className: '七年级 · 青禾班（演示）', at: now - 86400000 * 6, endedAt: now - 86400000 * 6 + 2700000, status: '已结束', expectedStudents: 10, actualStudents: 10, presenceMode: 'simulated', reachedStages: ['enter','story','talk','energy','playground','closing'], observations: { participation: '课堂流程完整，学生均进入课堂并完成主要环节。', expression: '公开课堂互动完成情况已汇总；不展示学生私密对话全文。', support: '本次课堂没有新增学生主动关注事项。' }, studentActivity: demoActivity('demo-class-7b',10,[],[]), absentStudentIds:[], demo: true }
       ];
       var currentGroups = read(CLASS_KEY), currentStudents = read(STUDENT_KEY), currentRecords = read(RECORD_KEY);
-      var hasOwnerData = currentGroups.some(function (x) { return !x.demo; }) || currentStudents.some(function (x) { return !x.demo; }) || currentRecords.some(function (x) { return !x.demo; });
-      if (!hasOwnerData) {
-        addMissing(currentGroups, groups, CLASS_KEY);
-        addMissing(currentStudents, students, STUDENT_KEY);
-        addMissing(currentRecords, records, RECORD_KEY);
-      }
-      global.localStorage.setItem(MARKER, hasOwnerData ? 'skipped-owner-data' : '1');
+      var hasOwnerGroups = currentGroups.some(function (x) { return !x.demo; });
+      var hasOwnerStudents = currentStudents.some(function (x) { return !x.demo; });
+      var hasOwnerRecords = currentRecords.some(function (x) { return !x.demo; });
+      if (!currentGroups.length) addMissing(currentGroups, groups, CLASS_KEY);
+      if (!currentStudents.length && !hasOwnerGroups) addMissing(currentStudents, students, STUDENT_KEY);
+      if (!currentRecords.length && !hasOwnerGroups && !hasOwnerStudents) addMissing(currentRecords, records, RECORD_KEY);
+      global.localStorage.setItem(MARKER, (hasOwnerGroups || hasOwnerStudents || hasOwnerRecords) ? 'preserved-owner-data' : '1');
     } catch (e) { /* local preview remains usable without seed data */ }
   }
   global.YTSeedDemo = { ensure: ensure };
