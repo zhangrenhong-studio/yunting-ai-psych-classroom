@@ -579,3 +579,9 @@ body h3,body h4,body h5,body b,body strong{font-weight:650!important}.btn-primar
 .classroom-modal-r29 .wizard-dropdown-field>small{display:block;margin-top:8px;color:#7a8d8a;font-size:11px}
 .classroom-modal-r29 .wizard-step{position:relative;min-height:166px}
 @media(max-width:640px){.classroom-modal-r29 .wizard-native-select select{height:50px;font-size:14px}.classroom-modal-r29 .wizard-step{min-height:154px}}
+
+
+/* R31: third step chooses classroom control mode */
+.classroom-modal-r31 .mode-dropdown-field{margin-bottom:4px}
+.classroom-modal-r31 .advanced-settings{grid-template-columns:1fr;max-width:100%}
+.classroom-modal-r31 .advanced-settings .setting-group{max-width:100%}
