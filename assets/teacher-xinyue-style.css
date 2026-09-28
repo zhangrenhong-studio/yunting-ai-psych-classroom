@@ -604,3 +604,20 @@ body h3,body h4,body h5,body b,body strong{font-weight:650!important}.btn-primar
 .classroom-modal-r32 .wizard-dropdown-field.is-complete>small:before{content:'✓';background:#168677;color:#fff}
 .classroom-modal-r32 .wizard-next:disabled,.classroom-modal-r32 #confirm-launch:disabled{cursor:not-allowed!important;background:#c8d5d2!important;color:#f8fbfa!important;box-shadow:none!important;transform:none!important}
 @media(max-width:640px){.classroom-modal-r32 .wizard-dropdown-field{padding:14px 13px 12px}.classroom-modal-r32 .wizard-native-select select{height:54px}.classroom-modal-r32 .wizard-dropdown-field>label{font-size:13px}}
+
+
+/* R33: restrained select treatment */
+.classroom-modal-r33 .wizard-question{margin-bottom:19px}
+.classroom-modal-r33 .wizard-dropdown-field,.classroom-modal-r33 .wizard-dropdown-field.is-complete{padding:2px 0 8px;border:0;border-radius:0;background:transparent;box-shadow:none}
+.classroom-modal-r33 .wizard-dropdown-field:focus-within{border:0;background:transparent;box-shadow:none}
+.classroom-modal-r33 .wizard-dropdown-field>label{display:flex;align-items:flex-start;justify-content:flex-start;gap:4px;margin:0 0 8px;color:#31565a;font-size:13px;font-weight:750}
+.classroom-modal-r33 .wizard-dropdown-field>label sup{position:relative;top:1px;color:#d65d5d;font-size:12px;font-weight:800}
+.classroom-modal-r33 .wizard-native-select select{height:52px;padding:0 46px 0 15px;border:1.5px solid #cbdcd8;border-radius:11px;background:#fff;color:#234b50;font-size:14px;font-weight:650;box-shadow:0 4px 12px rgba(26,70,68,.05)}
+.classroom-modal-r33 .wizard-native-select select:required:invalid{color:#6f817f;font-weight:600}
+.classroom-modal-r33 .wizard-native-select select:hover{border-color:#9dbdb7}
+.classroom-modal-r33 .wizard-native-select select:focus{border-color:#168677;box-shadow:0 0 0 2px rgba(22,134,119,.1)}
+.classroom-modal-r33 .wizard-native-select>i{right:16px;width:auto;height:auto;display:block;border-radius:0;background:transparent;color:#168677;font-size:19px;font-weight:400}
+.classroom-modal-r33 .wizard-dropdown-field>small,.classroom-modal-r33 .wizard-dropdown-field.is-complete>small{display:block;margin-top:8px;color:#7a8d8a;font-size:11px;font-weight:400}
+.classroom-modal-r33 .wizard-dropdown-field>small:before,.classroom-modal-r33 .wizard-dropdown-field.is-complete>small:before{content:none;display:none}
+.classroom-modal-r33 .wizard-next:disabled{background:#d5dddb!important;color:#8b9b98!important;box-shadow:none!important}
+@media(max-width:640px){.classroom-modal-r33 .wizard-dropdown-field{padding:2px 0 8px}.classroom-modal-r33 .wizard-native-select select{height:50px;font-size:14px}}
