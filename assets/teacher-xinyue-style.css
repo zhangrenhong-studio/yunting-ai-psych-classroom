@@ -621,3 +621,14 @@ body h3,body h4,body h5,body b,body strong{font-weight:650!important}.btn-primar
 .classroom-modal-r33 .wizard-dropdown-field>small:before,.classroom-modal-r33 .wizard-dropdown-field.is-complete>small:before{content:none;display:none}
 .classroom-modal-r33 .wizard-next:disabled{background:#d5dddb!important;color:#8b9b98!important;box-shadow:none!important}
 @media(max-width:640px){.classroom-modal-r33 .wizard-dropdown-field{padding:2px 0 8px}.classroom-modal-r33 .wizard-native-select select{height:50px;font-size:14px}}
+
+
+/* R34: recover or permanently finish a just-ended class */
+.recovery-card{display:flex;align-items:center;justify-content:space-between;gap:22px;margin-bottom:20px!important;padding:18px 20px!important;border-color:#d6e5e1!important;background:#fbfdfc!important}
+.recovery-card p{margin:6px 0 0!important;color:var(--muted)!important;font-size:12px!important}
+.recovery-actions{display:flex;align-items:center;gap:9px;flex:none}
+.recovery-actions button{min-height:38px;padding:0 15px;border-radius:8px;font-weight:700;cursor:pointer}
+.recovery-actions .btn-primary{border:1px solid var(--teal);background:var(--teal);color:#fff}
+.recovery-actions .btn-finalize{border:1px solid #dfc6c6;background:#fff;color:#a64f55}
+.recovery-actions .btn-finalize:hover{border-color:#c9797f;background:#fff7f7}
+@media(max-width:640px){.recovery-card{align-items:stretch;flex-direction:column;gap:14px}.recovery-actions{display:grid;grid-template-columns:1fr 1fr}.recovery-actions button{width:100%}}
