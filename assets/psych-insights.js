@@ -4,11 +4,11 @@
 var DIMENSIONS=['情绪健康','注意专注','学习行为','社会交往','焦虑抑郁状态','睡眠休息','亲子关系','应激应对'];
 var MONTHS=['4月','5月','6月','7月','8月','9月'];
 var LEVELS=[
- {key:'strong',label:'积极稳健',min:85,color:'#21a985'},
- {key:'good',label:'较为稳定',min:75,color:'#62c6ae'},
- {key:'normal',label:'一般波动',min:65,color:'#69a9dd'},
- {key:'attention',label:'需要关注',min:50,color:'#f2ad4e'},
- {key:'priority',label:'重点关注',min:0,color:'#e76868'}
+ {key:'strong',label:'优秀',min:85,color:'#21a985'},
+ {key:'good',label:'良好',min:75,color:'#62c6ae'},
+ {key:'normal',label:'正常',min:65,color:'#69a9dd'},
+ {key:'attention',label:'差异',min:50,color:'#f2ad4e'},
+ {key:'priority',label:'严重差异',min:0,color:'#e76868'}
 ];
 var DEMO_NAMES=["林梓涵", "陈予安", "周语桐", "许嘉树", "沈清禾", "苏念安", "江书宁", "顾明轩", "叶知夏", "陆星遥", "唐可欣", "程亦然", "宋雨桐", "韩嘉宁", "夏沐辰", "赵清妍", "方景行", "蒋思悦", "罗予辰", "白若溪", "梁知远", "秦安然", "谢语乔", "邵明宇", "何嘉禾", "吴念初", "郑舒然", "冯奕帆", "高语晴", "徐慕言", "曹星冉", "袁书航", "戴清越"];
 function demoName(classId,index){var offsets={'demo-class-7a':0,'demo-class-7b':12,'demo-class-8a':22};return DEMO_NAMES[(offsets[classId]||0)+index-1]||('演示学生'+index)}
