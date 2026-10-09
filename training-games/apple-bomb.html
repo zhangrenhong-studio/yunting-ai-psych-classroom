@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>苹果炸弹 · 反应训练</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&family=Press+Start+2P&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#160b2e;
+    --bg-2:#0c0620;
+    --surface:#241646;
+    --surface-2:#2e1d57;
+    --text:#fdeaff;
+    --muted:#b79bdc;
+    --pink:#ff4d8d;
+    --pink-2:#ff8ab8;
+    --cyan:#21e6c1;
+    --danger:#ff3b6b;
+    --gold:#ffd24a;
+    --border:rgba(255,77,141,.22);
+    --border-soft:rgba(255,255,255,.08);
+    --radius:18px;
+    --pixel:"Press Start 2P",monospace;
+    --cn:"ZCOOL KuaiLe",cursive;
+    --body:"Quicksand","PingFang SC",sans-serif;
+    --ease:cubic-bezier(.16,1,.3,1);
+    --bounce:cubic-bezier(.34,1.56,.64,1);
+    --dur:340ms;
+  }
+  *{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent;}
+  html,body{height:100%;}
+  body{
+    font-family:var(--body);
+    background:
+      radial-gradient(40rem 30rem at 12% -6%, rgba(255,77,141,.22), transparent 58%),
+      radial-gradient(38rem 30rem at 96% 6%, rgba(33,230,193,.16), transparent 55%),
+      linear-gradient(160deg,var(--bg),var(--bg-2));
+    color:var(--text);min-height:100%;display:flex;flex-direction:column;
+    align-items:center;padding:26px 16px 40px;position:relative;overflow-x:hidden;
+  }
+  body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.06;
+    background:repeating-linear-gradient(0deg, #fff 0 1px, transparent 1px 3px);}
+  .grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.05;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+
+  #app{width:100%;display:flex;flex-direction:column;align-items:center;}
+  [v-cloak]{display:none;}
+
+  header{position:relative;z-index:2;width:100%;max-width:480px;text-align:center;}
+  .brand{font-family:var(--pixel);font-size:10px;letter-spacing:1px;color:var(--cyan);
+    text-transform:uppercase;margin-bottom:12px;}
+  .brand b{color:var(--pink);}
+  h1{font-family:var(--cn);font-size:clamp(34px,9vw,54px);color:var(--pink);
+    letter-spacing:2px;line-height:1;text-shadow:0 4px 0 rgba(0,0,0,.25),0 0 30px rgba(255,77,141,.45);
+    -webkit-text-stroke:1px rgba(255,138,184,.4);}
+  .sub{color:var(--muted);font-size:13px;margin-top:10px;letter-spacing:1px;}
+
+  .howto{position:relative;z-index:2;margin:16px auto 0;display:block;cursor:pointer;
+    background:var(--surface);border:2px solid var(--border);color:var(--cyan);
+    border-radius:30px;padding:8px 18px;font-size:13px;font-family:var(--body);font-weight:700;
+    transition:.2s var(--ease);}
+  .howto:hover{border-color:var(--pink);color:var(--text);box-shadow:0 0 20px rgba(255,77,141,.3);}
+
+  main{position:relative;z-index:2;width:100%;max-width:480px;}
+  .stage{position:relative;}
+
+  .hud{display:flex;gap:10px;background:var(--surface);border:2px solid var(--border);
+    border-radius:16px;padding:10px 12px;margin-bottom:12px;box-shadow:0 10px 30px rgba(0,0,0,.35);}
+  .hud .blk{flex:1;text-align:center;position:relative;}
+  .hud .blk + .blk::before{content:"";position:absolute;left:-5px;top:12%;height:76%;width:2px;
+    background:repeating-linear-gradient(var(--border-soft) 0 3px,transparent 3px 6px);}
+  .hud .k{font-family:var(--cn);font-size:12px;color:var(--muted);}
+  .hud .v{font-family:var(--pixel);font-size:13px;color:var(--pink);margin-top:8px;
+    font-variant-numeric:tabular-nums;}
+  .v.gold{color:var(--pink);} .v.teal{color:var(--cyan);} .v.hearts{color:var(--danger);letter-spacing:1px;}
+
+  .arena{width:100%;aspect-ratio:1/1;max-height:360px;
+    background:radial-gradient(circle at 50% 40%, rgba(33,230,193,.10), transparent 60%), var(--surface);
+    border:3px solid var(--border);border-radius:24px;display:flex;align-items:center;
+    justify-content:center;position:relative;cursor:pointer;overflow:hidden;
+    box-shadow:inset 0 0 50px rgba(0,0,0,.4), 0 16px 40px rgba(0,0,0,.4);}
+  .stim{font-size:clamp(70px,22vw,124px);user-select:none;
+    animation:boing .28s var(--bounce);filter:drop-shadow(0 10px 20px rgba(0,0,0,.4));}
+  @keyframes boing{0%{transform:scale(.2) rotate(-12deg);opacity:0}
+    60%{transform:scale(1.12) rotate(4deg)}100%{transform:scale(1) rotate(0);opacity:1}}
+  .arena.flash-bad{animation:fb .35s;}
+  @keyframes fb{0%,100%{box-shadow:inset 0 0 50px rgba(0,0,0,.4)}
+    20%{box-shadow:inset 0 0 90px rgba(255,59,107,.8);background:#3a0e22}
+    50%{transform:translateX(-6px)}70%{transform:translateX(6px)}}
+  .center-tip{position:absolute;bottom:14px;left:0;right:0;text-align:center;
+    color:var(--muted);font-size:13px;pointer-events:none;}
+
+  .float{position:absolute;font-family:var(--body);font-weight:700;font-size:20px;
+    pointer-events:none;animation:rise .7s ease-out forwards;z-index:4;
+    text-shadow:0 2px 6px rgba(0,0,0,.5);}
+  @keyframes rise{0%{transform:translateY(0) scale(.8);opacity:1}
+    100%{transform:translateY(-50px) scale(1.1);opacity:0}}
+
+  .overlay{position:absolute;inset:0;z-index:6;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;text-align:center;padding:26px;
+    background:rgba(12,6,32,.92);border:2px solid var(--border);border-radius:24px;
+    backdrop-filter:blur(3px);}
+  .stage[data-phase="start"] .hud,
+  .stage[data-phase="start"] .arena,
+  .stage[data-phase="start"] .legend{display:none;}
+  #startOverlay{position:relative;inset:auto;padding:40px 26px;min-height:300px;margin-top:4px;
+    background:linear-gradient(180deg,rgba(36,22,70,.94),rgba(12,6,32,.97));
+    border-radius:24px;box-shadow:0 22px 60px rgba(0,0,0,.5),inset 0 0 0 1px rgba(255,77,141,.06);}
+  #startOverlay .badge{font-size:42px;margin-bottom:8px;
+    filter:drop-shadow(0 0 14px rgba(255,77,141,.5));}
+  .overlay h2{font-family:var(--cn);font-size:30px;color:var(--pink);margin:0 0 10px;
+    text-shadow:0 3px 0 rgba(0,0,0,.25);}
+  #startOverlay h2{font-size:28px;}
+  .overlay p{color:var(--muted);font-size:14px;line-height:2;margin:6px 0 20px;max-width:360px;}
+  .overlay p b{color:var(--text);}
+  #startOverlay .sound{margin-top:22px;}
+
+  .btn{cursor:pointer;border:none;border-radius:16px;padding:14px 38px;
+    font-family:var(--cn);font-size:20px;color:#2a0a1c;
+    background:linear-gradient(180deg,var(--pink-2),var(--pink));
+    box-shadow:0 8px 0 #b8225c, 0 12px 24px rgba(255,77,141,.4);
+    transition:.12s var(--ease);}
+  .btn:hover{transform:translateY(-2px);box-shadow:0 10px 0 #b8225c,0 16px 28px rgba(255,77,141,.5);}
+  .btn:active{transform:translateY(6px);box-shadow:0 2px 0 #b8225c,0 6px 14px rgba(255,77,141,.4);}
+
+  #endOverlay .big{font-family:var(--pixel);font-size:30px;color:var(--pink);margin:8px 0 4px;
+    text-shadow:0 0 20px rgba(255,77,141,.4);}
+  #endOverlay .report{font-size:14px;line-height:2;color:var(--muted);margin:8px 0 14px;}
+  #endOverlay .report b{color:var(--text);}
+  .tag{display:inline-block;font-family:var(--body);font-weight:700;font-size:12px;color:var(--cyan);
+    border:2px solid rgba(33,230,193,.3);border-radius:20px;padding:5px 14px;margin-top:10px;}
+
+  .sound{cursor:pointer;color:var(--muted);font-size:13px;font-family:var(--body);font-weight:700;
+    border:2px solid var(--border-soft);padding:6px 14px;border-radius:12px;
+    background:var(--surface);transition:.15s;}
+  .sound:hover{color:var(--text);border-color:var(--border);}
+
+  .legend{display:flex;gap:16px;justify-content:center;margin-top:12px;font-weight:700;
+    font-size:13px;color:var(--muted);}
+  .legend span{display:inline-flex;align-items:center;gap:6px;background:var(--surface);
+    border:2px solid var(--border-soft);border-radius:30px;padding:8px 14px;}
+
+  .modal{position:fixed;inset:0;z-index:30;display:flex;align-items:center;justify-content:center;
+    padding:18px;background:rgba(8,4,20,.9);backdrop-filter:blur(4px);}
+  .modal-box{background:var(--surface);border:2px solid var(--border);border-radius:22px;
+    max-width:440px;width:100%;padding:26px 24px 20px;box-shadow:0 24px 70px rgba(0,0,0,.6);position:relative;}
+  .modal-box::before{content:"";position:absolute;top:0;left:24px;right:24px;height:3px;
+    background:linear-gradient(90deg,var(--pink),var(--cyan));border-radius:3px;}
+  .modal-box h3{margin:0 0 16px;font-family:var(--cn);font-size:26px;color:var(--pink);}
+  .modal-body{font-size:14px;line-height:2;color:var(--muted);}
+  .modal-body b{color:var(--text);}
+  .modal-body .row{margin:11px 0;padding-left:16px;position:relative;}
+  .modal-body .row::before{content:"▸";position:absolute;left:0;top:0;color:var(--cyan);}
+  .modal-body .t{color:var(--pink);font-weight:700;margin-right:6px;}
+  .modal .btn{margin-top:18px;width:100%;}
+
+  :focus-visible{outline:3px solid var(--cyan);outline-offset:2px;border-radius:8px;}
+
+  @keyframes rise2{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+  @keyframes pop-in{0%{transform:scale(0) rotate(-20deg);opacity:0}100%{transform:scale(1) rotate(0);opacity:1}}
+  header,.hud,.arena,.legend{animation:rise2 var(--dur) var(--ease) both;}
+  header{animation-delay:.02s}.hud{animation-delay:.12s}.arena{animation-delay:.2s}.legend{animation-delay:.28s}
+  #startOverlay .badge{animation:pop-in .4s var(--bounce) .30s both}
+  #startOverlay h2{animation:rise2 .3s var(--ease) .36s both}
+  #startOverlay p{animation:rise2 .3s var(--ease) .44s both}
+  #startOverlay .btn{animation:rise2 .3s var(--ease) .52s both}
+  #startOverlay .sound{animation:rise2 .3s var(--ease) .58s both}
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important}
+  }
+
+  @media (min-width:1024px){
+    header,main{max-width:520px;}
+    h1{font-size:54px;}
+    .arena{max-height:400px;}
+  }
+  @media (max-width:480px){
+    body{padding:34px 12px 26px;}
+    header,main{max-width:100%;}
+    h1{font-size:clamp(32px,12vw,46px);}
+    .sub{font-size:12px;}
+    .hud{padding:9px 6px;gap:5px;}
+    .hud .k{font-size:12px;}
+    .hud .v{font-size:12px;}
+    .v.hearts{font-size:12px;letter-spacing:1px;}
+    .legend{flex-direction:column;gap:8px;align-items:stretch;}
+    .legend span{justify-content:center;font-size:12px;padding:7px 12px;}
+    .arena{border-width:2px;border-radius:18px;}
+    .overlay{padding:18px;}
+    .overlay h2{font-size:26px;}
+    .overlay p{font-size:13px;line-height:1.8;max-width:100%;}
+    .btn{padding:13px 34px;font-size:20px;}
+    .howto{padding:8px 16px;font-size:12px;}
+    .modal-box{padding:22px 18px 16px;}
+    .modal-body{font-size:13px;line-height:1.8;}
+  }
+  @media (max-width:360px){
+    .hud .k{font-size:11px;}
+    .hud .v{font-size:11px;}
+    .legend span{font-size:11px;}
+  }
+</style>
+</head>
+<body>
+  <div class="grain"></div>
+  <div id="app" v-cloak>
+    <header>
+      <div class="brand">ARCADE&nbsp;MODE <b>//</b> 持续注意</div>
+      <h1>苹果炸弹</h1>
+      <div class="sub">看到苹果就点，看到炸弹忍住</div>
+    </header>
+    <button class="howto" @click="openHowto">📖 玩法说明</button>
+
+    <main>
+      <div class="stage" :data-phase="phase">
+        <div class="hud">
+          <div class="blk"><div class="k">得分</div><div class="v gold">{{ score }}</div></div>
+          <div class="blk"><div class="k">连击</div><div class="v teal">{{ combo }}</div></div>
+          <div class="blk"><div class="k">轮数</div><div class="v">{{ rounds }}</div></div>
+          <div class="blk"><div class="k">生命</div><div class="v hearts">{{ hpLabel }}</div></div>
+        </div>
+
+        <div class="arena" id="arena" :class="{'flash-bad':flashBad}" @click="onArena">
+          <div class="center-tip" v-if="!stim">…</div>
+          <div class="stim" v-else>{{ stim==='apple' ? '🍎' : '💣' }}</div>
+          <div class="center-tip" v-if="stim">红苹果点 / 炸弹忍</div>
+          <div v-for="f in floats" :key="f.id" class="float" :style="{color:f.color, left:f.left}">{{ f.txt }}</div>
+        </div>
+
+        <div class="legend">
+          <span>🍎 出现 → 点击得分</span>
+          <span>💣 出现 → 忍住不点</span>
+        </div>
+
+        <div class="overlay" id="startOverlay" v-show="phase==='start'">
+          <div class="badge">🍎&nbsp;💣</div>
+          <h2>反应训练</h2>
+          <p>屏幕上随机冒出 <b>🍎</b> 和 <b>💣</b>。<br>
+             <b style="color:var(--pink)">🍎 一出现就点</b>（得分+连击）；<br>
+             <b style="color:var(--cyan)">💣 出现绝不能点</b>（点中扣命）。<br>
+             漏点 🍎、误点 💣 都会扣 1 颗❤，速度会越来越快。</p>
+          <button class="btn" @click="newGame">开始训练</button>
+          <div class="sound" @click="toggleSound">{{ soundLabel }}</div>
+        </div>
+
+        <div class="overlay" id="endOverlay" v-show="phase==='end'">
+          <h2>{{ end.title }}</h2>
+          <div class="big">{{ end.score }}</div>
+          <div class="report" v-html="end.report"></div>
+          <span class="tag">最佳 {{ end.best }}</span>
+          <br><button class="btn" style="margin-top:14px;" @click="newGame">再来一局</button>
+        </div>
+      </div>
+    </main>
+
+    <div class="modal" v-show="howtoOpen" @click.self="closeHowto">
+      <div class="modal-box">
+        <h3>📖 玩法说明</h3>
+        <div class="modal-body">
+          <div class="row"><span class="t">目标</span>屏幕上随机冒出 <b>🍎</b> 和 <b>💣</b>。</div>
+          <div class="row"><span class="t">操作</span>刺激出现后，点击屏幕（竞技区）。</div>
+          <div class="row"><span class="t">规则</span>🍎 一出现就点（得分+连击）；💣 出现<b>绝不能点</b>。漏点🍎 或 误点💣 都会扣 1 颗 ❤；3 颗用完结束。</div>
+          <div class="row"><span class="t">难度</span>得分越高，刺激出现越快、停留越短，越考验反应与克制。</div>
+          <div class="row"><span class="t">计分</span>🍎 命中按反应速度+连击给分；💣 忍住不点 +6。</div>
+          <div class="row"><span class="t">训练</span>持续注意力 + 抑制控制（抗冲动）。</div>
+        </div>
+        <button class="btn" @click="closeHowto">知道了</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../assets/vendor/vue.global.prod.js?v=3.5"></script>
+  <script>
+  "use strict";
+  const { createApp, ref, reactive, computed } = Vue;
+  createApp({
+    setup(){
+      const soundOn = ref(true);
+      const phase = ref('start');
+      const score = ref(0), combo = ref(0), hp = ref(3), rounds = ref(0);
+      const stim = ref(null);
+      const flashBad = ref(false);
+      const floats = ref([]);
+      const howtoOpen = ref(false);
+      const best = ref(+(localStorage.getItem('gn-best')||0));
+      const end = reactive({title:'训练结束', score:0, report:'', best:0});
+
+      let running=false, stimTs=0, win=0, to=null, data=null, soundCtx=null, fid=0;
+
+      const soundLabel = computed(()=> soundOn.value ? '🔊 音效：开' : '🔇 音效：关');
+      const hpLabel = computed(()=> hp.value>0 ? '❤'.repeat(hp.value) : '💀');
+
+      function beep(f,d,t){
+        if(!soundOn.value) return;
+        try{
+          const c = soundCtx || (soundCtx = new (window.AudioContext||window.webkitAudioContext)());
+          const o=c.createOscillator(), g=c.createGain();
+          o.type=t||'sine'; o.frequency.value=f;
+          g.gain.setValueAtTime(.18,c.currentTime);
+          g.gain.exponentialRampToValueAtTime(.001,c.currentTime+d);
+          o.connect(g); g.connect(c.destination);
+          o.start(); o.stop(c.currentTime+d);
+        }catch(e){}
+      }
+      const hitS=()=>beep(880,.09,'triangle');
+      const goodS=()=>beep(600,.07,'sine');
+      const boomS=()=>{beep(90,.3,'sawtooth');};
+      const winS=()=>{beep(660,.1,'triangle');setTimeout(()=>beep(990,.16,'triangle'),120);};
+
+      function windowFor(){ return Math.max(520, 1250 - Math.floor(score.value/40)*55); }
+      function gapFor(){ return Math.max(280, 700 - Math.floor(score.value/30)*40); }
+      function showFloat(txt,color){
+        const id=++fid;
+        floats.value.push({id, txt, color, left:(40+Math.random()*20)+'%'});
+        setTimeout(()=>{ floats.value=floats.value.filter(f=>f.id!==id); },700);
+      }
+      function nextTrial(){
+        if(!running) return;
+        to=setTimeout(()=>{
+          stim.value=Math.random()<0.62?'apple':'bomb';
+          stimTs=performance.now(); win=windowFor();
+          to=setTimeout(()=>{
+            if(!running) return;
+            if(stim.value==='apple'){ data.miss++; combo.value=0; loseHp(); showFloat('漏!','#ff3b6b'); }
+            else { data.cr++; score.value+=6; goodS(); showFloat('+6','#21e6c1'); }
+            stim.value=null; afterTrial();
+          }, win);
+        }, gapFor()+Math.random()*200);
+      }
+      function afterTrial(){ rounds.value++; nextTrial(); }
+      function onArena(){
+        if(!running || !stim.value) return;
+        if(stim.value==='apple'){
+          const rt=performance.now()-stimTs;
+          const gain=10+combo.value*2+Math.max(0,Math.round((win-(rt))/30));
+          score.value+=gain; combo.value++; data.hit++;
+          hitS(); showFloat('+'+gain,'#ffd24a');
+          stim.value=null; clearTimeout(to); afterTrial();
+        }else{
+          boomS(); flashBad.value=true; setTimeout(()=>flashBad.value=false,350);
+          data.fa++; combo.value=0; loseHp(); showFloat('💥','#ff3b6b');
+          stim.value=null; clearTimeout(to); afterTrial();
+        }
+      }
+      function loseHp(){
+        hp.value--;
+        if(hp.value<=0) endGame();
+      }
+      function endGame(){
+        running=false; clearTimeout(to); stim.value=null; winS();
+        const trials = data.hit + data.miss;
+        const acc = trials>0 ? Math.round(data.hit/trials*100) : 0;
+        if(score.value>best.value){ best.value=score.value; localStorage.setItem('gn-best',best.value); }
+        end.title='撑过 '+rounds.value+' 轮';
+        end.score=score.value;
+        end.report='最终得分 <b>'+score.value+'</b> · 共 '+rounds.value+' 轮<br>'+
+          '🍎 命中 <b>'+data.hit+'</b> / 漏点 <b>'+data.miss+'</b><br>'+
+          '💣 误点 <b style="color:var(--danger)">'+data.fa+'</b> / 正确忍住 <b>'+data.cr+'</b><br>'+
+          '🍎 命中率 <b>'+acc+'%</b>';
+        end.best=best.value;
+        phase.value='end';
+      }
+      function newGame(){
+        running=true; score.value=0; combo.value=0; hp.value=3; rounds.value=0; stim.value=null;
+        data={hit:0,miss:0,fa:0,cr:0}; floats.value=[]; flashBad.value=false;
+        howtoOpen.value=false;
+        phase.value='play';
+        nextTrial();
+      }
+      function toggleSound(){ soundOn.value=!soundOn.value; }
+      function openHowto(){ howtoOpen.value=true; }
+      function closeHowto(){ howtoOpen.value=false; }
+
+      return { soundOn, phase, score, combo, hp, rounds, stim, flashBad, floats, howtoOpen, best, end,
+        soundLabel, hpLabel, onArena, newGame, toggleSound, openHowto, closeHowto };
+    }
+  }).mount('#app');
+  </script>
+</body>
+</html>

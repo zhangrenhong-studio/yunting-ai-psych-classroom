@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>火眼金睛 · 视觉搜索训练</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;700&family=JetBrains+Mono:wght@500;700&family=Noto+Sans+SC:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#060a0e;
+    --surface:#0d161c;
+    --surface-2:#11212a;
+    --text:#dff3ee;
+    --muted:#5f7c7c;
+    --accent:#2ff3c0;
+    --accent-2:#1f8f8f;
+    --danger:#ff5a4d;
+    --border:rgba(47,243,192,.16);
+    --border-soft:rgba(47,243,192,.07);
+    --radius:12px;
+    --mono:"JetBrains Mono",ui-monospace,monospace;
+    --display:"Chakra Petch","Noto Sans SC",sans-serif;
+    --cn:"Noto Sans SC",sans-serif;
+    --ease:cubic-bezier(.16,1,.3,1);
+    --dur:340ms;
+    --glow:0 0 22px rgba(47,243,192,.35);
+  }
+  *{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent;}
+  html,body{height:100%;}
+  body{
+    font-family:var(--cn);
+    background:var(--bg);color:var(--text);
+    min-height:100%;display:flex;flex-direction:column;align-items:center;
+    padding:72px 16px 40px;position:relative;overflow-x:hidden;
+  }
+  body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+    background:
+      radial-gradient(46rem 34rem at 14% -8%, rgba(47,243,192,.14), transparent 60%),
+      radial-gradient(40rem 32rem at 96% 4%, rgba(31,143,143,.12), transparent 55%);}
+  body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.5;
+    background-image:
+      linear-gradient(rgba(47,243,192,.05) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(47,243,192,.05) 1px,transparent 1px);
+    background-size:42px 42px;
+    -webkit-mask:radial-gradient(circle at 50% 22%, #000, transparent 78%);
+            mask:radial-gradient(circle at 50% 22%, #000, transparent 78%);}
+  .grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.05;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+
+  #app{width:100%;display:flex;flex-direction:column;align-items:center;}
+  [v-cloak]{display:none;}
+
+  header{position:relative;z-index:2;width:100%;max-width:560px;text-align:center;}
+  .brand{font-family:var(--mono);font-size:11px;letter-spacing:3px;color:var(--accent-2);
+    text-transform:uppercase;margin-bottom:12px;}
+  .brand b{color:var(--accent);}
+  h1{font-family:var(--display);font-weight:900;font-size:clamp(34px,9vw,56px);
+    letter-spacing:-.02em;line-height:1;color:var(--text);
+    text-shadow:0 0 30px rgba(47,243,192,.22);}
+  .sub{color:var(--muted);font-size:13px;letter-spacing:2px;margin-top:10px;font-family:var(--mono);}
+
+  .howto{position:relative;z-index:2;margin:16px auto 0;display:block;cursor:pointer;
+    background:transparent;border:1px solid var(--border);color:var(--accent);
+    border-radius:30px;padding:8px 18px;font-size:12px;letter-spacing:1px;font-family:var(--mono);
+    transition:.2s var(--ease);}
+  .howto:hover{border-color:var(--accent);box-shadow:var(--glow);color:var(--text);}
+
+  main{position:relative;z-index:2;width:100%;max-width:560px;}
+  .stage{position:relative;margin-top:16px;}
+
+  .hud{display:flex;gap:10px;background:var(--surface);border:1px solid var(--border);
+    border-radius:14px;padding:12px 14px;margin-bottom:12px;
+    box-shadow:inset 0 0 0 1px rgba(47,243,192,.04), 0 10px 30px rgba(0,0,0,.4);}
+  .hud .blk{flex:1;text-align:center;position:relative;}
+  .hud .blk + .blk::before{content:"";position:absolute;left:-5px;top:12%;height:76%;width:1px;
+    background:var(--border-soft);}
+  .hud .k{font-family:var(--mono);font-size:10px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;}
+  .hud .v{font-family:var(--mono);font-size:22px;font-weight:700;color:var(--accent);
+    font-variant-numeric:tabular-nums;margin-top:4px;}
+  .v.hearts{color:var(--danger);letter-spacing:3px;font-size:18px;}
+
+  .timebar{height:6px;border-radius:6px;background:var(--surface);overflow:hidden;
+    margin-bottom:14px;border:1px solid var(--border-soft);}
+  .timebar > i{display:block;height:100%;width:100%;
+    background:linear-gradient(90deg,var(--accent),var(--accent-2));
+    box-shadow:0 0 12px rgba(47,243,192,.5);transition:width .06s linear;}
+
+  .scope{position:relative;border-radius:16px;overflow:hidden;}
+  .grid{display:grid;gap:8px;width:100%;background:var(--surface);
+    border:1px solid var(--border);border-radius:16px;padding:14px;
+    box-shadow:inset 0 0 40px rgba(0,0,0,.5), 0 14px 40px rgba(0,0,0,.45);}
+  .scope::after{content:"";position:absolute;left:0;right:0;top:4px;height:2px;z-index:3;
+    background:linear-gradient(90deg,transparent,var(--accent),transparent);
+    opacity:.55;box-shadow:0 0 14px var(--accent);pointer-events:none;
+    animation:scan 3.4s linear infinite;}
+  @keyframes scan{0%{top:4px}100%{top:calc(100% - 4px)}}
+
+  .cell{aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;
+    background:var(--surface-2);border:1px solid var(--border-soft);border-radius:10px;
+    cursor:pointer;user-select:none;font-family:var(--mono);font-weight:700;
+    font-size:clamp(20px,7vw,42px);font-variant-numeric:tabular-nums;position:relative;
+    transition:transform .1s var(--ease), background .15s, border-color .15s, box-shadow .15s;}
+  .cell:hover{transform:translateY(-2px);border-color:var(--border);
+    box-shadow:0 0 16px rgba(47,243,192,.18);background:var(--surface);}
+  .cell.hit{animation:lock .42s var(--ease);}
+  @keyframes lock{0%{box-shadow:0 0 0 0 rgba(47,243,192,.75);background:var(--accent);color:#04130f;}
+    100%{box-shadow:0 0 0 16px rgba(47,243,192,0);background:var(--surface-2);}}
+  .cell.miss{animation:shake .35s;}
+  @keyframes shake{0%,100%{transform:translateX(0)}
+    25%{transform:translateX(-6px);border-color:var(--danger);box-shadow:0 0 16px rgba(255,90,77,.4)}
+    75%{transform:translateX(6px);border-color:var(--danger);box-shadow:0 0 16px rgba(255,90,77,.4)}}
+
+  .overlay{position:absolute;inset:0;z-index:6;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;text-align:center;padding:26px;
+    background:rgba(6,10,14,.93);border:1px solid var(--border);border-radius:16px;
+    backdrop-filter:blur(3px);}
+  #startOverlay{position:relative;inset:auto;padding:46px 30px;min-height:340px;margin-top:4px;
+    background:linear-gradient(180deg,rgba(17,33,42,.92),rgba(13,22,28,.96));
+    border-radius:18px;box-shadow:0 22px 64px rgba(0,0,0,.5),inset 0 0 0 1px rgba(47,243,192,.05);}
+  .stage[data-phase="start"] .hud,
+  .stage[data-phase="start"] .timebar,
+  .stage[data-phase="start"] .scope{display:none;}
+  #startOverlay .badge{font-size:50px;line-height:1;margin-bottom:12px;
+    filter:drop-shadow(0 0 14px rgba(47,243,192,.5));}
+  #startOverlay .lead{color:var(--text);font-size:17px;line-height:1.7;margin:0 0 28px;letter-spacing:.5px;}
+  #startOverlay .startfoot{display:flex;gap:22px;align-items:center;justify-content:center;margin-top:22px;}
+  #startOverlay .link{color:var(--accent);font-size:12px;cursor:pointer;font-family:var(--mono);letter-spacing:1px;}
+  #startOverlay .link:hover{text-decoration:underline;}
+  #startOverlay .sound{margin:0;}
+
+  .btn{cursor:pointer;border:none;border-radius:12px;padding:14px 40px;
+    font-family:var(--mono);font-size:15px;font-weight:700;letter-spacing:2px;color:#04130f;
+    background:var(--accent);box-shadow:0 0 24px rgba(47,243,192,.4);
+    transition:.18s var(--ease);}
+  .btn:hover{transform:translateY(-2px);box-shadow:0 0 34px rgba(47,243,192,.6);filter:brightness(1.05);}
+  .btn:active{transform:translateY(0);}
+
+  #endOverlay h2{font-family:var(--display);font-size:24px;letter-spacing:1px;color:var(--text);margin:0 0 6px;}
+  #endOverlay .big{font-family:var(--mono);font-size:48px;font-weight:700;color:var(--accent);
+    margin:8px 0 4px;text-shadow:0 0 26px rgba(47,243,192,.4);}
+  #endOverlay p{color:var(--muted);font-size:13px;line-height:1.8;margin:6px 0;}
+  #endOverlay p b{color:var(--accent);}
+  .tag{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:1px;
+    color:var(--accent);border:1px solid var(--border);border-radius:20px;padding:4px 14px;margin-top:10px;}
+
+  .sound{cursor:pointer;color:var(--muted);font-size:12px;font-family:var(--mono);
+    border:1px solid var(--border-soft);padding:6px 12px;border-radius:10px;
+    background:var(--surface);letter-spacing:1px;transition:.15s;}
+  .sound:hover{color:var(--text);border-color:var(--border);}
+
+  .modal{position:fixed;inset:0;z-index:30;display:flex;align-items:center;justify-content:center;
+    padding:18px;background:rgba(4,8,11,.9);backdrop-filter:blur(4px);}
+  .modal-box{background:var(--surface);border:1px solid var(--border);border-radius:18px;
+    max-width:440px;width:100%;padding:26px 24px 20px;box-shadow:0 24px 70px rgba(0,0,0,.6);position:relative;}
+  .modal-box::before{content:"";position:absolute;top:0;left:24px;right:24px;height:2px;
+    background:linear-gradient(90deg,transparent,var(--accent),transparent);}
+  .modal-box h3{margin:0 0 16px;font-family:var(--display);font-size:22px;color:var(--text);letter-spacing:1px;}
+  .modal-body{font-size:13px;line-height:1.9;color:var(--muted);}
+  .modal-body b{color:var(--text);}
+  .modal-body .row{margin:11px 0;padding-left:14px;position:relative;}
+  .modal-body .row::before{content:"";position:absolute;left:0;top:9px;width:6px;height:6px;
+    background:var(--accent);border-radius:1px;transform:rotate(45deg);}
+  .modal-body .t{color:var(--accent);font-weight:700;margin-right:6px;font-family:var(--mono);}
+  .modal .btn{margin-top:18px;width:100%;}
+
+  :focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px;}
+
+  @keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+  header,.hud,.timebar,.scope{animation:rise var(--dur) var(--ease) both;}
+  header{animation-delay:.02s}.hud{animation-delay:.12s}.timebar{animation-delay:.18s}.scope{animation-delay:.24s}
+  #startOverlay .badge{animation:rise var(--dur) var(--ease) .30s both}
+  #startOverlay .lead{animation:rise var(--dur) var(--ease) .38s both}
+  #startOverlay .btn{animation:rise var(--dur) var(--ease) .46s both}
+  #startOverlay .startfoot{animation:rise var(--dur) var(--ease) .52s both}
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important}
+    .scope::after{display:none}
+  }
+
+  @media (min-width:1024px){
+    header,main{max-width:620px;}
+    h1{font-size:60px;}
+    .grid{padding:18px;gap:10px;}
+  }
+  @media (max-width:480px){
+    body{padding:34px 12px 26px;}
+    header,main{max-width:100%;}
+    h1{font-size:clamp(30px,11vw,42px);}
+    .sub{font-size:12px;letter-spacing:1px;}
+    .hud{padding:10px 6px;gap:5px;}
+    .hud .k{font-size:9px;letter-spacing:1px;}
+    .hud .v{font-size:18px;}
+    .v.hearts{font-size:14px;letter-spacing:1px;}
+    .timebar{margin-bottom:10px;}
+    .cell{border-radius:8px;}
+    .howto{padding:8px 16px;font-size:12px;}
+    #startOverlay{padding:36px 20px;min-height:300px;}
+    #startOverlay .lead{font-size:15px;margin:0 0 22px;}
+    .btn{padding:13px 32px;font-size:14px;letter-spacing:1px;}
+    .modal-box{padding:22px 18px 16px;}
+    .modal-body{font-size:12px;line-height:1.8;}
+  }
+  @media (max-width:360px){
+    .hud .k{font-size:8px;}
+    .hud .v{font-size:16px;}
+  }
+</style>
+</head>
+<body>
+  <div class="grain"></div>
+  <div id="app" v-cloak>
+    <header>
+      <div class="brand">OPTIC&nbsp;SCAN <b>//</b> 视觉搜索训练</div>
+      <h1>火眼金睛</h1>
+      <div class="sub">在相似图形里，锁定那一个「不同」</div>
+    </header>
+    <button class="howto" v-show="phase==='play'" @click="openHowto">📖 玩法说明</button>
+
+    <main>
+      <div class="stage" :data-phase="phase">
+        <div class="hud">
+          <div class="blk"><div class="k">关卡 LV</div><div class="v">{{ level }}</div></div>
+          <div class="blk"><div class="k">分数 PTS</div><div class="v">{{ score }}</div></div>
+          <div class="blk"><div class="k">连击 COMBO</div><div class="v">{{ combo }}</div></div>
+          <div class="blk"><div class="k">生命 HP</div><div class="v hearts">{{ hpLabel }}</div></div>
+        </div>
+        <div class="timebar"><i :style="{width: barWidth+'%', background: barBg}"></i></div>
+        <div class="scope">
+          <div class="grid" :style="{gridTemplateColumns:'repeat('+gridCols+',1fr)'}">
+            <div v-for="(c,i) in grid" :key="i" class="cell"
+                 :class="{hit: feedback.idx===i && feedback.type==='hit', miss: feedback.idx===i && feedback.type==='miss'}"
+                 :style="{color:c.color}" @click="onCell(i)">{{ c.text }}</div>
+          </div>
+        </div>
+
+        <div class="overlay" id="startOverlay" v-show="phase==='start'">
+          <div class="badge">🔍</div>
+          <p class="lead">网格里只有一个图形不同，<br>锁定它并点击！</p>
+          <button class="btn" @click="newGame">开始训练</button>
+          <div class="startfoot">
+            <span class="link" @click="openHowto">📖 查看详细玩法</span>
+            <span class="sound" @click="toggleSound">{{ soundLabel }}</span>
+          </div>
+        </div>
+
+        <div class="overlay" id="endOverlay" v-show="phase==='end'">
+          <h2>{{ end.title }}</h2>
+          <div class="big">{{ end.score }}</div>
+          <p v-html="end.detail"></p>
+          <span class="tag">最佳 {{ end.best }}</span>
+          <br><button class="btn" style="margin-top:16px;" @click="newGame">再来一局</button>
+        </div>
+      </div>
+    </main>
+
+    <div class="modal" v-show="howtoOpen" @click.self="closeHowto">
+      <div class="modal-box">
+        <h3>📖 玩法说明</h3>
+        <div class="modal-body">
+          <div class="row"><span class="t">目标</span>网格里大部分图形相同，只有<b>一个不同</b>。把它找出来并点击。</div>
+          <div class="row"><span class="t">操作</span>用鼠标或手指点击你认为「不同」的那一个格子。</div>
+          <div class="row"><span class="t">规则</span>点错 或 超时都会扣 1 颗 ❤；3 颗用完本局结束。</div>
+          <div class="row"><span class="t">难度</span>关卡越高，网格越大（4×4→9×9），差别从「形状不同」→「颜色不同」→「颜色极相近」，时间也越来越短。</div>
+          <div class="row"><span class="t">计分</span>找得越快分越高，连续命中触发<b>连击加成</b>。</div>
+          <div class="row"><span class="t">训练</span>提升视觉搜索速度与选择性注意力。</div>
+        </div>
+        <button class="btn" @click="closeHowto">知道了</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../assets/vendor/vue.global.prod.js?v=3.5"></script>
+  <script>
+  "use strict";
+  const { createApp, ref, reactive, computed } = Vue;
+  createApp({
+    setup(){
+      const soundOn = ref(true);
+      const phase = ref('start');
+      const level = ref(1), score = ref(0), combo = ref(0), hp = ref(3);
+      const barWidth = ref(100);
+      const gridCols = ref(4);
+      const grid = ref([]);
+      const feedback = ref({idx:-1, type:null});
+      const howtoOpen = ref(false);
+      const best = ref(+(localStorage.getItem('vs-best')||0));
+      const end = reactive({title:'训练结束', score:0, detail:'', best:0});
+
+      let timer=null, targetIdx=0, total=0, startTs=0, running=false, cfg=null, soundCtx=null;
+
+      const soundLabel = computed(()=> soundOn.value ? '🔊 音效：开' : '🔇 音效：关');
+      const hpLabel = computed(()=> hp.value>0 ? '❤'.repeat(hp.value) : '💀');
+      const barBg = computed(()=>{
+        const p = barWidth.value/100;
+        return p>0.5 ? 'linear-gradient(90deg,#2ff3c0,#1f8f8f)'
+             : p>0.25 ? 'linear-gradient(90deg,#ffce54,#ff9d3a)'
+             : 'linear-gradient(90deg,#ff9d3a,#ff5a4d)';
+      });
+
+      function beep(f,d,t){
+        if(!soundOn.value) return;
+        try{
+          const c = soundCtx || (soundCtx = new (window.AudioContext||window.webkitAudioContext)());
+          const o=c.createOscillator(), g=c.createGain();
+          o.type=t||'sine'; o.frequency.value=f;
+          g.gain.setValueAtTime(.0001,c.currentTime);
+          g.gain.exponentialRampToValueAtTime(.16,c.currentTime+(d||.12));
+          g.gain.exponentialRampToValueAtTime(.0001,c.currentTime+(d||.12));
+          o.connect(g); g.connect(c.destination);
+          o.start(); o.stop(c.currentTime+(d||.12));
+        }catch(e){}
+      }
+      const okS=()=>beep(900,.09,'triangle');
+      const errS=()=>beep(160,.2,'sawtooth');
+      const winS=()=>{beep(680,.1,'triangle'); setTimeout(()=>beep(1020,.16,'triangle'),110);};
+
+      function config(lv){
+        const size=Math.min(4+Math.floor((lv-1)/2),9);
+        let dist,targ,distC,targC;
+        if(lv<=3){dist='◆';targ='★';distC='#33525c';targC='#2ff3c0';}
+        else if(lv<=7){dist='◆';targ='◆';distC='#2c4a55';targC='#2ff3c0';}
+        else{dist='◆';targ='◆';distC='#2c4a55';targC='#57b3ab';}
+        const time=Math.max(3.2,3+size*0.5);
+        return {size,dist,targ,distC,targC,time};
+      }
+      function render(){
+        cfg=config(level.value);
+        const n=cfg.size*cfg.size;
+        targetIdx=Math.floor(Math.random()*n);
+        const arr=[];
+        for(let i=0;i<n;i++){
+          arr.push(i===targetIdx?{text:cfg.targ,color:cfg.targC}:{text:cfg.dist,color:cfg.distC});
+        }
+        grid.value=arr; gridCols.value=cfg.size;
+        total=cfg.time*1000; startTs=performance.now(); barWidth.value=100;
+        if(timer) clearInterval(timer);
+        timer=setInterval(tick,50);
+      }
+      function tick(){
+        const left=total-(performance.now()-startTs);
+        const p=Math.max(0,left/total);
+        barWidth.value=p*100;
+        if(left<=0){ clearInterval(timer); timeout(); }
+      }
+      function onCell(i){
+        if(!running) return;
+        if(i===targetIdx){
+          feedback.value={idx:i,type:'hit'};
+          okS();
+          const left=Math.max(0,total-(performance.now()-startTs));
+          const gain=Math.round((80+left/1000*30)*(1+combo.value*0.12));
+          score.value+=gain; combo.value++; level.value++;
+          setTimeout(()=>{ if(running){ render(); feedback.value={idx:-1,type:null}; } },180);
+        }else{
+          feedback.value={idx:-1,type:null};
+          requestAnimationFrame(()=>{ feedback.value={idx:i,type:'miss'}; });
+          errS(); loseHp(false);
+        }
+      }
+      function timeout(){ errS(); loseHp(true); }
+      function loseHp(regen){
+        hp.value--; combo.value=0;
+        if(hp.value<=0){ endGame(); return; }
+        if(regen){ setTimeout(()=>{ if(running){ clearInterval(timer); render(); } },260); }
+      }
+      function endGame(){
+        running=false; clearInterval(timer); winS();
+        const sc=score.value;
+        if(sc>best.value){ best.value=sc; localStorage.setItem('vs-best',best.value); }
+        end.title='坚持到第 '+level.value+' 关';
+        end.score=sc;
+        end.detail='本局得分 <b>'+sc+'</b> · 到达第 '+level.value+' 关<br>'+(sc>=best.value?'🎉 新纪录！':'继续努力，打破自己的最佳。');
+        end.best=best.value;
+        phase.value='end';
+      }
+      function newGame(){
+        level.value=1; score.value=0; combo.value=0; hp.value=3; running=true;
+        howtoOpen.value=false; feedback.value={idx:-1,type:null};
+        phase.value='play';
+        render();
+      }
+      function toggleSound(){ soundOn.value=!soundOn.value; }
+      function openHowto(){ howtoOpen.value=true; }
+      function closeHowto(){ howtoOpen.value=false; }
+
+      return { soundOn, phase, level, score, combo, hp, barWidth, gridCols, grid, feedback, howtoOpen, best, end,
+        soundLabel, hpLabel, barBg, onCell, newGame, toggleSound, openHowto, closeHowto };
+    }
+  }).mount('#app');
+  </script>
+</body>
+</html>

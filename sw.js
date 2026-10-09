@@ -1,4 +1,4 @@
-const CACHE='yunting-r66-theme-course-system';
+const CACHE='yunting-r73-growth-training-release';
 const CORE=['./index.html','./teacher.html','./student.html','./teacher-course.html','./course.html','./documents/course-outline.html','./documents/中学生心理健康教育课程大纲_40周版.docx','./assets/yunting-logo.png','./assets/auth-demo.js','./assets/demo-data.js','./assets/theme-courses.js','./assets/classroom-state.js','./assets/wearable-state.js','./assets/psych-insights.js','./assets/engine.js','./assets/teacher-ui.js','./assets/teacher-ui.css','./assets/teacher-xinyue-style.css','./assets/base.css','./assets/home.css'];
 self.addEventListener('install',event=>{event.waitUntil(caches.open(CACHE).then(cache=>Promise.allSettled(CORE.map(url=>cache.add(url)))));self.skipWaiting()});
 self.addEventListener('activate',event=>{event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))));self.clients.claim()});

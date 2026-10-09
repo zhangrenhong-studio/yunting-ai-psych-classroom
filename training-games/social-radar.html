@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>社交小雷达 · 社会交往训练</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&family=Baloo+2:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg1:#ffe3ec;  --bg2:#e4f7ff;  --bg3:#fff6ec;  --bg4:#e9fbe7;
+    --card:#fffdfb;
+    --ink:#4a3f55;
+    --ink-soft:#877d93;
+    --coral:#ff8fa3;
+    --coral-d:#f06a86;
+    --mint:#74cbbd;
+    --mint-d:#46b0a1;
+    --sky:#7ec8ff;
+    --sky-d:#4aa3e8;
+    --butter:#ffd27a;
+    --gold:#ffc107;
+    --line:#f0e6ee;
+    --shadow:0 18px 50px rgba(150,110,150,.18);
+    --shadow-sm:0 8px 26px rgba(150,110,150,.12);
+    --cn:"ZCOOL KuaiLe","PingFang SC","Microsoft YaHei",sans-serif;
+    --round:"Baloo 2","ZCOOL KuaiLe",sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent;}
+  html,body{height:100%;}
+  body{
+    font-family:var(--cn);
+    color:var(--ink);
+    min-height:100vh;
+    padding:44px 14px 30px;
+    position:relative;
+    overflow-x:hidden;
+    background:
+      radial-gradient(60% 50% at 18% 12%, var(--bg1) 0%, transparent 60%),
+      radial-gradient(55% 50% at 86% 20%, var(--bg2) 0%, transparent 58%),
+      radial-gradient(70% 60% at 50% 100%, var(--bg3) 0%, transparent 62%),
+      linear-gradient(160deg,#fff5fb 0%,#f3edff 100%);
+  }
+  body::before{
+    content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+    background:
+      radial-gradient(28% 22% at 12% 78%, rgba(255,143,163,.30), transparent 70%),
+      radial-gradient(26% 20% at 90% 70%, rgba(116,203,189,.28), transparent 70%);
+  }
+  .grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.04;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+
+  #app{width:100%;}
+  header{position:relative;z-index:2;width:100%;max-width:580px;margin:0 auto;text-align:center;
+    animation:fadeDown .6s ease both;}
+  .brand{font-family:var(--round);font-size:11px;letter-spacing:3px;color:var(--coral-d);text-transform:uppercase;margin-bottom:8px;}
+  h1{font-family:var(--cn);font-size:clamp(34px,10vw,54px);color:var(--coral-d);
+    letter-spacing:2px;text-shadow:0 3px 0 rgba(255,255,255,.6);line-height:1.1;}
+  .sub{color:var(--ink-soft);font-size:14px;margin-top:6px;letter-spacing:1px;}
+  main{position:relative;z-index:2;width:100%;max-width:580px;margin:14px auto 0;}
+  .stage{position:relative;}
+
+  .screen{display:none;}
+  .screen.active{display:block;}
+
+  .overlay{position:relative;border-radius:28px;background:var(--card);
+    border:1px solid var(--line);box-shadow:var(--shadow);
+    padding:32px 22px;text-align:center;
+    display:flex;flex-direction:column;align-items:center;
+    animation:pop .5s cubic-bezier(.2,.9,.3,1.3) both;}
+  .badge{font-size:52px;line-height:1;margin-bottom:8px;animation:floaty 2.4s ease-in-out infinite;}
+  .overlay h2{font-family:var(--cn);font-size:26px;color:var(--coral-d);margin:2px 0 10px;letter-spacing:1px;}
+  .overlay p{color:var(--ink-soft);font-size:14px;line-height:1.9;margin:6px 0 18px;max-width:340px;}
+
+  .mode-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;width:100%;max-width:360px;margin:8px 0 18px;}
+  .mode-card{
+    cursor:pointer;border:2px solid var(--line);border-radius:20px;
+    background:#fff;padding:14px 10px;text-align:center;
+    font-family:var(--cn);font-size:16px;color:var(--ink);
+    transition:all .15s ease;position:relative;
+    box-shadow:var(--shadow-sm);}
+  .mode-card:hover{transform:translateY(-2px);}
+  .mode-card.selected{border-color:var(--coral-d);background:linear-gradient(135deg,#fff0f4 0%,#fff 100%);}
+  .mode-card .moji{font-size:28px;display:block;margin-bottom:4px;}
+  .mode-card .label{font-size:15px;}
+  .mode-card .hint{font-size:11px;color:var(--ink-soft);margin-top:2px;}
+
+  .btn{cursor:pointer;border:none;border-radius:18px;padding:14px 40px;
+    font-family:var(--cn);font-size:21px;color:#fff;
+    background:linear-gradient(135deg,var(--coral),var(--coral-d));
+    box-shadow:0 10px 22px rgba(240,106,134,.4);
+    transition:transform .12s ease,box-shadow .12s ease,opacity .12s ease;}
+  .btn:hover{transform:translateY(-2px);box-shadow:0 14px 28px rgba(240,106,134,.5);}
+  .btn:active{transform:translateY(1px) scale(.98);}
+  .btn:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none;}
+  .foot{display:flex;gap:20px;justify-content:center;align-items:center;margin-top:16px;}
+  .link{color:var(--mint-d);font-size:13px;cursor:pointer;letter-spacing:.5px;}
+  .link:hover{text-decoration:underline;}
+
+  .play-card{position:relative;border-radius:26px;background:var(--card);
+    border:1px solid var(--line);box-shadow:var(--shadow);
+    padding:18px 16px 16px;overflow:hidden;}
+  .play-card::after{content:"";position:absolute;inset:0;border-radius:26px;pointer-events:none;
+    background:conic-gradient(from 0deg,transparent 0deg,rgba(116,203,189,.08) 60deg,transparent 120deg);
+    animation:radar 2.8s linear infinite;opacity:.5;}
+
+  @keyframes radar{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
+
+  .topbar{display:flex;align-items:center;gap:10px;margin-bottom:14px;position:relative;z-index:1;}
+  .back{cursor:pointer;font-size:20px;color:var(--ink-soft);width:32px;height:32px;border-radius:50%;
+    display:grid;place-items:center;transition:.12s;}
+  .back:hover{background:var(--line);}
+  .mission{font-family:var(--round);font-size:13px;font-weight:700;color:var(--ink-soft);letter-spacing:.5px;flex:1;text-align:center;}
+  .heart-hud{display:flex;align-items:center;gap:4px;font-family:var(--round);font-size:18px;font-weight:800;color:var(--coral-d);}
+
+  .likebar{position:relative;z-index:1;height:10px;background:var(--line);border-radius:5px;margin-bottom:12px;overflow:hidden;}
+  .likebar-fill{height:100%;width:50%;border-radius:5px;background:linear-gradient(90deg,var(--mint),var(--mint-d));transition:width .4s ease;}
+  .likebar-label{display:flex;justify-content:space-between;font-size:11px;color:var(--ink-soft);margin-top:4px;}
+
+  .chat{position:relative;z-index:1;display:flex;gap:10px;margin-bottom:16px;align-items:flex-end;}
+  .avatar{flex-shrink:0;width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,var(--bg2),var(--bg4));
+    display:grid;place-items:center;font-size:26px;border:2px solid #fff;box-shadow:var(--shadow-sm);}
+  .bubble{flex:1;background:linear-gradient(135deg,#fff0f4,#fff8fb);border:1px solid var(--line);
+    border-radius:18px;border-bottom-left-radius:4px;padding:14px 16px;font-size:16px;line-height:1.75;
+    color:var(--ink);box-shadow:var(--shadow-sm);}
+  .typing{display:flex;gap:4px;padding:18px 16px;}
+  .typing i{width:8px;height:8px;border-radius:50%;background:var(--ink-soft);animation:typing 1.2s infinite;}
+  .typing i:nth-child(2){animation-delay:.2s;}
+  .typing i:nth-child(3){animation-delay:.4s;}
+  @keyframes typing{0%,80%,100%{transform:scale(.6);opacity:.4;}40%{transform:scale(1);opacity:1;}}
+
+  .reply-title{position:relative;z-index:1;font-size:13px;color:var(--ink-soft);margin:0 0 10px 4px;letter-spacing:.5px;}
+  .replies{position:relative;z-index:1;display:flex;flex-direction:column;gap:8px;}
+  .reply{cursor:pointer;text-align:left;border:2px solid var(--line);border-radius:18px;border-bottom-right-radius:4px;
+    padding:12px 14px;font-family:var(--cn);font-size:15px;color:var(--ink);
+    background:#fff;transition:all .12s ease;display:flex;align-items:flex-start;gap:8px;}
+  .reply:hover:not(.disabled){border-color:var(--coral);background:#fff8fa;transform:translateX(-3px);}
+  .reply .dot{flex-shrink:0;width:22px;height:22px;border-radius:50%;border:2px solid var(--line);
+    display:grid;place-items:center;font-size:12px;margin-top:1px;transition:.12s;}
+  .reply.disabled{cursor:default;opacity:.7;}
+  .reply.best{border-color:var(--mint-d);background:#edfaf7;}
+  .reply.best .dot{border-color:var(--mint-d);background:var(--mint-d);color:#fff;}
+  .reply.wrong{border-color:var(--coral-d);background:#fff0f3;}
+  .reply.wrong .dot{border-color:var(--coral-d);background:var(--coral-d);color:#fff;}
+  .reply.good{border-color:var(--sky-d);background:#f0f8ff;}
+  .reply.good .dot{border-color:var(--sky-d);background:var(--sky-d);color:#fff;}
+
+  .react{position:relative;z-index:1;display:flex;align-items:center;gap:8px;margin:10px 0 0 56px;font-size:13px;color:var(--ink-soft);opacity:0;animation:pop .4s .1s both;}
+  .react .emoji{font-size:20px;}
+
+  .stars{display:flex;gap:3px;}
+  .star{font-size:18px;color:var(--butter);}
+  .star.empty{opacity:.3;}
+
+  .result-panel{position:relative;z-index:1;margin-top:12px;border-radius:20px;padding:16px 18px;text-align:left;
+    border:1px solid var(--line);background:#fff;box-shadow:var(--shadow-sm);display:none;
+    animation:pop .35s cubic-bezier(.2,.9,.3,1.3) both;}
+  .result-panel.show{display:block;}
+  .result-title{font-size:18px;margin-bottom:6px;display:flex;align-items:center;gap:8px;}
+  .result-title.best{color:var(--mint-d);}
+  .result-title.good{color:var(--sky-d);}
+  .result-title.miss{color:var(--coral-d);}
+  .result-explain{font-size:14px;color:var(--ink-soft);line-height:1.8;}
+  .next-row{display:flex;justify-content:flex-end;margin-top:12px;}
+  .next-btn{cursor:pointer;border:none;border-radius:14px;padding:10px 28px;
+    font-family:var(--cn);font-size:17px;color:#fff;background:var(--mint-d);
+    box-shadow:0 8px 18px rgba(70,176,161,.35);transition:.12s;}
+  .next-btn:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(70,176,161,.45);}
+  .next-btn:active{transform:translateY(1px) scale(.98);}
+
+  .float-score{position:fixed;left:50%;top:42%;transform:translate(-50%,-50%);
+    font-size:30px;font-weight:800;color:var(--coral-d);pointer-events:none;
+    opacity:0;z-index:10;text-shadow:0 4px 12px rgba(240,106,134,.35);}
+  .float-score.show{animation:floatScore .9s ease both;}
+  @keyframes floatScore{0%{opacity:0;transform:translate(-50%,-50%) scale(.6);}
+    20%{opacity:1;transform:translate(-50%,-65%) scale(1.1);}
+    100%{opacity:0;transform:translate(-50%,-110%) scale(.9);}}
+
+  .combo{position:absolute;right:14px;top:96px;z-index:2;background:linear-gradient(135deg,#fff,var(--bg4));
+    border:1px solid var(--line);border-radius:12px;padding:6px 10px;font-size:12px;color:var(--ink-soft);
+    box-shadow:var(--shadow-sm);display:flex;align-items:center;gap:4px;opacity:0;transition:opacity .3s;}
+  .combo.show{opacity:1;}
+  .combo .num{font-family:var(--round);font-size:18px;font-weight:800;color:var(--coral-d);}
+
+  .result-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:100%;max-width:320px;margin:14px 0;}
+  .res-item{background:#fff;border:1px solid var(--line);border-radius:16px;padding:12px 6px;box-shadow:var(--shadow-sm);}
+  .res-item .num{font-family:var(--round);font-size:26px;font-weight:800;color:var(--coral-d);}
+  .res-item .txt{font-size:12px;color:var(--ink-soft);margin-top:2px;}
+
+  .badge-list{display:flex;gap:10px;justify-content:center;margin:14px 0;padding-bottom:18px;flex-wrap:wrap;}
+  .badge-item{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--bg2),var(--bg4));
+    border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:30px;
+    box-shadow:var(--shadow-sm);position:relative;}
+  .badge-item.locked{opacity:.35;background:#f7f7f7;}
+  .badge-item span{font-size:10px;position:absolute;bottom:-16px;white-space:nowrap;color:var(--ink-soft);}
+
+  .modal{position:fixed;inset:0;z-index:20;display:none;align-items:center;justify-content:center;
+    padding:16px;background:rgba(74,63,85,.45);backdrop-filter:blur(4px);}
+  .modal.show{display:flex;}
+  .modal-card{max-width:420px;width:100%;background:var(--card);border-radius:24px;
+    padding:28px 24px;box-shadow:var(--shadow);animation:pop .4s cubic-bezier(.2,.9,.3,1.3) both;}
+  .modal-card h3{font-size:20px;color:var(--coral-d);margin-bottom:12px;}
+  .modal-card p,.modal-card li{font-size:14px;color:var(--ink-soft);line-height:1.9;}
+  .modal-card ol{padding-left:18px;margin:10px 0 18px;}
+  .modal-card li{margin-bottom:6px;}
+  .close-btn{display:block;margin:0 auto;padding:10px 28px;border:none;border-radius:14px;
+    font-family:var(--cn);font-size:16px;color:#fff;background:var(--coral-d);cursor:pointer;}
+
+  @keyframes fadeDown{from{opacity:0;transform:translateY(-14px);}to{opacity:1;transform:translateY(0);}}
+  @keyframes pop{from{opacity:0;transform:scale(.92);}to{opacity:1;transform:scale(1);}}
+  @keyframes floaty{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+
+  @media(min-width:1024px){
+    body{padding-top:64px;}
+    main{max-width:600px;}
+    h1{font-size:clamp(42px,5vw,58px);}
+    .overlay{padding:40px 32px;}
+    .play-card{padding:22px 20px 18px;}
+  }
+  @media(max-width:480px){
+    body{padding:24px 10px 22px;}
+    h1{font-size:clamp(28px,9vw,40px);}
+    .overlay{padding:24px 16px;border-radius:22px;}
+    .mode-grid{grid-template-columns:1fr 1fr;gap:9px;}
+    .mode-card{padding:12px 8px;}
+    .mode-card .moji{font-size:24px;}
+    .mode-card .label{font-size:14px;}
+    .play-card{padding:14px 12px;border-radius:22px;}
+    .avatar{width:40px;height:40px;font-size:22px;}
+    .bubble,.reply{padding:12px 14px;font-size:15px;}
+    .reply-title{font-size:12px;}
+  }
+  @media(max-width:360px){
+    .mode-grid{grid-template-columns:1fr;}
+    .btn{padding:12px 30px;font-size:19px;}
+    .mission{font-size:12px;}
+  }
+
+  @media(prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation:none!important;transition:none!important;}
+  }
+</style>
+</head>
+<body>
+<div class="grain"></div>
+<div id="app">
+  <header>
+    <div class="brand">Social Radar</div>
+    <h1>社交小雷达</h1>
+    <div class="sub">读懂情境 · 回应世界 · 升级关系</div>
+  </header>
+  <main>
+    <section id="start" class="screen active">
+      <div class="overlay">
+        <div class="badge">🧭</div>
+        <h2>打开你的社交雷达</h2>
+        <p>在不同的人际关卡里，选择最得体的回应。<br>提升<b>好感度</b>，打出<b>连击</b>，成为社交高手。</p>
+        <div class="mode-grid" id="modeGrid">
+          <button class="mode-card" data-mode="low"><span class="moji">🌱</span><span class="label">小学低年级</span><span class="hint">分享·礼貌·求助</span></button>
+          <button class="mode-card" data-mode="upper"><span class="moji">🌿</span><span class="label">小学高年级</span><span class="hint">友谊·合作·网络</span></button>
+          <button class="mode-card" data-mode="middle"><span class="moji">🌳</span><span class="label">初中</span><span class="hint">边界·压力·隐私</span></button>
+          <button class="mode-card" data-mode="high"><span class="moji">🌻</span><span class="label">高中/成人</span><span class="hint">人际·职场·亲密关系</span></button>
+        </div>
+        <button id="startBtn" class="btn" disabled>开始训练</button>
+        <div class="foot"><span class="link" id="howtoLink">玩法说明</span></div>
+      </div>
+    </section>
+
+    <section id="play" class="screen">
+      <div class="play-card">
+        <div class="combo" id="comboBox"><span>🔥</span><span class="num">x1</span></div>
+        <div class="topbar">
+          <div class="back" id="backBtn" title="返回首页">←</div>
+          <div class="mission" id="missionText">关卡 1 / 12</div>
+          <div class="heart-hud">❤️ <span id="scoreNum">0</span></div>
+        </div>
+        <div class="likebar"><div class="likebar-fill" id="likeFill"></div></div>
+        <div class="likebar-label"><span>关系温度</span><span id="likeLabel">50%</span></div>
+
+        <div id="chatBox">
+          <div class="chat">
+            <div class="avatar" id="npcAvatar">🙂</div>
+            <div class="bubble" id="npcBubble">
+              <div class="typing"><i></i><i></i><i></i></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="reply-title" id="replyTitle">你要怎么回应？</div>
+        <div class="replies" id="replyBox"></div>
+
+        <div class="react" id="npcReact"><span class="emoji" id="reactEmoji">😊</span><span id="reactText">对方感到被理解</span></div>
+
+        <div class="result-panel" id="resultPanel">
+          <div class="result-title" id="resultTitle"></div>
+          <div class="result-explain" id="resultText"></div>
+          <div class="next-row"><button class="next-btn" id="nextBtn">继续</button></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="end" class="screen">
+      <div class="overlay">
+        <div class="badge" id="endBadge">🏆</div>
+        <h2 id="endTitle">训练完成</h2>
+        <p id="endSub">你的社交雷达已升级</p>
+        <div class="badge-list" id="badgeList"></div>
+        <div class="result-grid">
+          <div class="res-item"><div class="num" id="resScore">0</div><div class="txt">总爱心</div></div>
+          <div class="res-item"><div class="num" id="resBest">0</div><div class="txt">完美回应</div></div>
+          <div class="res-item"><div class="num" id="resRate">0%</div><div class="txt">完美率</div></div>
+        </div>
+        <button id="replayBtn" class="btn">再玩一次</button>
+        <div class="foot"><span class="link" id="homeBtn">返回首页</span></div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div class="modal" id="howtoModal">
+  <div class="modal-card">
+    <h3>玩法说明</h3>
+    <ol>
+      <li>选择一个年龄段模式，进入不同的社交关卡。</li>
+      <li>每个关卡里，NPC 会向你描述一个情境。</li>
+      <li>点击一个<b>回应气泡</b>，系统会告诉你这个回应的效果。</li>
+      <li>最佳回应 +3 爱心，尚可回应 +1 爱心，关系温度会上升；连续最佳可触发连击加分。</li>
+      <li>完成 12 关后获得徽章评级。</li>
+    </ol>
+    <p>提示：社交没有唯一标准答案，但有些回应更能保护关系、表达尊重。</p>
+    <button class="close-btn" id="closeHowto">知道了</button>
+  </div>
+</div>
+
+<div class="float-score" id="floatScore">+3</div>
+
+<script>
+const MODES={
+  low:{
+    name:"小学低年级",
+    emoji:"🌱",
+    pool:[
+      {char:"😢",scene:"校园",text:"同桌小明哭了，你会怎么回应？",options:["递给他纸巾，轻声问：你怎么了？","大声问大家：小明怎么哭了？","假装没看见，继续玩自己的","笑他爱哭"],scores:[3,0,0,0],explain:"别人难过时，小声关心和递纸巾是体贴的做法；大声问会让他更尴尬，嘲笑会伤害别人。"},
+      {char:"🖍️",scene:"分享",text:"同学想借你刚买的彩笔，你会怎么回应？",options:["邀请他和我一起用","说不借并推开他","借给他几支","把彩笔藏起来不让他看见"],scores:[3,0,1,0],explain:"一起分享或借几支都是友好的做法；直接推开或藏起来会让同学难过。"},
+      {char:"🚶",scene:"礼貌",text:"你不小心撞到了同学，应该怎么做？",options:["马上说：对不起，你没事吧？","赶紧跑掉，怕被老师骂","说是他挡着我的路","低着头不说话"],scores:[3,0,0,0],explain:"不小心碰到别人，先道歉并关心对方，是礼貌又负责任的做法。"},
+      {char:"🧍",scene:"排队",text:"排队时有人插在你前面，你可以怎么做？",options:["推他一把","好好说：请你排到后面，大家都在排队","生气地跺脚","默默让给他"],scores:[0,3,0,0],explain:"用平静的语气提醒规则，比推搡或发脾气更能解决问题。"},
+      {char:"🪑",scene:"新朋友",text:"新朋友一个人坐在角落里，你可以怎么做？",options:["走过去问他要不要一起玩","他都不来找我，那我也不理他","和别的朋友说他是新来的","看着他，等他来找我"],scores:[3,0,0,0],explain:"主动邀请是交朋友的最好方式，等新朋友主动会让他更孤单。"},
+      {char:"🤝",scene:"感谢",text:"同学帮了你，你应该怎么做？",options:["说：谢谢你","什么也不说","拿了他的东西作为感谢","说：这有什么了不起的"],scores:[3,0,0,0],explain:"受到帮助说谢谢，是对别人友好的回应。"},
+      {char:"🙋",scene:"课堂",text:"老师提问，你知道答案但有点害怕，可以怎么做？",options:["举手试一试","趴桌子上假装不知道","大声说：我不会","让同桌替我回答"],scores:[3,0,0,0],explain:"勇敢举手是练习自信的好方法；答错也没关系，老师会看到你的努力。"},
+      {char:"⚽",scene:"加入游戏",text:"你想加入大家的游戏，应该怎么做？",options:["直接冲进去抢球","站在旁边看","问：我可以和你们一起玩吗？","故意把球踢飞吸引注意"],scores:[0,0,3,0],explain:"礼貌询问后加入，大家会更欢迎你。"},
+      {char:"🧸",scene:"诚实",text:"同学把玩具借给你，你不小心弄坏了，应该怎么做？",options:["藏起来不告诉他","告诉他：对不起，我不小心弄坏了，我赔你","说是别人弄坏的","扔回给他就跑"],scores:[0,3,0,0],explain:"诚实承认错误并想办法弥补，是负责任的表现，朋友也会更信任你。"},
+      {char:"🍜",scene:"帮助",text:"吃饭时有同学洒了汤，你可以怎么做？",options:["笑话他笨","帮他拿纸巾，并告诉老师","也故意洒一下","不理他"],scores:[0,3,0,0],explain:"看到别人遇到小麻烦，帮忙拿纸巾是温暖的行为。"},
+      {char:"💔",scene:"被冷落",text:"你的好朋友和别人玩了，你感觉被冷落，可以怎么做？",options:["生气地不和他做朋友了","邀请他们一起玩","偷偷哭但不说","告诉所有人他不理我了"],scores:[0,3,0,0],explain:"被冷落时，可以主动加入或告诉朋友你的感受，而不是用绝交来威胁。"},
+      {char:"👋",scene:"道别",text:"放学时想和小伙伴说再见，你应该怎么做？",options:["说声：明天见，并挥手","直接跑掉","不理他，因为明天还会见","做鬼脸吓他"],scores:[3,0,0,0],explain:"礼貌道别能让朋友感受到被重视。"}
+    ]
+  },
+  upper:{
+    name:"小学高年级",
+    emoji:"🌿",
+    pool:[
+      {char:"📋",scene:"合作",text:"小组作业中有人没有做事，你会怎么回应？",options:["背着老师告状","生气地把他的名字删掉","大家一起商量分工，每人做一部分","你一个人全部做完"],scores:[0,0,3,0],explain:"商量分工能让每个人都参与，告状或独揽会让关系变糟。"},
+      {char:"📉",scene:"安慰",text:"朋友考试没考好，在你面前哭了，你会怎么回应？",options:["安慰他：下次再努力","炫耀你考得多好","嘲笑他笨","不理他，让他自己冷静"],scores:[3,0,0,0],explain:"朋友难过时，安慰比炫耀或嘲笑更能维护友谊。"},
+      {char:"👕",scene:"被评价",text:"有同学说你今天的衣服不好看，你可以怎么回应？",options:["骂回去","动手推他","每个人的审美不同，我觉得挺舒服的","一整天都不开心"],scores:[0,0,3,0],explain:"平静地表达自己的态度，不升级冲突，是成熟的回应。"},
+      {char:"📝",scene:"原则",text:"朋友想抄你的作业，你会怎么回应？",options:["直接给他抄","拒绝并告诉他：我可以教你","马上告诉老师","随便写错答案给他"],scores:[0,3,0,0],explain:"帮助朋友不等于帮他作弊，教他方法才是真正的好朋友。"},
+      {char:"📱",scene:"网络",text:"班级群里有人发你的丑照，你应该怎么做？",options:["截图保存，告诉老师或家长","也发他的丑照报复","默默忍受","在群里大骂"],scores:[3,0,0,0],explain:"保留证据并告诉信任的成年人，是保护自己的正确方式。"},
+      {char:"🗣️",scene:"背后话",text:"你听见有人在背后说朋友坏话，你会怎么做？",options:["一起说","马上告诉被说的朋友","不参与，也不乱传","委婉劝那个人不要随便说别人坏话"],scores:[0,0,1,3],explain:"劝人不要随意议论或至少不传话，都是对朋友负责任的做法。"},
+      {char:"⚽",scene:"输球",text:"球赛输了，队友很生气，你可以怎么回应？",options:["骂队友踢得不好","说：我们下次再努力","摔水瓶发泄","一个人走开不理大家"],scores:[0,3,0,0],explain:"输球后互相鼓励，团队才更有凝聚力。"},
+      {char:"😔",scene:"误会",text:"你误会了朋友，发现是自己错了，你会怎么做？",options:["假装没这回事","主动说：对不起，我误会你了","继续冷战","让其他同学去道歉"],scores:[0,3,0,0],explain:"误会解开后主动道歉，能让友谊更牢固。"},
+      {char:"📱",scene:"嫉妒",text:"同学炫耀新手机，你没有，你感到不舒服，可以怎么回应？",options:["说：有什么了不起","真诚地说很漂亮，然后做自己该做的事","回家吵着要买","疏远这个同学"],scores:[0,3,0,0],explain:"真诚回应后把注意力放回自己的生活，是处理羡慕情绪的好方法。"},
+      {char:"🤙",scene:"守约",text:"你们约好去同学家，但你临时有事，你应该怎么做？",options:["不去了也不说","提前告诉朋友并道歉","让爸妈去说","迟到很久才出现"],scores:[0,3,0,0],explain:"临时有事要提前告知并道歉，是尊重别人的时间。"},
+      {char:"🎧",scene:"倾听",text:"朋友讲了你不感兴趣的话题，你会怎么回应？",options:["打断他：这有什么好说的","认真听一会儿，再分享你喜欢的","低头玩手机","找借口走开"],scores:[0,3,0,0],explain:"倾听是尊重朋友的一种方式，之后再分享你的话题，对话会更平衡。"},
+      {char:"🛡️",scene:"旁观",text:"看到别人被欺负，你可以怎么做？",options:["跟着一起欺负","找老师或家长帮忙","拍下来发网上","假装没看见，怕惹事"],scores:[0,3,0,0],explain:"看到欺负行为，告诉成年人或老师，是保护自己也帮助别人的做法。"}
+    ]
+  },
+  middle:{
+    name:"初中",
+    emoji:"🌳",
+    pool:[
+      {char:"😒",scene:"议论",text:"你听到朋友在背后议论你，你会怎么回应？",options:["当场冲过去质问","也传他的坏话报复","等冷静下来后找他谈谈","从此断绝来往"],scores:[0,0,3,0],explain:"冷静后再沟通，既表达感受也给对方解释机会，关系还有修复空间。"},
+      {char:"🎭",scene:"起哄",text:"朋友群体起哄让你做一件你不想做的事，你会怎么回应？",options:["为了面子去做","明确拒绝并说明理由","不知所措，被推着走","事后才后悔"],scores:[0,3,0,0],explain:"真正的朋友会尊重你的边界，坚定拒绝比事后后悔更好。"},
+      {char:"🪑",scene:"矛盾",text:"你和同桌因为座位问题闹矛盾，你可以怎么回应？",options:["冷战，互不说话","在班级群里吐槽他","平静地告诉他你的感受和请求","要求老师立刻换同桌"],scores:[0,0,3,0],explain:"用'我感受'句式表达需求，比冷战或公开吐槽更容易解决问题。"},
+      {char:"🤫",scene:"秘密",text:"你的秘密被同学传出去了，你会怎么回应？",options:["打传话的人","冷静下来，找传话的人沟通","从此不信任任何人","在班级里公开骂"],scores:[0,3,0,0],explain:"冷静沟通能弄清真相，打人或公开骂只会让事情更糟。"},
+      {char:"📱",scene:"隐私",text:"父母未经允许翻看你的手机，你会怎么回应？",options:["大吵大闹摔手机","平静地表达：我需要一些隐私","默默忍受，心里委屈","把密码改掉但什么都不说"],scores:[0,3,0,0],explain:"用平静的方式表达边界，更容易让父母理解你已经长大。"},
+      {char:"📈",scene:"嫉妒",text:"朋友成绩进步很快，你有点嫉妒，你会怎么回应？",options:["冷嘲热讽","真诚祝贺并请教方法","开始疏远他","说他一定是作弊"],scores:[0,3,0,0],explain:"把嫉妒变成学习动力，真诚祝贺并请教，关系和能力都会进步。"},
+      {char:"💻",scene:"网友",text:"网友约你线下见面，你会怎么回应？",options:["兴奋地去","拒绝并告诉家长或老师","瞒着家长偷偷去","带上几个朋友一起去"],scores:[0,3,0,0],explain:"网友身份不明，私下见面有风险，告诉家长或老师是最安全的选择。"},
+      {char:"🧩",scene:"合作",text:"小组合作里有人总是否定你的想法，你会怎么回应？",options:["和他吵架","一直沉默退让","说出你的理由，也听听他的想法","要求退出小组"],scores:[0,0,3,0],explain:"表达理由同时倾听对方，是成熟讨论问题的方式。"},
+      {char:"💕",scene:"情感",text:"你和朋友喜欢上了同一个人，你会怎么回应？",options:["暗自较劲，破坏朋友关系","开诚布公地和对方聊聊感受","故意在那个人面前贬低朋友","压抑自己不说，但生闷气"],scores:[0,3,0,0],explain:"坦诚沟通能避免误会和伤害，友谊比竞争更重要。"},
+      {char:"👨‍🏫",scene:"批评",text:"老师在全班面前批评了你，你会怎么回应？",options:["立刻反驳","先听，下课后私下和老师解释","当场哭出来","以后故意不听他的课"],scores:[0,3,0,0],explain:"先冷静接受，课后再私下说明，是对老师也是对自己的尊重。"},
+      {char:"😟",scene:"关心",text:"你的朋友最近总是闷闷不乐，你可以怎么回应？",options:["逼他说出来","告诉他：我注意到你不太开心，想聊的话我都在","怕他传染给你，躲开他","和同学讨论他是不是抑郁了"],scores:[0,3,0,0],explain:"表达关心但不逼迫，给朋友空间，是恰到好处的支持。"},
+      {char:"🎸",scene:"兴趣",text:"你想参加一个社团但担心被嘲笑，你会怎么回应？",options:["放弃，不参加了","不管别人怎么看，去做自己喜欢的事","拉着朋友一起报名壮胆","先在群里铺垫说这个社团很幼稚"],scores:[0,3,1,0],explain:"做自己喜欢的事需要勇气；拉朋友一起是不错的支持方式，但不必贬低别人的爱好。"}
+    ]
+  },
+  high:{
+    name:"高中/成人",
+    emoji:"🌻",
+    pool:[
+      {char:"🧹",scene:"室友",text:"室友经常不打扫卫生，你会怎么回应？",options:["默默忍受","委婉提出：我们轮流值日吧","向辅导员投诉","在他床上放垃圾"],scores:[0,3,0,0],explain:"先尝试平等协商，解决不了再找第三方，避免关系恶化。"},
+      {char:"💼",scene:"职场",text:"同事在会议上把你说好的想法说成是他自己的，你会怎么回应？",options:["当场揭穿他","私下找领导说明","会后再和他沟通，请下次一起署名","忍气吞声"],scores:[0,0,3,0],explain:"私下沟通既维护了你的贡献，也给对方改正的机会，比当众撕破脸更职业。"},
+      {char:"👴",scene:"长辈",text:"长辈反复问你什么时候结婚/买房，你会怎么回应？",options:["顶撞：关你什么事","简短说明你的规划，转移话题","沉默不语，气氛尴尬","编造谎言应付"],scores:[0,3,0,0],explain:"简短回应后转移话题，既表达尊重也守住自己的边界。"},
+      {char:"💰",scene:"借钱",text:"朋友借钱一直不还，你可以怎么回应？",options:["直接绝交","委婉提醒并约定还款时间","自认倒霉不敢提","在朋友圈暗示他"],scores:[0,3,0,0],explain:"委婉提醒并约定时间，既保护了自己的利益，也保留了情面。"},
+      {char:"🍺",scene:"酒桌",text:"聚会上有人劝酒，你不想喝，你会怎么回应？",options:["勉强喝下","坚定但礼貌地说：我今晚不喝酒","当场翻脸","找借口去洗手间躲起来"],scores:[0,3,0,0],explain:"温和而坚定地拒绝，是维护身体边界和人际关系的平衡做法。"},
+      {char:"🧑‍💼",scene:"权威",text:"领导/老师当众批评你，你会怎么回应？",options:["当场反驳","先接受，私下再沟通说明情况","完全自我否定","背后抱怨"],scores:[0,3,0,0],explain:"公开场合先维护秩序，私下理性沟通，更容易获得理解和尊重。"},
+      {char:"❤️",scene:"亲密",text:"伴侣问你过去感情经历，你会怎么回应？",options:["敷衍：没什么好说的","诚实但尊重对方感受地分享","巨细靡遗全部交代让对方吃醋","生气反问为什么问这个"],scores:[0,3,0,0],explain:"真诚分享的同时照顾对方感受，是亲密关系中的成熟沟通。"},
+      {char:"🚶",scene:"公共",text:"公共场合有人插队在你前面，你会怎么回应？",options:["忍气吞声","礼貌提醒：麻烦请排到队尾","大声斥责","故意推搡"],scores:[0,3,0,0],explain:"平静提醒规则比情绪化对抗更有效，也避免冲突升级。"},
+      {char:"🎁",scene:"付出",text:"你帮忙做了很多事，但对方没有说谢谢，你会怎么回应？",options:["当场抱怨","平静表达：我很乐意帮忙，如果有一句谢谢我会更开心","以后再也不帮他","在心里记恨"],scores:[0,3,0,0],explain:"温和表达自己的期待，而不是憋在心里或报复，关系才能更健康。"},
+      {char:"🕐",scene:"约会",text:"约会对象迟到了很久，你会怎么回应？",options:["一见面就发脾气","等他解释后再表达你的感受","假装不在意，但全程黑脸","直接离开不沟通"],scores:[0,3,0,0],explain:"先了解原因，再表达感受，比冷战或爆发更利于沟通。"},
+      {char:"🗣️",scene:"八卦",text:"你的朋友总在背后吐槽另一个朋友，你会怎么回应？",options:["附和一起吐槽","不参与，也不传话；适当引导他直接沟通","把吐槽内容传给被说的人","劝他绝交"],scores:[0,3,0,0],explain:"不参与传话，并引导朋友直接沟通，是对所有人际关系都负责的做法。"},
+      {char:"🌐",scene:"网络",text:"网络讨论中有人和你观点不同并攻击你，你会怎么回应？",options:["骂回去","理性表达观点，不人身攻击","屏蔽或举报，不继续纠缠","发动朋友一起围攻"],scores:[0,3,1,0],explain:"理性回应或选择不纠缠，都比网络骂战更保护自己。"}
+    ]
+  }
+};
+
+const TOTAL=12;
+const LIKE_START=50;
+let state={mode:null,pool:[],round:0,score:0,best:0,like:LIKE_START,combo:0,answered:false};
+let bubbleTimer=null;
+
+const $=id=>document.getElementById(id);
+
+function shuffle(arr){
+  const a=arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
+
+function getBestKey(mode){return 'sr_best_'+mode;}
+function getBest(mode){const v=localStorage.getItem(getBestKey(mode));return v?parseInt(v,10):0;}
+function setBest(mode,val){localStorage.setItem(getBestKey(mode),String(val));}
+
+function init(){
+  document.querySelectorAll('.mode-card').forEach(btn=>{
+    btn.addEventListener('click',()=>selectMode(btn.dataset.mode));
+  });
+  $('startBtn').addEventListener('click',startGame);
+  $('nextBtn').addEventListener('click',nextRound);
+  $('replayBtn').addEventListener('click',()=>startGame());
+  $('homeBtn').addEventListener('click',goHome);
+  $('backBtn').addEventListener('click',goHome);
+  $('howtoLink').addEventListener('click',()=>showHowto(true));
+  $('closeHowto').addEventListener('click',()=>showHowto(false));
+  $('howtoModal').addEventListener('click',e=>{if(e.target.id==='howtoModal')showHowto(false);});
+}
+
+function selectMode(mode){
+  state.mode=mode;
+  document.querySelectorAll('.mode-card').forEach(btn=>{
+    btn.classList.toggle('selected',btn.dataset.mode===mode);
+  });
+  $('startBtn').disabled=false;
+}
+
+function startGame(){
+  if(!state.mode)return;
+  const data=MODES[state.mode];
+  state.pool=shuffle(data.pool).slice(0,TOTAL);
+  state.round=0;
+  state.score=0;
+  state.best=0;
+  state.like=LIKE_START;
+  state.combo=0;
+  state.answered=false;
+  showScreen('play');
+  renderQuestion();
+}
+
+function showScreen(name){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  $(name).classList.add('active');
+}
+
+function renderQuestion(){
+  const q=state.pool[state.round];
+  $('missionText').textContent='关卡 '+(state.round+1)+' / '+TOTAL;
+  $('scoreNum').textContent=state.score;
+  updateLikebar();
+  $('comboBox').classList.remove('show');
+  $('npcAvatar').textContent=q.char;
+  $('npcBubble').innerHTML='<div class="typing"><i></i><i></i><i></i></div>';
+  $('replyTitle').textContent='你要怎么回应？';
+  $('replyTitle').style.display='block';
+  $('replyBox').style.display='flex';
+  $('resultPanel').classList.remove('show');
+  $('npcReact').style.display='none';
+
+  const box=$('replyBox');
+  box.innerHTML='';
+  const labels=['A','B','C','D'];
+  q.options.forEach((opt,i)=>{
+    const btn=document.createElement('button');
+    btn.className='reply';
+    btn.innerHTML='<span class="dot">'+labels[i]+'</span><span class="txt">'+opt+'</span>';
+    btn.addEventListener('click',()=>pick(i));
+    box.appendChild(btn);
+  });
+
+  state.answered=false;
+
+  if(bubbleTimer)clearTimeout(bubbleTimer);
+  bubbleTimer=setTimeout(()=>{
+    $('npcBubble').textContent=q.text;
+    bubbleTimer=null;
+  },650);
+}
+
+function updateLikebar(){
+  $('likeFill').style.width=state.like+'%';
+  $('likeLabel').textContent=Math.round(state.like)+'%';
+}
+
+function pick(idx){
+  if(state.answered)return;
+  state.answered=true;
+  const q=state.pool[state.round];
+  if(bubbleTimer){clearTimeout(bubbleTimer);bubbleTimer=null;}
+  $('npcBubble').textContent=q.text;
+  const maxScore=Math.max(...q.scores);
+  const pickedScore=q.scores[idx];
+  const bestIndex=q.scores.indexOf(maxScore);
+
+  const replies=document.querySelectorAll('.reply');
+  replies.forEach((btn,i)=>{
+    btn.classList.add('disabled');
+    if(i===bestIndex)btn.classList.add('best');
+    else if(i===idx){
+      if(pickedScore>0 && pickedScore<maxScore)btn.classList.add('good');
+      else if(pickedScore===0)btn.classList.add('wrong');
+    }
+  });
+
+  state.score+=pickedScore;
+  if(pickedScore===maxScore)state.best++;
+
+  const likeDelta=(pickedScore/maxScore)*12;
+  state.like=Math.min(100,Math.max(0,state.like+likeDelta));
+  updateLikebar();
+
+  if(pickedScore===maxScore){
+    state.combo++;
+    const bonus=state.combo>=3?Math.min(state.combo-2,5):0;
+    const total=pickedScore+bonus;
+    state.score+=bonus;
+    showFloat('+'+total);
+    $('resultTitle').innerHTML='⭐ 完美回应';
+    $('resultTitle').className='result-title best';
+    $('resultText').textContent=q.explain;
+    showCombo();
+  }else if(pickedScore>0){
+    state.combo=0;
+    showFloat('+'+pickedScore);
+    $('resultTitle').innerHTML='🌟 还不错';
+    $('resultTitle').className='result-title good';
+    $('resultText').textContent=q.explain;
+  }else{
+    state.combo=0;
+    state.like=Math.max(0,state.like-8);
+    updateLikebar();
+    showFloat('+0');
+    $('resultTitle').innerHTML='💧 回应需要改进';
+    $('resultTitle').className='result-title miss';
+    $('resultText').textContent=q.explain;
+  }
+
+  $('scoreNum').textContent=state.score;
+  $('replyTitle').style.display='none';
+  $('replyBox').style.display='none';
+  $('resultPanel').classList.add('show');
+  $('npcReact').style.display='flex';
+  $('reactEmoji').textContent=getReactionEmoji(pickedScore,maxScore);
+  $('reactText').textContent=getReactionText(pickedScore,maxScore);
+}
+
+function showFloat(text){
+  const el=$('floatScore');
+  el.textContent=text;
+  el.classList.remove('show');
+  void el.offsetWidth;
+  el.classList.add('show');
+  setTimeout(()=>el.classList.remove('show'),900);
+}
+
+function showCombo(){
+  const box=$('comboBox');
+  if(state.combo<2)return;
+  box.querySelector('.num').textContent='x'+state.combo;
+  box.classList.add('show');
+}
+
+function getReactionEmoji(score,max){
+  if(score===max)return '💖';
+  if(score>0)return '🙂';
+  return '😕';
+}
+function getReactionText(score,max){
+  if(score===max)return '对方感到被理解，关系升温了';
+  if(score>0)return '对方接受了你的回应';
+  return '这个回应让对方有点尴尬';
+}
+
+function nextRound(){
+  state.round++;
+  if(state.round>=TOTAL)endGame();
+  else renderQuestion();
+}
+
+function endGame(){
+  showScreen('end');
+  const bestPrev=getBest(state.mode);
+  if(state.score>bestPrev)setBest(state.mode,state.score);
+
+  const rate=Math.round((state.best/TOTAL)*100);
+  const modeName=MODES[state.mode].name;
+  const grade=rate>=90?'金牌社交官':rate>=70?'银牌社交官':rate>=50?'铜牌社交官':'见习侦察员';
+  $('endTitle').textContent='本轮 '+grade;
+  $('endSub').textContent=modeName+' · 12 关挑战完成';
+  $('resScore').textContent=state.score;
+  $('resBest').textContent=state.best+'/'+TOTAL;
+  $('resRate').textContent=rate+'%';
+  $('endBadge').textContent=rate>=90?'🏆':rate>=70?'🥈':rate>=50?'🥉':'🌱';
+
+  const badges=[
+    {emoji:'🌱',name:'新手',unlock:rate>=30},
+    {emoji:'🌿',name:'熟手',unlock:rate>=50},
+    {emoji:'🌳',name:'高手',unlock:rate>=70},
+    {emoji:'🌻',name:'大师',unlock:rate>=90}
+  ];
+  const list=$('badgeList');
+  list.innerHTML='';
+  badges.forEach(b=>{
+    const div=document.createElement('div');
+    div.className='badge-item'+(b.unlock?'':' locked');
+    div.innerHTML=b.emoji+'<span>'+(b.unlock?b.name:'未解锁')+'</span>';
+    list.appendChild(div);
+  });
+}
+
+function goHome(){
+  state.mode=null;
+  document.querySelectorAll('.mode-card').forEach(btn=>btn.classList.remove('selected'));
+  $('startBtn').disabled=true;
+  showScreen('start');
+}
+
+function showHowto(show){
+  $('howtoModal').classList.toggle('show',show);
+}
+
+document.addEventListener('DOMContentLoaded',init);
+</script>
+</body>
+</html>

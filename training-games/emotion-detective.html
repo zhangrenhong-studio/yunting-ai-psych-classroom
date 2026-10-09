@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>情绪 · 心情侦探</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&family=Baloo+2:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg1:#ffe3ec;  --bg2:#ece4ff;  --bg3:#fff6ec;
+    --card:#fffdfb;
+    --ink:#4a3f55;
+    --ink-soft:#877d93;
+    --coral:#ff8fa3;
+    --coral-d:#f06a86;
+    --mint:#74cbbd;
+    --mint-d:#46b0a1;
+    --butter:#ffd27a;
+    --line:#f0e6ee;
+    --shadow:0 18px 50px rgba(150,110,150,.18);
+    --cn:"ZCOOL KuaiLe","PingFang SC","Microsoft YaHei",sans-serif;
+    --round:"Baloo 2","ZCOOL KuaiLe",sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent;}
+  html,body{height:100%;}
+  body{
+    font-family:var(--cn);
+    color:var(--ink);
+    min-height:100vh;
+    padding:64px 16px 44px;
+    position:relative;
+    overflow-x:hidden;
+    background:
+      radial-gradient(60% 50% at 18% 12%, var(--bg1) 0%, transparent 60%),
+      radial-gradient(55% 50% at 86% 20%, var(--bg2) 0%, transparent 58%),
+      radial-gradient(70% 60% at 50% 100%, var(--bg3) 0%, transparent 62%),
+      linear-gradient(160deg,#fff5fb 0%,#f3edff 100%);
+  }
+  body::before{
+    content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+    background:
+      radial-gradient(28% 22% at 12% 78%, rgba(255,143,163,.30), transparent 70%),
+      radial-gradient(26% 20% at 90% 70%, rgba(116,203,189,.28), transparent 70%);
+  }
+  .grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.04;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+
+  #app{width:100%;}
+  [v-cloak]{display:none;}
+
+  header{position:relative;z-index:2;width:100%;max-width:500px;margin:0 auto;text-align:center;
+    animation:fadeDown .6s ease both;}
+  h1{font-family:var(--cn);font-size:clamp(34px,9vw,52px);color:var(--coral-d);
+    letter-spacing:2px;text-shadow:0 3px 0 rgba(255,255,255,.6);line-height:1.1;}
+  .sub{color:var(--ink-soft);font-size:14px;margin-top:6px;letter-spacing:1px;}
+  main{position:relative;z-index:2;width:100%;max-width:500px;margin:18px auto 0;}
+  .stage{position:relative;}
+
+  .overlay{position:relative;border-radius:28px;background:var(--card);
+    border:1px solid var(--line);box-shadow:var(--shadow);
+    padding:34px 26px;text-align:center;
+    display:flex;flex-direction:column;align-items:center;
+    animation:pop .5s cubic-bezier(.2,.9,.3,1.3) both;}
+  .badge{font-size:52px;line-height:1;margin-bottom:8px;animation:floaty 2.4s ease-in-out infinite;}
+  .overlay h2{font-family:var(--cn);font-size:26px;color:var(--coral-d);margin:2px 0 10px;letter-spacing:1px;}
+  .overlay p{color:var(--ink-soft);font-size:14px;line-height:1.9;margin:6px 0 20px;max-width:340px;}
+  .overlay b{color:var(--mint-d);}
+
+  .btn{cursor:pointer;border:none;border-radius:18px;padding:14px 40px;
+    font-family:var(--cn);font-size:21px;color:#fff;
+    background:linear-gradient(135deg,var(--coral),var(--coral-d));
+    box-shadow:0 10px 22px rgba(240,106,134,.4);
+    transition:transform .12s ease,box-shadow .12s ease;}
+  .btn:hover{transform:translateY(-2px);box-shadow:0 14px 28px rgba(240,106,134,.5);}
+  .btn:active{transform:translateY(1px) scale(.98);}
+  .foot{display:flex;gap:20px;justify-content:center;align-items:center;margin-top:18px;}
+  .link{color:var(--mint-d);font-size:13px;cursor:pointer;letter-spacing:.5px;}
+  .link:hover{text-decoration:underline;}
+  .sound{cursor:pointer;color:var(--ink-soft);font-size:13px;
+    border:1px solid var(--line);padding:6px 12px;border-radius:12px;background:#fff;}
+
+  .modal{position:fixed;inset:0;z-index:30;display:flex;align-items:center;justify-content:center;
+    padding:20px;background:rgba(74,63,85,.34);backdrop-filter:blur(3px);}
+  .modal .box{background:var(--card);border-radius:26px;box-shadow:var(--shadow);
+    max-width:420px;width:100%;max-height:84vh;overflow:auto;padding:26px 24px;
+    border:1px solid var(--line);animation:pop .4s cubic-bezier(.2,.9,.3,1.3) both;}
+  .modal h3{font-family:var(--cn);color:var(--coral-d);font-size:22px;margin-bottom:14px;text-align:center;}
+  .modal .row{display:flex;gap:12px;margin:12px 0;align-items:flex-start;}
+  .modal .ic{flex:0 0 34px;height:34px;border-radius:12px;display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(135deg,var(--mint),var(--mint-d));color:#fff;font-size:18px;}
+  .modal .row b{color:var(--ink);font-size:14px;}
+  .modal .row span{display:block;color:var(--ink-soft);font-size:13px;line-height:1.7;margin-top:2px;}
+  .modal .btn{width:100%;margin-top:18px;}
+
+  .play{animation:pop .4s cubic-bezier(.2,.9,.3,1.3) both;}
+  .hud{display:flex;gap:8px;background:var(--card);border:1px solid var(--line);
+    border-radius:18px;padding:11px 12px;margin-bottom:14px;box-shadow:var(--shadow);}
+  .hud .cell{flex:1;text-align:center;}
+  .hud .k{font-family:var(--cn);font-size:12px;color:var(--ink-soft);}
+  .hud .v{font-family:var(--round);font-weight:800;font-size:18px;color:var(--coral-d);margin-top:3px;}
+  .hud .hp{color:var(--coral-d);font-size:16px;letter-spacing:1px;}
+
+  .timer{height:8px;border-radius:6px;background:var(--line);overflow:hidden;margin-bottom:16px;}
+  .timer i{display:block;height:100%;width:100%;border-radius:6px;
+    background:linear-gradient(90deg,var(--mint),var(--butter));transition:width .1s linear;}
+  .timer.warn i{background:linear-gradient(90deg,var(--coral),var(--coral-d));}
+
+  .prompt{text-align:center;color:var(--ink-soft);font-size:15px;margin-bottom:14px;letter-spacing:.5px;}
+
+  .stim{background:var(--card);border:1px solid var(--line);border-radius:24px;
+    box-shadow:var(--shadow);min-height:212px;display:flex;align-items:center;justify-content:center;
+    padding:26px 24px;text-align:center;margin-bottom:16px;animation:pop .4s cubic-bezier(.2,.9,.3,1.3) both;}
+  .stim.face{font-size:clamp(80px,24vw,118px);line-height:1;animation:pop .45s cubic-bezier(.2,.9,.3,1.4) both;}
+  .stim.scene{flex-direction:column;justify-content:center;font-family:var(--cn);
+    font-size:21px;line-height:2.05;color:var(--ink);width:100%;text-align:center;}
+  .stim.scene .bubble{display:block;width:100%;text-align:center;font-size:42px;line-height:1;margin-bottom:12px;
+    filter:drop-shadow(0 5px 12px rgba(116,203,189,.45));}
+  .stim.scene .txt{display:block;width:100%;text-align:center;}
+  .stim.good{box-shadow:0 0 0 3px var(--mint),var(--shadow);}
+  .stim.bad{box-shadow:0 0 0 3px var(--coral),var(--shadow);animation:shake .4s ease;}
+
+  .opts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;}
+  .opt{cursor:pointer;border:1px solid var(--line);border-radius:18px;background:var(--card);
+    min-width:0;overflow-wrap:anywhere;
+    padding:16px 10px;display:flex;align-items:center;justify-content:center;
+    font-family:var(--cn);font-size:17px;color:var(--ink);box-shadow:0 8px 18px rgba(150,110,150,.12);
+    transition:transform .12s ease,border-color .12s ease,background .12s ease;}
+  .opt:hover:not(:disabled){transform:translateY(-2px);border-color:var(--mint);}
+  .opt:active:not(:disabled){transform:scale(.97);}
+  .opt.right{background:linear-gradient(135deg,#d8f5ef,#bdeee4);border-color:var(--mint-d);color:var(--mint-d);}
+  .opt.wrong{background:linear-gradient(135deg,#ffe1e8,#ffd0db);border-color:var(--coral-d);color:var(--coral-d);}
+  .opt:disabled{cursor:default;}
+
+  .howto{display:block;margin:16px auto 0;text-align:center;color:var(--mint-d);font-size:13px;
+    cursor:pointer;letter-spacing:.5px;}
+  .howto:hover{text-decoration:underline;}
+
+  .end h2{color:var(--coral-d);}
+  .stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0 6px;}
+  .stat{background:linear-gradient(135deg,#fff6fa,#f1ecff);border:1px solid var(--line);
+    border-radius:16px;padding:14px 10px;}
+  .stat .n{font-family:var(--round);font-weight:800;font-size:24px;color:var(--coral-d);}
+  .stat .l{font-size:12px;color:var(--ink-soft);margin-top:2px;}
+  .best{color:var(--mint-d);font-size:14px;margin-top:10px;}
+
+  @keyframes fadeDown{from{opacity:0;transform:translateY(-14px);}to{opacity:1;transform:none;}}
+  @keyframes pop{from{opacity:0;transform:scale(.9);}to{opacity:1;transform:none;}}
+  @keyframes floaty{0%,100%{transform:translateY(0);}50%{transform:translateY(-7px);}}
+  @keyframes shake{0%,100%{transform:translateX(0);}20%{transform:translateX(-8px);}60%{transform:translateX(8px);}}
+
+  @media (min-width:1024px){ header,main{max-width:540px;} h1{font-size:56px;} }
+  @media (max-width:480px){
+    body{padding:40px 12px 32px;}
+    .overlay{padding:28px 18px;}
+    .opts{gap:10px;}
+    .opt{font-size:15px;padding:14px 6px;}
+    .stat .n{font-size:21px;}
+  }
+  @media (max-width:360px){
+    h1{font-size:34px;}
+    .hud .v{font-size:16px;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important;}
+  }
+</style>
+</head>
+<body>
+  <div class="grain"></div>
+  <div id="app" v-cloak>
+    <header>
+      <h1>情绪</h1>
+      <div class="sub">读出表情与心情 · 练出共情力</div>
+    </header>
+
+    <main>
+      <div class="stage" :data-phase="phase">
+
+        <!-- 开始卡片 -->
+        <div class="overlay" id="startOverlay" v-show="phase==='start'">
+          <div class="badge">🏠</div>
+          <h2>心情侦探</h2>
+          <p>读表情、看情境，<b>识别心情、判断混合情绪与强度</b>。<br>每局固定 12 题，共 3 颗❤，闯得越久越强。</p>
+          <button class="btn" @click="newGame">开始训练</button>
+          <div class="foot">
+            <span class="link" @click="openHowto">📖 玩法说明</span>
+            <span class="sound" @click="toggleSound">{{ soundLabel }}</span>
+          </div>
+        </div>
+
+        <!-- 游戏区 -->
+        <div class="play" v-show="phase==='play'">
+          <div class="hud">
+            <div class="cell"><div class="k">进度</div><div class="v">{{ qIndex }}/{{ roundTotal }}</div></div>
+            <div class="cell"><div class="k">分数</div><div class="v">{{ score }}</div></div>
+            <div class="cell"><div class="k">连击</div><div class="v">{{ combo }}</div></div>
+            <div class="cell"><div class="k">生命</div><div class="v hp">{{ hpLabel }}</div></div>
+          </div>
+          <div class="timer" :class="{warn:timerWarn}"><i :style="{width: barWidth+'%'}"></i></div>
+          <div class="prompt">{{ promptTxt }}</div>
+          <div class="stim" :class="[stimKind, {good: fb.state==='good', bad: fb.state==='bad'}]">
+            <span class="bubble" v-show="stimKind!=='face'">💭</span>
+            <span :class="stimKind==='face' ? 'face-text' : 'txt'">{{ stimText }}</span>
+          </div>
+          <div class="opts">
+            <button v-for="o in opts" :key="o" class="opt"
+              :class="{right: fb.right===o, wrong: fb.wrong===o}"
+              :disabled="answered" @click="pick(o)">{{ o }}</button>
+          </div>
+          <span class="howto" @click="openHowto">📖 玩法说明</span>
+        </div>
+
+        <!-- 结算卡片 -->
+        <div class="overlay end" id="endOverlay" v-show="phase==='end'">
+          <div class="badge">🌈</div>
+          <h2>今天收获满满</h2>
+          <p>{{ end.msg }}</p>
+          <div class="stats">
+            <div class="stat"><div class="n">{{ end.level }}</div><div class="l">完成题数</div></div>
+            <div class="stat"><div class="n">{{ end.rate }}</div><div class="l">正确率</div></div>
+            <div class="stat"><div class="n">{{ end.combo }}</div><div class="l">最高连击</div></div>
+            <div class="stat"><div class="n">{{ end.score }}</div><div class="l">本局得分</div></div>
+          </div>
+          <div class="best">最佳得分：{{ end.best }}</div>
+          <button class="btn" @click="newGame">再来一局</button>
+        </div>
+
+      </div>
+    </main>
+
+    <!-- 玩法说明 -->
+    <div class="modal" v-show="howtoOpen" @click.self="closeHowto">
+      <div class="box">
+        <h3>📖 玩法说明</h3>
+        <div class="row"><div class="ic">😊</div><div><b>读表情</b>
+          <span>屏幕出现一个大表情，从 4 个情绪词里选出它代表的心情。</span></div></div>
+        <div class="row"><div class="ic">📖</div><div><b>读情境</b>
+          <span>看到一段小故事，猜猜主角此刻是什么心情，选出对应情绪。</span></div></div>
+        <div class="row"><div class="ic">🔀</div><div><b>混合情绪</b>
+          <span>同一刻往往不止一种心情，选出最贴切的「又 X 又 Y」。</span></div></div>
+        <div class="row"><div class="ic">📏</div><div><b>情绪强度</b>
+          <span>判断这份情绪有多强烈：很轻 / 有些 / 明显 / 非常强烈。</span></div></div>
+        <div class="row"><div class="ic">🎲</div><div><b>每局题量</b>
+          <span>每局从 67 道题里固定抽 12 题（表情/情境/混合/强度四类混合），不重复；HUD 显示「进度 x/总题数」。</span></div></div>
+        <div class="row"><div class="ic">❤</div><div><b>生命与连击</b>
+          <span>答错或超时扣 1 颗❤；连对会累积连击，分数更高。3 颗用完本局结束。</span></div></div>
+        <div class="row"><div class="ic">💡</div><div><b>训练意义</b>
+          <span>提升情绪识别与共情能力，是社交情感学习（SEL）的好帮手。</span></div></div>
+        <button class="btn" @click="closeHowto">知道了</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../assets/vendor/vue.global.prod.js?v=3.5"></script>
+  <script>
+  "use strict";
+  const { createApp, ref, reactive, computed } = Vue;
+
+  const EMOTIONS={
+    开心:'😄',难过:'😢',生气:'😠',害怕:'😨',惊讶:'😲',平静:'😐',
+    安心:'😌',困惑:'😕',担忧:'😟',害羞:'😳',不满:'🙁',得意:'😏',
+    紧张:'😬',好奇:'😯',委屈:'🥺',感动:'🥹'
+  };
+  const allLabels=Object.keys(EMOTIONS);
+  const MIX_POOL=['又开心又感动','又开心又难过','又害羞又开心','又失望又理解',
+    '又紧张又期待','又难过又佩服','又释然又委屈','又难过又感动','又生气又委屈','又轻松又期待'];
+  const INTENSITY_OPTS=['很轻','有些','明显','非常强烈'];
+
+  const faces=[
+    {e:'😄',t:'开心'},{e:'😢',t:'难过'},{e:'😠',t:'生气'},{e:'😨',t:'害怕'},
+    {e:'😲',t:'惊讶'},{e:'😐',t:'平静'},{e:'😌',t:'安心'},{e:'😕',t:'困惑'},
+    {e:'😟',t:'担忧'},{e:'😳',t:'害羞'},{e:'🙁',t:'不满'},{e:'😏',t:'得意'},
+    {e:'😬',t:'紧张'},{e:'😯',t:'好奇'},{e:'🥺',t:'委屈'},{e:'🥹',t:'感动'}
+  ];
+  const scenes=[
+    {t:'考试得了满分，他蹦蹦跳跳地跑回家，嘴里还哼着小调',a:'开心'},
+    {t:'她的小狗走丢了，一个人躲在墙角，把脸埋进膝盖里',a:'难过'},
+    {t:'有人突然抢走了他的玩具，他咬着牙，拳头慢慢握紧',a:'生气'},
+    {t:'半夜一声巨响，她猛地缩进被子里，心跳快得发慌',a:'害怕'},
+    {t:'拆开礼物，竟是盼了好久的那本书，她一下子睁圆了眼睛',a:'惊讶'},
+    {t:'窗边下着小雨，她捧着热茶，慢慢闭上了眼睛',a:'平静'},
+    {t:'闹钟没响，发现已经迟到了，他愣在原地，额头渗出了汗',a:'担忧'},
+    {t:'被大家夸画得好，她脸一红，低头盯着自己的鞋尖',a:'害羞'},
+    {t:'站在陌生的路口，看着看不懂的路牌，他皱起了眉头',a:'困惑'},
+    {t:'比赛赢了，他扬起下巴笑了笑',a:'得意'},
+    {t:'收到远方的信，知道家人都平安，他长长舒了一口气',a:'安心'},
+    {t:'排队很久却被插队，他抿紧嘴唇，把到嘴边的话又咽了回去',a:'不满'},
+    {t:'拼了很久的模型终于完成，他托着下巴，眼里亮亮的',a:'开心'},
+    {t:'明明努力了却没被选上，他望着名单，肩膀一点点垮下来',a:'难过'},
+    {t:'上台前，他不停地搓着衣角，手心全是汗',a:'紧张'},
+    {t:'看到笼子里的小猫，她凑近了眼睛，想看清它到底在做什么',a:'好奇'},
+    {t:'被误会做错事，他咬着嘴唇，眼眶一下子红了',a:'委屈'},
+    {t:'看到志愿者帮老人提重物，她鼻头一酸，悄悄抹了下眼睛',a:'感动'},
+    {t:'终于放暑假了，他甩着书包，一路吹着口哨往家走',a:'开心'},
+    {t:'养了很久的小鱼翻了肚皮，她把它们捞起来，小声抽泣',a:'难过'},
+    {t:'弟弟把她的画撕坏了，她深吸一口气，把火气压了下去',a:'生气'},
+    {t:'一个人走夜路，风里有点响动，她赶紧加快了脚步',a:'害怕'},
+    {t:'拆开成绩单，数学居然及格了，他嘴巴张成了O型',a:'惊讶'},
+    {t:'午后没有作业，他躺在草地上，看云慢慢飘过',a:'平静'},
+    {t:'明天要交的报告还没写，他翻来覆去，怎么也睡不着',a:'担忧'},
+    {t:'第一次上台表演，灯光打在脸上，他不好意思地笑了笑',a:'害羞'},
+    {t:'题目越看越不明白，他抓了抓头发，不知道该从哪下手',a:'困惑'},
+    {t:'自己搭的积木被夸很有创意，他扬了扬眉毛，很满意的样子',a:'得意'},
+    {t:'考试前一夜没睡好，他一直盯着门口，怕错过入场时间',a:'紧张'},
+    {t:'看到新出的零食，他凑上前，眼睛盯着包装挪不开',a:'好奇'},
+    {t:'明明不是自己的错却被批评，他低着头，手指绞着衣角',a:'委屈'},
+    {t:'看到山区孩子收到新书本的笑脸，他心里暖暖的',a:'感动'},
+    {t:'误会解开后，她长舒一口气，整个人都放松了下来',a:'安心'},
+    {t:'排了很久的队前面的人却插队，他皱着眉，很不舒服',a:'不满'}
+  ];
+  const mixed=[
+    {t:'久别重逢，他红着眼圈，却笑着迎上去',a:'又开心又感动'},
+    {t:'努力很久的方案被否了，他深吸一口气，对队友说“没事，我们再改”',a:'又失望又理解'},
+    {t:'被当众夸奖，她脸一红，却忍不住弯了嘴角',a:'又害羞又开心'},
+    {t:'听说好朋友要转学，他笑着说了声“保重”，转过身却红了眼眶',a:'又开心又难过'},
+    {t:'输掉比赛却主动和对手击掌：“你今天真厉害”',a:'又难过又佩服'},
+    {t:'被误会后对方道了歉，他摆摆手说没事，心里却还堵着',a:'又释然又委屈'},
+    {t:'看完那部电影，他擦着眼泪，却觉得心里暖暖的',a:'又难过又感动'},
+    {t:'马上要上台演讲，他手心出汗，却忍不住一遍遍练习台词',a:'又紧张又期待'},
+    {t:'明明不是自己的错却被当众批评，他咬着嘴唇低下头',a:'又生气又委屈'}
+  ];
+  const intensity=[
+    {t:'等了十分钟公交还没来，他看了看表',dim:'不耐烦',a:'有些'},
+    {t:'被当众点名答不出，她脸一下红了',dim:'尴尬',a:'明显'},
+    {t:'听说周末可能下雨，他撇了撇嘴',dim:'失望',a:'很轻'},
+    {t:'努力半年的比赛只拿了最后一名，他瘫坐在地上',dim:'失落',a:'非常强烈'},
+    {t:'朋友随口说了句“你这也太慢了”，他愣了一下',dim:'在意',a:'有些'},
+    {t:'看到满分的卷子，他嘴角忍不住上扬',dim:'开心',a:'明显'},
+    {t:'深夜独自走在没有灯的小巷，她把书包抱得更紧了',dim:'害怕',a:'非常强烈'},
+    {t:'闹钟响了，他翻了个身，又闭上了眼',dim:'不舍',a:'很轻'}
+  ];
+
+  createApp({
+    setup(){
+      const soundOn = ref(true);
+      const phase = ref('start');
+      const howtoOpen = ref(false);
+      const score = ref(0), combo = ref(0), maxCombo = ref(0), hp = ref(3);
+      const total = ref(0), correct = ref(0);
+      const qIndex = ref(0), roundTotal = ref(12), roundQs = ref([]);
+      const promptTxt = ref(''), opts = ref([]), stimKind = ref('scene'), stimText = ref('');
+      const barWidth = ref(100), timerWarn = ref(false), answered = ref(false);
+      const fb = ref({right:null, wrong:null, state:null});
+      const best = ref(+(localStorage.getItem('emo_best')||0));
+      const end = reactive({level:0, rate:'0%', combo:0, score:0, best:0, msg:''});
+
+      let running=false, timerId=null, timeLeft=14, soundCtx=null;
+
+      const soundLabel = computed(()=> soundOn.value ? '🔊 音效：开' : '🔇 音效：关');
+      const hpLabel = computed(()=> hp.value>0 ? '❤'.repeat(hp.value)+'🤍'.repeat(3-hp.value) : '💀');
+
+      function beep(freq,dur,type){
+        if(!soundOn.value) return;
+        try{
+          const c = soundCtx || (soundCtx = new (window.AudioContext||window.webkitAudioContext)());
+          const o=c.createOscillator(), g=c.createGain();
+          o.type=type||'sine'; o.frequency.value=freq;
+          o.connect(g); g.connect(c.destination);
+          g.gain.setValueAtTime(.18,c.currentTime);
+          g.gain.exponentialRampToValueAtTime(.001,c.currentTime+dur);
+          o.start(); o.stop(c.currentTime+dur);
+        }catch(e){}
+      }
+      const goodS=()=>{beep(660,.12,'triangle'); setTimeout(()=>beep(880,.14,'triangle'),90);};
+      const badS=()=>beep(220,.22,'sawtooth');
+
+      function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]];}return a;}
+
+      function buildRound(){
+        const pools={face:shuffle(faces.slice()),scene:shuffle(scenes.slice()),
+          mixed:shuffle(mixed.slice()),intensity:shuffle(intensity.slice())};
+        const ks=Object.keys(pools);
+        const types=[];
+        let guard=0;
+        while(types.length<roundTotal.value && guard++<2000){
+          const avail=ks.filter(k=>pools[k].length>0);
+          if(!avail.length)break;
+          types.push(avail[Math.random()*avail.length|0]);
+        }
+        while(types.length<roundTotal.value){
+          const avail=ks.filter(k=>pools[k].length>0);
+          if(!avail.length)break;
+          types.push(avail[0]);
+        }
+        shuffle(types);
+        roundQs.value=types.map(tp=>{
+          const p=pools[tp].pop();
+          if(tp==='face')return{type:'face',answer:p.t,stimulus:p.e};
+          if(tp==='scene')return{type:'scene',answer:p.a,stimulus:p.t};
+          if(tp==='mixed')return{type:'mixed',answer:p.a,stimulus:p.t};
+          return{type:'intensity',answer:p.a,stimulus:p.t,dim:p.dim};
+        });
+        qIndex.value=0;
+      }
+
+      function nextQ(){
+        if(!running) return;
+        if(qIndex.value>=roundTotal.value){ endGame(); return; }
+        const q=roundQs.value[qIndex.value]; qIndex.value++;
+        let pTxt,os;
+        if(q.type==='face'){
+          stimKind.value='face'; stimText.value=q.stimulus;
+          pTxt='这个表情是什么心情？';
+          os=shuffle([q.answer, ...shuffle(allLabels.filter(l=>l!==q.answer)).slice(0,3)]);
+        }else if(q.type==='scene'){
+          stimKind.value='scene'; stimText.value=q.stimulus;
+          pTxt='故事里的人，现在是什么心情？';
+          os=shuffle([q.answer, ...shuffle(allLabels.filter(l=>l!==q.answer)).slice(0,3)]);
+        }else if(q.type==='mixed'){
+          stimKind.value='scene'; stimText.value=q.stimulus;
+          pTxt='故事里的人，此刻是哪种心情？';
+          os=shuffle([q.answer, ...shuffle(MIX_POOL.filter(l=>l!==q.answer)).slice(0,3)]);
+        }else{
+          stimKind.value='scene'; stimText.value=q.stimulus;
+          pTxt='此刻，这份「'+q.dim+'」有多强烈？';
+          os=shuffle(INTENSITY_OPTS.slice());
+        }
+        promptTxt.value=pTxt; opts.value=os;
+        fb.value={right:null,wrong:null,state:null}; answered.value=false;
+        startTimer();
+      }
+
+      function startTimer(){
+        timeLeft=14; barWidth.value=100; timerWarn.value=false;
+        clearInterval(timerId);
+        timerId=setInterval(()=>{
+          timeLeft-=0.1;
+          const pct=Math.max(0,timeLeft/14*100);
+          barWidth.value=pct;
+          if(pct<35) timerWarn.value=true;
+          if(timeLeft<=0){ clearInterval(timerId); resolveAns(null); }
+        },100);
+      }
+
+      function pick(ans){
+        if(!running || answered.value) return;
+        clearInterval(timerId);
+        resolveAns(ans);
+      }
+
+      function resolveAns(ans){
+        running=false; answered.value=true; total.value++;
+        const correctAns=roundQs.value[qIndex.value-1].answer;
+        if(ans===correctAns){
+          correct.value++; combo.value++; maxCombo.value=Math.max(maxCombo.value,combo.value);
+          const gain=10+combo.value*2+Math.round(timeLeft)*1;
+          score.value+=gain;
+          fb.value={right:correctAns,wrong:null,state:'good'};
+          goodS();
+        }else{
+          combo.value=0; hp.value--;
+          fb.value={right:correctAns,wrong:ans,state:'bad'};
+          badS();
+        }
+        setTimeout(()=>{
+          fb.value={right:null,wrong:null,state:null};
+          if(hp.value<=0){ endGame(); return; }
+          if(qIndex.value>=roundTotal.value){ endGame(); return; }
+          running=true; nextQ();
+        },820);
+      }
+
+      function endGame(){
+        clearInterval(timerId);
+        phase.value='end';
+        end.level=total.value;
+        end.rate=(total.value?Math.round(correct.value/total.value*100):0)+'%';
+        end.combo=maxCombo.value;
+        end.score=score.value;
+        if(score.value>best.value){ best.value=score.value; localStorage.setItem('emo_best',best.value); }
+        end.best=best.value;
+        end.msg=(score.value>=best.value && score.value>0)?'🎉 新纪录！你越来越懂心情了':'你读懂了很多心情，下次更棒～';
+      }
+
+      function newGame(){
+        score.value=0; combo.value=0; maxCombo.value=0; hp.value=3; total.value=0; correct.value=0;
+        running=true; howtoOpen.value=false; answered.value=false;
+        fb.value={right:null,wrong:null,state:null};
+        phase.value='play';
+        buildRound(); nextQ();
+      }
+      function toggleSound(){ soundOn.value=!soundOn.value; }
+      function openHowto(){ howtoOpen.value=true; }
+      function closeHowto(){ howtoOpen.value=false; }
+
+      return { soundOn, phase, howtoOpen, score, combo, maxCombo, hp, qIndex, roundTotal,
+        promptTxt, opts, stimKind, stimText, barWidth, timerWarn, answered, fb, best, end,
+        soundLabel, hpLabel, pick, newGame, toggleSound, openHowto, closeHowto };
+    }
+  }).mount('#app');
+  </script>
+</body>
+</html>
