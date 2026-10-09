@@ -10,9 +10,9 @@ var LEVELS=[
  {key:'attention',label:'差异',min:50,color:'#f2ad4e'},
  {key:'priority',label:'严重差异',min:0,color:'#e76868'}
 ];
-var DEMO_NAMES=["林梓涵", "陈予安", "周语桐", "许嘉树", "沈清禾", "苏念安", "江书宁", "顾明轩", "叶知夏", "陆星遥", "唐可欣", "程亦然", "宋雨桐", "韩嘉宁", "夏沐辰", "赵清妍", "方景行", "蒋思悦", "罗予辰", "白若溪", "梁知远", "秦安然", "谢语乔", "邵明宇", "何嘉禾", "吴念初", "郑舒然", "冯奕帆", "高语晴", "徐慕言", "曹星冉", "袁书航", "戴清越"];
-function demoName(classId,index){var offsets={'demo-class-7a':0,'demo-class-7b':12,'demo-class-8a':22};return DEMO_NAMES[(offsets[classId]||0)+index-1]||('演示学生'+index)}
-var CLASS_NAMES={'demo-class-7a':'七年级 · 向阳班（演示）','demo-class-7b':'七年级 · 青禾班（演示）','demo-class-8a':'八年级 · 星河班（演示）'};
+var DEMO_NAMES=["林梓涵", "陈予安", "周语桐", "许嘉树", "沈清禾", "苏念安", "江书宁", "顾明轩", "叶知夏", "陆星遥", "唐可欣", "程亦然", "宋雨桐", "韩嘉宁", "夏沐辰", "赵清妍", "方景行", "蒋思悦", "罗予辰", "白若溪", "梁知远", "秦安然", "谢语乔", "邵明宇", "何嘉禾", "吴念初", "郑舒然", "冯奕帆", "高语晴", "徐慕言", "曹星冉", "袁书航", "戴清越", "范知意", "季明澈", "乔安宁", "孟书瑶", "杜景然", "卢清妤", "魏星辰", "康语宁", "于嘉树", "侯念慈"];
+function demoName(classId,index){var offsets={'demo-class-7a':0,'demo-class-7b':12,'demo-class-8a':22,'demo-class-8b':33};return DEMO_NAMES[(offsets[classId]||0)+index-1]||('演示学生'+index)}
+var CLASS_NAMES={'demo-class-7a':'七年级 · 1班','demo-class-7b':'七年级 · 2班','demo-class-8a':'八年级 · 3班','demo-class-8b':'八年级 · 4班'};
 var SCORE_PATTERN=[91,87,83,79,76,73,69,66,61,56,47,81];
 var flagged={
  'demo-class-7a-student-4':{score:48,sessions:12,summary:'近两周在多次对话中持续出现睡眠受影响、精力下降和反复担忧的表达。',evidence:['连续3次对话出现睡眠受影响的描述','学习与同伴话题中均出现明显担忧','曾主动询问可以向谁寻求帮助'],dimensions:[46,51,55,61,42,38,67,45]},
@@ -37,7 +37,7 @@ function make(id,classId,index,classOffset){
  item.dimensionTrend=item.dimensions.map(function(v,di){return makeTrend(v,index+classOffset+di*2)});
  return item;
 }
-var rows=[];[['demo-class-7a',12],['demo-class-7b',10],['demo-class-8a',11]].forEach(function(pair,ci){for(var i=1;i<=pair[1];i++)rows.push(make(pair[0]+'-student-'+i,pair[0],i,ci*3))});
+var rows=[];[['demo-class-7a',12],['demo-class-7b',10],['demo-class-8a',11],['demo-class-8b',10]].forEach(function(pair,ci){for(var i=1;i<=pair[1];i++)rows.push(make(pair[0]+'-student-'+i,pair[0],i,ci*3))});
 function normalizedRows(){var students=[],classes=[];try{students=JSON.parse(localStorage.getItem('yunting-class-students-v1')||'[]');classes=JSON.parse(localStorage.getItem('yunting-class-groups-v1')||'[]')}catch(e){}return rows.map(function(item){var student=students.find(function(x){return String(x.id)===String(item.studentId)});if(!student)return Object.assign({},item);var group=classes.find(function(x){return String(x.id)===String(student.classId)});return Object.assign({},item,{classId:student.classId||item.classId,className:group?((group.grade?group.grade+' · ':'')+group.name):item.className,studentName:student.name||item.studentName,gender:student.gender||item.gender})})}
 function all(){return normalizedRows()}
 function byStudent(id){return all().find(function(x){return String(x.studentId)===String(id)})||null}

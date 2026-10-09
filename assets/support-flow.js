@@ -17,7 +17,7 @@
       courseId: s.courseId || null,
       courseTitle: s.courseTitle || '学生主动求助',
       classId: s.classId || null,
-      className: s.className || '演示班级'
+      className: s.className || '七年级 · 1班'
     };
   }
   function create(input) {

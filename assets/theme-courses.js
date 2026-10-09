@@ -1,0 +1,90 @@
+/* 云听主题课程目录：八维度 → 具体主题 → 课次。 */
+(function(global){
+'use strict';
+function lesson(id,order,title,objective,intro,dialogue,audio,game,courseId){return{id:id,order:order,title:title,objective:objective,intro:intro,dialogue:dialogue,audio:audio,game:game,courseId:courseId||null}}
+function topic(id,title,summary,lessons){return{id:id,title:title,summary:summary,grades:['七年级','八年级','九年级'],lessons:lessons}}
+var dimensions=[
+{id:'emotion',assessmentDimension:'情绪健康',name:'情绪觉察与调节',short:'认识情绪，也练习和情绪相处。',tone:'mint',topics:[
+ topic('emotion-unclear','情绪说不清楚的时候','从身体、想法和情境中慢慢辨认自己的感受。',[
+  lesson('emotion-unclear-1',1,'先看见情绪的信号','辨认情绪出现时的身体、想法和行为信号。','人物故事','围绕“我怎么发现自己不舒服”展开','情绪觉察与安定','情绪线索配对',null),
+  lesson('emotion-unclear-2',2,'把感受说得更清楚','练习用不伤害自己的方式表达感受和需要。','校园情境','围绕“我想怎样被理解”展开','表达前的安定','感受—需要表达训练',null)
+ ]),
+ topic('emotion-anger','生气的时候先停一下','理解愤怒背后的需要，练习暂停后再选择。',[
+  lesson('emotion-anger-1',1,'生气不是坏事情','认识愤怒的触发点与身体反应。','冲突故事','围绕愤怒前后的变化展开','身体降速与觉察','愤怒信号识别',null),
+  lesson('emotion-anger-2',2,'暂停以后再选择','练习暂停、表达和修复关系。','角色对话','围绕可执行的回应方式展开','暂停与安定','情境回应训练',null)
+ ])
+]},
+{id:'attention',assessmentDimension:'注意专注',name:'专注力与注意训练',short:'把注意力慢慢带回正在做的事。',tone:'blue',topics:[
+ topic('attention-distracted','总是容易分心怎么办','看见干扰来源，建立可以执行的专注步骤。',[
+  lesson('attention-distracted-1',1,'我的注意力去了哪里','识别环境、想法和情绪带来的分心。','课堂情境','围绕常见分心时刻展开','注意觉察','目标搜索',null),
+  lesson('attention-distracted-2',2,'一次只做眼前一步','练习缩小任务、回收注意和重新开始。','任务挑战','围绕重新进入任务的方法展开','专注启动','舒尔特方格',null)
+ ]),
+ topic('attention-interference','干扰很多也能慢慢找回来','在信息和情绪干扰下练习注意控制。',[
+  lesson('attention-interference-1',1,'发现注意力被拉走','分辨外部干扰和内部干扰。','声音与画面情境','围绕干扰来源展开','安静聚焦','视觉干扰训练',null),
+  lesson('attention-interference-2',2,'选择现在最重要的目标','练习在多个刺激中维持任务目标。','选择任务','围绕优先顺序展开','目标聚焦','Stroop训练',null)
+ ])
+]},
+{id:'learning',assessmentDimension:'学习行为',name:'学习动力与方法',short:'从拖延和挫败里找到下一小步。',tone:'amber',topics:[
+ topic('learning-delay','明明想学，却总是拖延','理解拖延背后的压力，拆出能开始的小行动。',[
+  lesson('learning-delay-1',1,'拖延发生前发生了什么','识别任务、情绪和回避之间的关系。','作业情境','围绕难开始的时刻展开','开始前的减压','任务拆分训练',null),
+  lesson('learning-delay-2',2,'让开始变得小一点','形成可执行的启动步骤和环境提示。','行动实验','围绕第一步展开','行动启动','三分钟启动挑战',null)
+ ]),
+ topic('learning-setback','一次没考好以后','把成绩和自我价值分开，练习复盘而非否定。',[
+  lesson('learning-setback-1',1,'成绩不等于全部的我','识别失利后的自动想法。','成绩单故事','围绕自我评价展开','失利后的安定','想法证据卡',null),
+  lesson('learning-setback-2',2,'从失利里找到下一步','练习把复盘转化为具体行动。','复盘情境','围绕可改变部分展开','恢复动力','复盘路径训练',null)
+ ])
+]},
+{id:'social',assessmentDimension:'社会交往',name:'同伴相处与沟通',short:'练习理解、表达、边界与关系修复。',tone:'violet',topics:[
+ topic('social-misunderstanding','和朋友产生误会','理解不同视角，练习澄清和关系修复。',[
+  lesson('social-misunderstanding-1',1,'误会是怎样发生的','区分事实、猜测和感受。','同伴故事','围绕“我以为”和“实际发生”展开','沟通前的安定','事实与猜测分类',null),
+  lesson('social-misunderstanding-2',2,'怎样把话说开','练习澄清、倾听和修复表达。','对话情境','围绕一次真实回应展开','表达前的稳定','沟通回应训练',null)
+ ]),
+ topic('social-boundary','不知道怎样拒绝别人','认识关系边界，练习清楚而不攻击的拒绝。',[
+  lesson('social-boundary-1',1,'我的边界在哪里','觉察勉强答应时的身体和情绪信号。','请求情境','围绕不舒服的时刻展开','边界觉察','边界信号识别',null),
+  lesson('social-boundary-2',2,'温和而坚定地拒绝','练习拒绝、协商与替代方案。','角色演练','围绕拒绝句式展开','表达稳定','拒绝与协商训练',null)
+ ])
+]},
+{id:'anxiety',assessmentDimension:'焦虑抑郁状态',name:'紧张与低落情绪应对',short:'在紧张或低落时找到安全、可执行的支持。',tone:'rose',topics:[
+ topic('anxiety-exam','考试前的紧张','认识紧张信号，练习把注意力带回当前。',[
+  lesson('anxiety-exam-1',1,'先听懂紧张的信号','识别考前紧张的身体、想法和行为变化。','考前故事','围绕紧张信号展开','身体安定','紧张信号识别',null),
+  lesson('anxiety-exam-2',2,'把注意力带回来','形成自己的考前安定步骤。','考试现场情境','围绕可执行方法展开','考前专注','注意回收训练',null)
+ ]),
+ topic('anxiety-low','什么都不太想做的时候','在低能量时减少自责，寻找微小行动和支持。',[
+  lesson('anxiety-low-1',1,'低能量也需要被看见','辨认低落与疲惫，不急着给自己贴标签。','日常片段','围绕能量变化展开','温和休息','能量温度计',null),
+  lesson('anxiety-low-2',2,'先做一件很小的事','寻找可承受的小行动和可信任的支持。','选择情境','围绕支持资源展开','微行动启动','支持路径训练',null)
+ ])
+]},
+{id:'sleep',assessmentDimension:'睡眠休息',name:'睡眠与身心恢复',short:'理解休息信号，练习让身心慢下来。',tone:'indigo',topics:[
+ topic('sleep-thoughts','脑子停不下来的夜晚','看见睡前反复思考，建立温和的过渡。',[
+  lesson('sleep-thoughts-1',1,'为什么越想睡越清醒','认识睡前想法、身体和环境信号。','夜晚故事','围绕睡前状态展开','睡前安顿','睡眠线索识别',null),
+  lesson('sleep-thoughts-2',2,'给大脑一个结束信号','设计个人睡前过渡步骤。','习惯拼图','围绕可调整习惯展开','渐进放松','睡前流程排序',null)
+ ]),
+ topic('sleep-screen','睡前放下手机为什么这么难','理解即时刺激与休息之间的拉扯。',[
+  lesson('sleep-screen-1',1,'手机为什么总让人继续看','识别触发继续使用的线索。','消息提醒情境','围绕使用时刻展开','注意降速','触发线索识别',null),
+  lesson('sleep-screen-2',2,'设计自己的屏幕边界','形成现实可行的睡前屏幕计划。','计划挑战','围绕替代行动展开','睡前恢复','屏幕边界训练',null)
+ ])
+]},
+{id:'family',assessmentDimension:'亲子关系',name:'家庭沟通与理解',short:'在家庭关系中练习表达需要与理解差异。',tone:'coral',topics:[
+ topic('family-understood','感觉父母不理解自己','区分期待、担心和感受，寻找可沟通的入口。',[
+  lesson('family-understood-1',1,'我们为什么总说不到一起','看见双方表达背后的需要。','家庭对话故事','围绕被误解的时刻展开','沟通前安定','不同视角配对',null),
+  lesson('family-understood-2',2,'把需要说得更清楚','练习用事实、感受和需要表达。','角色对话','围绕一次具体表达展开','表达稳定','家庭沟通训练',null)
+ ]),
+ topic('family-expectation','当期待变成压力','理解家庭期待带来的复杂感受与边界。',[
+  lesson('family-expectation-1',1,'期待为什么会让人有压力','辨认期待、比较与自我要求。','成绩情境','围绕压力来源展开','压力安定','压力来源分类',null),
+  lesson('family-expectation-2',2,'一起讨论可以做到什么','练习提出现实目标和支持需要。','协商情境','围绕可协商部分展开','协商前稳定','目标协商训练',null)
+ ])
+]},
+{id:'stress',assessmentDimension:'应激应对',name:'压力、挫折与适应',short:'面对变化和挫折时，练习恢复与求助。',tone:'cyan',topics:[
+ topic('stress-adaptation','进入新环境的不适应','理解陌生、犹豫和期待，逐步建立归属感。',[
+  Object.assign(lesson('stress-adaptation-1',1,'走进初中，拥抱新起点','认识新环境中的期待、陌生和不确定。','新生故事','围绕适应中的真实感受展开','进入新环境的安定','环境适应训练','lesson-01'),{readyGrades:['七年级']}),
+  lesson('stress-adaptation-2',2,'在新班级找到自己的位置','练习主动连接、表达和寻求支持。','同伴情境','围绕归属与行动展开','关系中的稳定','连接行动训练',null)
+ ]),
+ topic('stress-failure','遇到失败以后怎样继续','认识挫折反应，练习恢复、调整和求助。',[
+  lesson('stress-failure-1',1,'失败以后我发生了什么','识别挫折后的身体、情绪和想法。','比赛失利故事','围绕挫折反应展开','挫折后的安定','反应信号识别',null),
+  lesson('stress-failure-2',2,'重新迈出下一步','寻找可调整部分和支持资源。','重新尝试情境','围绕下一小步展开','恢复力量','行动路径训练',null)
+ ])
+]}
+];
+function allLessons(){var out=[];dimensions.forEach(function(d){d.topics.forEach(function(t){t.lessons.forEach(function(l){out.push(Object.assign({},l,{dimensionId:d.id,dimensionName:d.name,topicId:t.id,topicTitle:t.title,grades:t.grades.slice()}))})})});return out}
+global.YT_THEME_COURSES={dimensions:dimensions,allLessons:allLessons};
+})(window);
