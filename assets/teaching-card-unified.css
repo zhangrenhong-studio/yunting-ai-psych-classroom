@@ -1,0 +1,29 @@
+/* Shared visual contract: class management compact cards. */
+body .teaching-class-row.modern-class-card,body .teaching-record-row.modern-class-card,body .modern-course-card.course-card-compact{position:relative;isolation:isolate;overflow:hidden;display:flex;flex-direction:column;height:167px!important;min-height:0!important;gap:0!important;padding:17px!important;border:1px solid rgba(255,255,255,.9)!important;border-radius:20px!important;background:linear-gradient(150deg,#fff 20%,#effbf5)!important;box-shadow:0 14px 30px rgba(36,83,74,.09),inset 0 1px 0 #fff!important}
+body .teaching-class-row.tone-2,body .teaching-record-row.tone-2,body .modern-course-card.course-card-compact:nth-child(3n+2){background:linear-gradient(150deg,#fff 20%,#eef8ff)!important}
+body .teaching-class-row.tone-3,body .teaching-record-row.tone-3,body .modern-course-card.course-card-compact:nth-child(3n+3){background:linear-gradient(150deg,#fff 20%,#f6f2ff)!important}
+body .teaching-class-row header{padding:0 0 8px;border:0}.teaching-class-row header b{font-size:18px!important}
+body .teaching-class-row>div{gap:2px;min-width:0;margin-bottom:5px}.teaching-class-row strong{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:12px!important}.teaching-class-row small,.teaching-field-label{font-size:11px!important;line-height:1.4!important}
+body .teaching-class-row>a{background:transparent!important;margin-top:auto!important;border-radius:0;padding:9px 0 0!important;border-top:1px solid rgba(94,130,120,.14);justify-content:space-between;font-size:12px!important;color:#168677!important}
+body .teaching-record-row>span:first-child{font-size:11px}.teaching-record-row>div{gap:1px;margin:6px 0 4px}.teaching-record-row b{display:block;font-size:16px!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.teaching-record-row small{font-size:11px!important}.teaching-record-row em{position:absolute;right:17px;top:17px;font-size:10px!important;padding:2px 6px}.teaching-record-row .record-state{margin:4px 0;font-size:11px!important}.teaching-record-row>strong{margin-top:auto!important;padding-top:8px!important;font-size:12px!important;color:#168677!important}
+body .modern-course-card.course-card-compact h4{height:42px!important;font-size:16px!important;line-height:21px!important;margin:6px 0 4px!important}body .modern-course-card.course-card-compact .modern-course-footer{min-height:30px!important}body .modern-course-card.course-card-compact .course-choose{min-height:30px!important;padding:4px 9px!important}
+body .teaching-record-row:hover,body .teaching-class-row:hover{transform:translateY(-3px);box-shadow:0 20px 38px rgba(36,83,74,.14),inset 0 1px 0 #fff!important}
+
+/* Teaching workspace: page canvas -> cards, no card-within-card wrapper. */
+body #content>.records-page,body .curriculum-grade-group,body .arranged-list-panel,body .course-library-shell.compact-library{background:transparent!important;border:0!important;border-radius:0!important;box-shadow:none!important;padding:0!important}
+body .curriculum-grade-group>header{border:0!important;padding:0 0 4px!important}
+body .teaching-overview,body .teaching-records,body .arrangement-shell{background:transparent;border:0;box-shadow:none}
+body .teaching-overview>header,body .teaching-records>header{margin-bottom:20px;gap:12px}
+body .teaching-grade-group h4,body .teaching-record-day h4{margin:24px 0 12px;font-size:14px;color:#607c76}
+body #content .modern-course-card.course-card-compact:before{display:block!important;left:auto!important;right:-36px!important;top:-46px!important;width:150px!important;height:150px!important;border-radius:50%!important;background:rgba(90,198,150,.16)!important}
+body #content .modern-course-card.course-card-compact:nth-child(3n+2):before{background:rgba(98,164,219,.16)!important}
+body #content .modern-course-card.course-card-compact:nth-child(3n+3):before{background:rgba(159,125,219,.13)!important}
+
+body .teaching-class-row>header{display:flex;align-items:center;flex-wrap:wrap;justify-content:flex-start;gap:8px}
+body .teaching-class-row>header .teaching-card-grade{font-size:13px;font-weight:650;line-height:1.5;color:#58746d;white-space:nowrap}
+
+body #content .teaching-entry-card{display:flex!important;flex-direction:column;justify-content:space-between;min-height:112px!important;padding:18px!important;text-decoration:none;color:#244e48;cursor:pointer}
+body .teaching-entry-card>header{justify-content:flex-start!important;gap:8px}
+body .teaching-entry-card .teaching-card-grade{font-size:17px!important;font-weight:750!important;color:#244e48!important}
+body .teaching-entry-card .teaching-card-entry{position:relative;z-index:1;font-size:13px;font-weight:650;color:#39766b;margin-top:20px}
+body .teaching-entry-card:focus-visible{outline:3px solid #278774;outline-offset:3px}
