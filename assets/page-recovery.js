@@ -10,5 +10,5 @@
  window.addEventListener('error',e=>{if(e.target instanceof HTMLScriptElement||e.error)setTimeout(show,0)},true);
  window.addEventListener('unhandledrejection',()=>setTimeout(show,0));
  window.addEventListener('DOMContentLoaded',()=>setTimeout(()=>{const app=document.querySelector('#app');if(app&&!app.textContent.trim())show()},12000));
- if('serviceWorker'in navigator)navigator.serviceWorker.register(new URL('sw.js?v=74',base).href,{updateViaCache:'none'}).then(r=>r.update()).catch(()=>{});
+ if('serviceWorker'in navigator)navigator.serviceWorker.register(new URL('sw.js?v=77',base).href,{updateViaCache:'none'}).then(r=>r.update()).catch(()=>{});
 })();

@@ -1,10 +1,11 @@
 (()=>{
   const games={
-    emotion:{title:'心情侦探',dimension:'情绪维度',src:'training-games/emotion-detective.html'},
-    social:{title:'社交小雷达',dimension:'社交维度',src:'training-games/social-radar.html'},
-    visual:{title:'火眼金睛',dimension:'专注维度',src:'training-games/visual-search.html'},
-    reaction:{title:'苹果炸弹',dimension:'专注维度',src:'training-games/apple-bomb.html'}
+    emotion:{title:'心情侦探',dimension:'读懂心情',src:'training-games/emotion-detective.html'},
+    social:{title:'社交小雷达',dimension:'相处有方法',src:'training-games/social-radar.html'},
+    visual:{title:'火眼金睛',dimension:'专注一下',src:'training-games/visual-search.html'},
+    reaction:{title:'苹果炸弹',dimension:'专注一下',src:'training-games/apple-bomb.html'}
   };
+  document.querySelectorAll('[data-dimension]').forEach(card=>{const d=window.YT_THEME_COURSES.dimensions.find(d=>d.id===card.dataset.dimension);if(d)card.querySelector('h2').textContent=d.studentName;});
   const app=document.querySelector('[data-training-app]');
   const stage=document.querySelector('[data-game-stage]');
   const frame=document.querySelector('[data-game-frame]');

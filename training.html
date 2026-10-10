@@ -1,58 +1,34 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
-<script src="assets/page-recovery.js?v=74"></script><script src="assets/auth-demo.js?v=account-5"></script>
+<script src="assets/page-recovery.js?v=77"></script><script src="assets/auth-demo.js?v=account-6"></script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#dff8ff">
 <title>成长训练场｜云听</title>
-<link rel="stylesheet" href="assets/training.css?v=round73">
+<link rel="stylesheet" href="assets/training.css?v=round75">
 </head>
 <body>
 <main class="training-shell" data-training-app>
   <header class="training-header">
-    <a class="back-home" href="student.html?preview=r73" aria-label="返回学生首页"><span aria-hidden="true">←</span> 返回首页</a>
+    <a class="back-home" href="student.html" aria-label="返回学生首页"><span aria-hidden="true">←</span> 返回首页</a>
     <div class="training-heading">
       <span class="eyebrow">GROWTH PLAYGROUND</span>
       <h1>成长训练场</h1>
-      <p>选一个你想试试的小游戏，按自己的节奏开始。</p>
+      <p>选择一个方向，从感兴趣的练习开始。</p>
     </div>
-    <div class="header-right"><div class="privacy-note"><span aria-hidden="true">🔒</span> 游戏记录仅保存在当前设备</div></div>
+    <div class="header-right"><div class="privacy-note"><span aria-hidden="true">🔒</span> 训练记录仅保存在当前设备</div></div>
   </header>
 
   <section class="dimension-grid" aria-label="训练维度">
-    <article class="dimension-card emotion-card">
-      <div class="dimension-icon" aria-hidden="true">🌈</div>
-      <div class="dimension-copy">
-        <span class="dimension-kicker">情绪维度</span>
-        <h2>读懂心情</h2>
-        <p>观察表情与情境，辨认不同的情绪线索。</p>
-      </div>
-      <button class="game-entry" type="button" data-game="emotion" aria-label="开始心情侦探">
-        <span><strong>心情侦探</strong><small>识别情绪 · 12 道小挑战</small></span><b aria-hidden="true">开始 ›</b>
-      </button>
-    </article>
-
-    <article class="dimension-card social-card">
-      <div class="dimension-icon" aria-hidden="true">🧭</div>
-      <div class="dimension-copy">
-        <span class="dimension-kicker">社交维度</span>
-        <h2>回应世界</h2>
-        <p>进入日常情境，练习理解和回应他人的方式。</p>
-      </div>
-      <button class="game-entry" type="button" data-game="social" aria-label="开始社交小雷达">
-        <span><strong>社交小雷达</strong><small>情境判断 · 回应练习</small></span><b aria-hidden="true">开始 ›</b>
-      </button>
-    </article>
-
-    <article class="dimension-card focus-card">
+    <article class="dimension-card focus-card" data-dimension="attention">
       <div class="dimension-icon" aria-hidden="true">⚡</div>
       <div class="dimension-copy">
-        <span class="dimension-kicker">专注维度</span>
-        <h2>专注与反应</h2>
+        <span class="dimension-kicker">成长方向</span>
+        <h2>专注一下</h2>
         <p>在观察与行动之间，试试自己的节奏。</p>
       </div>
-      <div class="double-entry">
+      <div class="training-list" aria-label="可选训练">
         <button class="game-entry" type="button" data-game="visual" aria-label="开始火眼金睛">
           <span><strong>火眼金睛</strong><small>视觉搜索</small></span><b aria-hidden="true">开始 ›</b>
         </button>
@@ -61,22 +37,53 @@
         </button>
       </div>
     </article>
+
+    <article class="dimension-card emotion-card" data-dimension="emotion">
+      <div class="dimension-icon" aria-hidden="true">🌈</div>
+      <div class="dimension-copy">
+        <span class="dimension-kicker">成长方向</span>
+        <h2>读懂心情</h2>
+        <p>观察表情与情境，辨认不同的情绪线索。</p>
+      </div>
+      <div class="training-list" aria-label="可选训练">
+      <button class="game-entry" type="button" data-game="emotion" aria-label="开始心情侦探">
+        <span><strong>心情侦探</strong><small>识别情绪 · 12 道小挑战</small></span><b aria-hidden="true">开始 ›</b>
+      </button>
+      </div>
+    </article>
+
+    <article class="dimension-card social-card" data-dimension="social">
+      <div class="dimension-icon" aria-hidden="true">🧭</div>
+      <div class="dimension-copy">
+        <span class="dimension-kicker">成长方向</span>
+        <h2>相处有方法</h2>
+        <p>进入日常情境，练习理解和回应他人的方式。</p>
+      </div>
+      <div class="training-list" aria-label="可选训练">
+      <button class="game-entry" type="button" data-game="social" aria-label="开始社交小雷达">
+        <span><strong>社交小雷达</strong><small>情境判断 · 回应练习</small></span><b aria-hidden="true">开始 ›</b>
+      </button>
+      </div>
+    </article>
+
+
   </section>
 
-  <p class="training-boundary">这些小游戏用于日常练习与体验，不提供测评、诊断或排名。</p>
+  <p class="training-boundary">训练记录仅保存在当前设备；这些训练用于日常练习与体验，不提供测评、诊断或排名。</p>
 </main>
 
-<section class="game-stage" data-game-stage hidden aria-label="小游戏">
+<section class="game-stage" data-game-stage hidden aria-label="成长训练">
   <header class="game-toolbar">
     <button type="button" class="stage-back" data-stage-back><span aria-hidden="true">←</span> 返回训练场</button>
     <div><span class="stage-dimension" data-stage-dimension></span><strong data-stage-title></strong></div>
     <button type="button" class="stage-reload" data-stage-reload>重新开始</button>
   </header>
   <div class="game-frame-wrap">
-    <div class="game-loading" data-game-loading>正在打开小游戏…</div>
-    <iframe data-game-frame title="成长训练小游戏" allow="fullscreen" referrerpolicy="no-referrer"></iframe>
+    <div class="game-loading" data-game-loading>正在打开训练…</div>
+    <iframe data-game-frame title="成长训练活动" allow="fullscreen" referrerpolicy="no-referrer"></iframe>
   </div>
 </section>
-<script src="assets/training.js?v=round73"></script>
+<script src="assets/theme-courses.js?v=theme-5"></script>
+<script src="assets/training.js?v=round75"></script>
 </body>
 </html>

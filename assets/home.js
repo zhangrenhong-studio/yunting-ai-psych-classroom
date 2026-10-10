@@ -245,7 +245,7 @@
           '</div>' +
           '<div class="feature-panels">' +
             '<article class="feature-panel chat-panel" data-feature-panel="chat">' +
-              '<div class="feature-visual dialogue-visual"><img src="assets/xiaoyueyue-dialogue.jpg" alt="小悦悦陪你聊聊"></div>' +
+              '<div class="feature-visual dialogue-visual" aria-hidden="true"><svg viewBox="0 0 80 80"><defs><linearGradient id="chat-icon-color" x2="0" y2="1"><stop stop-color="#7e8fea"/><stop offset="1" stop-color="#4bb8ce"/></linearGradient></defs><path d="M18 18h44a8 8 0 0 1 8 8v26a8 8 0 0 1-8 8H38L22 70V60h-4a8 8 0 0 1-8-8V26a8 8 0 0 1 8-8Z" fill="none" stroke="url(#chat-icon-color)" stroke-width="5" stroke-linejoin="round"/><g fill="#63a5d8"><circle cx="27" cy="39" r="4"/><circle cx="40" cy="39" r="4"/><circle cx="53" cy="39" r="4"/></g></svg></div>' +
               '<div class="feature-content">' +
                 '<h2>和小悦悦聊聊</h2>' +
                 '<p>从今天的一件小事开始说起</p>' +
