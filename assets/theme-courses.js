@@ -38,6 +38,7 @@ var dimensions=[
     topic('stress-failure','遇到失败以后怎样继续','认识挫折反应，练习恢复、调整和求助。','帮助学生识别挫折后的反应，找到重新开始的一小步。','从一次失败后的身体、情绪和想法变化开始。','挫折后的安定','行动路径训练')
   ]}
 ];
+dimensions.find(function(d){return d.id==='stress'}).topics.find(function(t){return t.id==='stress-adaptation'}).grades=['七年级'];
 function allTopics(){var out=[];dimensions.forEach(function(d){d.topics.forEach(function(t){out.push(Object.assign({},t,{dimensionId:d.id,dimensionName:d.name,dimensionTone:d.tone,assessmentDimension:d.assessmentDimension,topicId:t.id,topicTitle:t.title}))})});return out;}
 function topicById(id){return allTopics().find(function(x){return x.id===id})||null;}
 /* 兼容旧页面读取，仅把已完成课程包暴露为可开课项目。 */
