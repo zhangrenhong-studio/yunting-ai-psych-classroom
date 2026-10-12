@@ -49,7 +49,7 @@
     dialog.id = 'class-end-choice';
     dialog.setAttribute('aria-labelledby', 'class-end-title');
     dialog.style.cssText = 'margin:auto;inset:0;border:1px solid #c7ded9;border-radius:18px;padding:24px;width:min(420px,calc(100vw - 40px));box-sizing:border-box;color:#173e45;box-shadow:0 20px 70px #173e4533';
-    dialog.innerHTML = '<h2 id="class-end-title" style="margin:0 0 12px;font-size:22px">这堂课上完了吗？</h2><p style="line-height:1.7;color:#60777b">自动保存课堂记录；结束后 10 分钟内可恢复。</p><div style="display:flex;flex-wrap:wrap;gap:10px"><button type="button" data-end-choice="completed" style="flex:1;min-height:44px;background:#14796b;color:white;border:0;border-radius:10px">已上完</button><button type="button" data-end-choice="interrupted" style="flex:1;min-height:44px;background:#fff;margin:auto;inset:0;border:1px solid #c7ded9;border-radius:10px;color:#173e45">中途结束</button></div><button type="button" data-end-cancel style="margin-top:16px;min-height:36px;border:0;background:transparent;color:#60777b">继续上课</button>';
+    dialog.innerHTML = '<h2 id="class-end-title" style="margin:0 0 12px;font-size:22px">结束当前课堂？</h2><p style="line-height:1.7;color:#60777b">结束后自动保存课堂记录，学生退出当前课堂。</p><div style="display:flex;gap:10px"><button type="button" data-end-choice="completed" style="flex:1;min-height:44px;background:#14796b;color:white;border:0;border-radius:10px">结束课堂</button><button type="button" data-end-cancel style="flex:1;min-height:44px;border:1px solid #c7ded9;border-radius:10px;background:white;color:#60777b">继续上课</button></div>';
     document.body.appendChild(dialog);
     function close() { dialog.close(); dialog.remove(); if (focus && focus.isConnected) focus.focus(); }
     dialog.addEventListener('cancel', function (e) { e.preventDefault(); close(); });

@@ -242,7 +242,24 @@
      环节 3 · 和小悦悦聊聊 —— 私密房间
      ====================================================================== */
 
+  function buildThemeReflection(course, onDone) {
+    var d = course.stages.talk, root = el('section', 'stage');
+    root.setAttribute('data-stage', 'talk');
+    root.innerHTML = '<div class="scene-talk"><div class="room"></div><div class="talk-head"><span class="t-small">主题表达</span><span class="talk-private">只在这里，不在班级公开</span></div><div class="talk-log" data-log><p class="msg msg-yue">AI服务暂未连接，当前是主题表达练习，不会生成自动回复。</p><p class="msg msg-yue">' + esc(d.reflectionPrompt) + '</p></div><div class="talk-composer"><div class="composer-row"><textarea class="field" rows="3" maxlength="1200" data-reflection placeholder="可以只聊故事，也可以写自己的想法。不想写时可直接继续。"></textarea><button class="btn btn-primary" data-save-expression>保存表达</button></div><p class="t-small" data-reflection-status>表达仅保存在当前浏览器，不会发送给老师或其他学生。</p><button class="btn btn-ghost" data-reflection-next>结束本环节</button></div></div>';
+    root.querySelector('[data-save-expression]').onclick = function () {
+      var input = root.querySelector('[data-reflection]'), value = input.value.trim();
+      if (!value) return;
+      global.YTStore.record({stage:'talk',nodeId:'theme-expression',prompt:d.reflectionPrompt,raw:value});
+      root.querySelector('[data-log]').appendChild(el('div','msg msg-student',esc(value)));
+      input.value = ''; root.querySelector('[data-reflection-status]').textContent = '已保存到当前浏览器，没有生成AI回复。';
+      root.querySelector('[data-log]').scrollTop = root.querySelector('[data-log]').scrollHeight;
+    };
+    root.querySelector('[data-reflection-next]').onclick = onDone;
+    return {root:root,activate:function(){},deactivate:function(){}};
+  }
+
   function buildTalk(course, onDone) {
+    if (course.stages.talk.aiConnected === false) return buildThemeReflection(course, onDone);
     var d = course.stages.talk;
     var nodes = d.nodes || [];
     var counter = global.YTDialogue.makeTurnCounter(d.maxStudentTurns || 6);
