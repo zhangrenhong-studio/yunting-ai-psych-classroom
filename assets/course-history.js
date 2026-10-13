@@ -11,4 +11,17 @@ if(link){link.classList.toggle('course-taught',done);link.querySelector('span').
 if(list.length){let b=document.createElement('button');b.type='button';b.className='course-history-open'+(done?' course-history-primary':'');b.textContent='查看记录';b.setAttribute('aria-label',title+'的上课记录');b.onclick=()=>open(ctx,id,title,draft,b);footer.prepend(b)}
 }
 function saved(ctx){let ds=g.YTThemeStoryBuilder?.all()||[];return '<section class="saved-theme-courses theme-prep-library"><h3>我的备课</h3>'+(ds.length?'<div class="modern-course-grid">'+ds.map(d=>{let ready=g.YTThemeStoryBuilder.launchable(d),u=g.YTThemeStoryBuilder.url(d.dimensionId,3,d);return '<article class="modern-course-card course-card-compact" data-saved-theme="'+E(d.id)+'"><div class="modern-course-top"><span>'+(!d.applicableGrade?'待补充年级':d.confirmed?'已备好':'草稿')+'</span><span>'+E(d.applicableGrade||'适用年级待补充')+'</span></div><h4>'+E(d.title||'未命名主题课')+'</h4><p>'+E(d.prompt)+'</p><div class="modern-course-footer">'+(d.confirmed?(ready?'<a class="course-choose" href="'+u+'"><span>去上课</span><b>→</b></a>':'<button disabled>开课内容待完善</button>'):'')+'<a class="saved-theme-edit" href="'+g.YTThemeStoryBuilder.url(d.dimensionId,1,d)+'">'+(d.confirmed?'编辑内容':'继续备课')+'</a></div></article>'}).join('')+'</div>':'<div class="theme-prep-empty"><h4>还没有保存的备课</h4><p>从主题方向开始，准备一堂适合学生的课。</p></div>')+'</section>'}
-g.YTCourseHistory={decorate,saved};})(window);
+function bindCatalog(cs){
+const records=read('yunting-class-records-v1');
+document.querySelectorAll('.modern-course-card').forEach(card=>{
+const link=card.querySelector('.course-choose'),draft=card.dataset.savedTheme||'',id=link?new URL(link.href,location.href).searchParams.get('course'):'',title=card.querySelector('h4')?.textContent;
+if(!draft&&!id)return;
+const used=records.filter(r=>draft?r.themeStorySnapshot?.id===draft:r.courseType!=='theme'&&(r.courseId?r.courseId===id:r.title===title));
+if(!used.length)return;
+const detail=document.createElement('details');detail.className='catalog-course-usage';
+const summary=document.createElement('summary');summary.textContent='班级使用记录';detail.append(summary);
+cs.filter(c=>used.some(r=>g.YTTeachingScope.belongs(r,c.id))).forEach(c=>{const b=document.createElement('button');b.type='button';b.textContent=c.grade+' · '+c.name+'（'+used.filter(r=>g.YTTeachingScope.belongs(r,c.id)).length+'次）';b.onclick=()=>open({id:c.id,c},id,title,draft,b);detail.append(b)});
+card.append(detail);
+});
+}
+g.YTCourseHistory={decorate,saved,bindCatalog};})(window);

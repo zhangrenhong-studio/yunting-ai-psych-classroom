@@ -545,7 +545,7 @@
   }
 
   /* ======================================================================
-     环节 5 · 成长训练场 —— 可选择、可操作的能力训练小游戏
+     环节 5 · 成长训练场 —— 可选择、可操作的能力练习
      ====================================================================== */
 
   function buildPlayground(course, onDone) {
@@ -569,13 +569,13 @@
         started = true;
         var mount = root.querySelector('[data-games]');
         if (!global.YTGrowthGames) {
-          mount.innerHTML = '<p class="t-body">训练小游戏暂时没有加载成功。</p>';
+          mount.innerHTML = '<p class="t-body">训练项目暂时没有加载成功。</p>';
           return;
         }
         global.YTGrowthGames.mount(mount, {
           appIds: d.appIds,
           onGameComplete: function (app) {
-            global.YTStore.record({ stage:'playground', nodeId:app.id, prompt:'选择的训练小游戏', raw:app.title });
+            global.YTStore.record({ stage:'playground', nodeId:app.id, prompt:'选择的训练项目', raw:app.title });
           },
           onStageComplete: function () { onDone(); }
         });
