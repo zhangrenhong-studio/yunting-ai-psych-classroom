@@ -1,4 +1,4 @@
-const CACHE='yunting-r89-workbench-timetable-textfix';
+const CACHE='yunting-teaching-cards-v3';
 const PREFIX='yunting-';
 self.addEventListener('install',()=>self.skipWaiting());
 self.addEventListener('activate',event=>event.waitUntil((async()=>{for(const key of await caches.keys())if(key.startsWith(PREFIX)&&key!==CACHE)await caches.delete(key);await self.clients.claim()})()));

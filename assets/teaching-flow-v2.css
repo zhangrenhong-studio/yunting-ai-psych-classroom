@@ -1,0 +1,31 @@
+/* Scoped refinements; preserve the existing three-page layout. */
+.week-readiness{display:block;color:#54736d;font-size:11px;line-height:1.5;margin-top:4px;white-space:normal}
+.week-lesson:has(.week-readiness){height:auto;min-height:94px}
+.timetable-modal #slot-preview{color:#116f63;font-size:13px;text-decoration:underline;text-underline-offset:3px}
+.timetable-modal .slot-prep{flex-wrap:wrap;gap:8px}
+.timetable-modal .slot-cancel{color:#a5473d;background:#fff5f3;border:1px solid #eccbc6}
+.timetable-modal button:disabled{opacity:.6;cursor:not-allowed}
+.teaching-recent-record{display:block;color:#6e858d;font-size:12px;line-height:1.6;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-top:6px;max-width:100%}
+.course-history-body .empty-note{padding:20px;color:#6e858d}
+@media(max-width:600px){.timetable-modal footer{flex-wrap:wrap;gap:8px}.timetable-modal{max-height:90dvh;overflow:auto}.teaching-records header{flex-wrap:wrap}}
+
+.saved-theme-schedule{font-size:12px;color:#54736d;text-decoration:none;white-space:nowrap}
+/* Compact, object-led timetable cards. */
+.weekly-timetable .week-toolbar #direct-classroom.timetable-quick-open{display:inline-flex;align-items:center;justify-content:center;padding:8px 13px!important;border:1px solid #d4e3df!important;border-radius:9px!important;background:#fff!important;color:#54736d!important;font-size:13px!important;font-weight:600!important;text-decoration:none;white-space:nowrap;box-shadow:none!important}
+.week-toolbar .timetable-quick-open:hover{background:#f0f8f5;color:#167463}
+.week-grid .slot-card-v3{display:flex;flex-direction:column;width:100%;height:auto;min-height:0;text-align:left;padding:10px;border:1px solid #d8e8e1;border-radius:10px;background:#f2faf6;gap:7px;box-shadow:0 2px 5px #294f4210}
+.slot-card-v3 .slot-card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:4px;min-width:0}
+.slot-card-v3 .slot-card-top small{font-size:11px;line-height:1.5;color:#6c817a;white-space:nowrap}
+.slot-card-v3 .slot-status{font-size:10px;font-weight:500;line-height:1.5;color:#54736d;white-space:normal;text-align:right}
+.slot-card-v3 .slot-status[data-status="待补内容"],.slot-card-v3 .slot-status[data-status="备课未完成"]{color:#98672e}
+.slot-card-v3 .slot-summary{display:flex;flex-direction:column;align-items:flex-start;gap:5px;width:100%;min-width:0;padding:0;border:0;background:transparent;text-align:left;color:#294e44;font:inherit;cursor:pointer}
+.slot-card-v3 .slot-class{display:block;width:100%;font-size:13px;font-weight:700;line-height:1.5;white-space:normal;overflow-wrap:anywhere}
+.slot-card-v3 .slot-title{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;min-width:0;font-size:12px;line-height:1.55;color:#567268;white-space:normal;overflow-wrap:anywhere}
+.slot-card-v3 .slot-mode{font-size:11px;line-height:1.5;color:#778b83;white-space:normal}
+.slot-card-v3 .slot-card-actions{display:flex;align-items:center;justify-content:space-between;gap:5px;margin-top:auto;padding-top:3px}
+.slot-card-v3 .slot-edit{border:0;background:transparent;color:#6b8077;padding:5px 0;font-size:12px;line-height:1.5;cursor:pointer}
+.slot-card-v3 .slot-action{border:0;border-radius:6px;background:#24816c;color:#fff;padding:6px 8px;font-size:12px;line-height:1.4;font-weight:600;white-space:normal;cursor:pointer}
+.slot-card-v3 :is(button,a):focus-visible,.timetable-quick-open:focus-visible{outline:2px solid #24816c;outline-offset:3px}
+.slot-card-v3 .slot-action:hover{background:#176956}
+.slot-card-v3 .slot-edit:hover{color:#176956;text-decoration:underline}
+

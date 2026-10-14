@@ -1,0 +1,40 @@
+/* Single-page launch: scoped separately from theme-builder confirmation. */
+body .launch-v2-layer{position:fixed!important;inset:0!important;z-index:120!important;display:flex!important;align-items:center!important;justify-content:center!important;padding:20px!important}
+body .launch-v2-modal{position:relative!important;inset:auto!important;transform:none!important;margin:0!important;width:min(620px,100%)!important;max-height:calc(100dvh - 40px)!important;display:flex!important;flex-direction:column!important;border-radius:16px!important;background:#fff!important;box-shadow:0 20px 60px #263b4930!important;overflow:hidden!important}
+body .launch-v2-modal .classroom-modal-head{padding:22px 26px 14px!important;flex:none!important;border-bottom:1px solid #e7edef!important}
+body .launch-v2-modal .classroom-modal-head h3{font-size:22px!important;margin:4px 0!important}
+body .launch-v2-modal .classroom-modal-body{padding:20px 26px!important;overflow-y:auto!important;min-height:0!important;display:block!important}
+body .launch-v2-modal fieldset{border:0!important;padding:0!important;margin:0!important;min-width:0}
+body .launch-v2-modal legend{width:100%;display:flex;align-items:center;gap:5px;font-size:14px;color:#344b53}
+body .launch-v2-modal legend em{margin-left:auto;font-style:normal;font-size:12px;color:#74848d}
+body .launch-v2-modal sup{color:#bf6259;font-size:12px}
+body .launch-v2-modal .class-wizard-list{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important;max-height:none!important;overflow:visible!important;margin:10px 0!important}
+body .launch-v2-modal .class-wizard-list label{display:flex!important;align-items:center!important;gap:9px!important;padding:10px 12px!important;min-height:0!important;border:1px solid #dfe7e9!important;border-radius:9px!important;background:#fff!important;cursor:pointer}
+body .launch-v2-modal .class-wizard-list label:has(input:checked){border-color:#89beb2!important;background:#f2faf7!important}
+body .launch-v2-modal .class-wizard-list input{position:static!important;opacity:1!important;appearance:auto!important;width:16px!important;height:16px!important;min-height:16px!important;min-width:16px!important;max-height:16px!important;max-width:16px!important;padding:0!important;margin:0!important;box-shadow:none!important;border-radius:2px!important;accent-color:#278875;flex:none}
+body .launch-v2-modal .class-wizard-list label span{display:grid;gap:3px;min-width:0}
+body .launch-v2-modal .class-wizard-list label b{font-size:13px!important;white-space:normal!important}
+body .launch-v2-modal .class-wizard-list label::before,body .launch-v2-modal .class-wizard-list label::after{display:none!important;content:none!important}
+body .launch-v2-modal .class-wizard-list label i{display:none!important}
+body .launch-v2-modal small{display:block;color:#778790!important;font-size:12px!important;line-height:1.5}
+body .launch-v2-modal .wizard-dropdown-field{margin:14px 0!important}
+body .launch-v2-modal .wizard-dropdown-field label{display:block!important;margin:0 0 7px!important;font-size:14px!important}
+body .launch-v2-modal select,body .launch-v2-modal input[type=datetime-local],body .launch-v2-modal textarea{width:100%!important;min-width:0!important;min-height:40px!important;border:1px solid #d9e3e7!important;border-radius:8px!important;background:#fff!important;color:#314b54!important;padding:9px 11px!important;font:inherit!important;box-shadow:none!important}
+body .launch-v2-modal select{appearance:auto!important;padding-right:24px!important}
+body .launch-v2-modal .wizard-native-select i{display:none!important}
+body .launch-v2-modal .wizard-native-select{margin-bottom:6px!important}
+body .launch-v2-modal :is(select,input,textarea):focus-visible{outline:2px solid #66a99a;outline-offset:2px}
+body .launch-v2-modal .wizard-inline-error{color:#b85147!important;font-size:12px!important;min-height:0!important;margin:4px 0!important}
+body .launch-v2-modal .wizard-inline-error:empty{display:none!important}
+body .launch-v2-modal .schedule-panel{border-top:1px solid #e7edef!important;background:transparent!important;padding:16px 0 0!important;margin:12px 0 0!important}
+body .launch-v2-modal .schedule-grid{display:grid!important;grid-template-columns:minmax(0,1.7fr) minmax(0,1fr)!important;gap:12px!important;margin-bottom:12px}
+body .launch-v2-modal .schedule-panel label{display:grid;gap:7px;font-size:13px}
+body .launch-v2-modal .launch-boundary{margin-top:14px!important;font-size:11px!important;color:#88969e!important}
+body .launch-v2-modal .classroom-modal-foot{display:flex!important;justify-content:flex-end!important;align-items:center!important;gap:16px!important;padding:15px 26px!important;border-top:1px solid #e7edef!important;flex:none!important;background:#fff!important}
+body .launch-v2-modal #confirm-launch{background:#238571!important;border:0!important;color:#fff!important;border-radius:8px!important;padding:10px 20px!important;font-size:14px!important;min-width:118px;cursor:pointer}
+body .launch-v2-modal #confirm-launch:disabled{opacity:.45!important;cursor:not-allowed}
+body .launch-v2-modal .classroom-modal-foot a{color:#71828c!important;background:none!important;text-decoration:none!important}
+body .modern-course-footer .course-secondary-actions{display:flex!important;gap:16px!important;align-items:center!important;width:100%;margin-top:4px}
+body .modern-course-footer .course-secondary-actions a{padding:2px 0!important;color:#6e838b!important;font-size:12px!important;background:transparent!important;border:0!important;box-shadow:none!important;text-decoration:none!important;min-height:0!important}
+body .modern-course-footer .course-secondary-actions a:hover{color:#237966!important;text-decoration:underline!important}
+@media(max-width:540px){body .launch-v2-layer{padding:12px!important}body .launch-v2-modal{max-height:calc(100dvh - 24px)!important}body .launch-v2-modal .classroom-modal-head,body .launch-v2-modal .classroom-modal-body,body .launch-v2-modal .classroom-modal-foot{padding-left:18px!important;padding-right:18px!important}body .launch-v2-modal .class-wizard-list,body .launch-v2-modal .schedule-grid{grid-template-columns:1fr!important}}
