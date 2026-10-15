@@ -1,0 +1,391 @@
+{
+  "voice": "zh-CN-XiaoxiaoNeural",
+  "rate": "+15%",
+  "titleNarrated": false,
+  "lessons": [
+    {
+      "id": "lesson-01",
+      "paragraphCount": 8,
+      "src": "audio/grade7/lesson-01.mp3",
+      "cues": [
+        {
+          "start": 0.0,
+          "end": 4.141291,
+          "index": 0
+        },
+        {
+          "start": 4.141291,
+          "end": 6.891291,
+          "index": 1
+        },
+        {
+          "start": 6.891291,
+          "end": 10.902166,
+          "index": 2
+        },
+        {
+          "start": 10.902166,
+          "end": 14.489125,
+          "index": 3
+        },
+        {
+          "start": 14.489125,
+          "end": 18.739125,
+          "index": 4
+        },
+        {
+          "start": 18.739125,
+          "end": 23.913041,
+          "index": 5
+        },
+        {
+          "start": 23.913041,
+          "end": 26.97825,
+          "index": 6
+        },
+        {
+          "start": 26.97825,
+          "end": 31.392,
+          "index": 7
+        }
+      ],
+      "duration": 31.392
+    },
+    {
+      "id": "lesson-02",
+      "paragraphCount": 8,
+      "src": "audio/grade7/lesson-02.mp3",
+      "cues": [
+        {
+          "start": 0.0,
+          "end": 3.641291,
+          "index": 0
+        },
+        {
+          "start": 3.641291,
+          "end": 7.184791,
+          "index": 1
+        },
+        {
+          "start": 7.184791,
+          "end": 9.72825,
+          "index": 2
+        },
+        {
+          "start": 9.72825,
+          "end": 13.510875,
+          "index": 3
+        },
+        {
+          "start": 13.510875,
+          "end": 17.043458,
+          "index": 4
+        },
+        {
+          "start": 17.043458,
+          "end": 19.826083,
+          "index": 5
+        },
+        {
+          "start": 19.826083,
+          "end": 22.260875,
+          "index": 6
+        },
+        {
+          "start": 22.260875,
+          "end": 25.992,
+          "index": 7
+        }
+      ],
+      "duration": 25.992
+    },
+    {
+      "id": "lesson-03",
+      "paragraphCount": 8,
+      "src": "audio/grade7/lesson-03.mp3",
+      "cues": [
+        {
+          "start": 0.0,
+          "end": 2.336958,
+          "index": 0
+        },
+        {
+          "start": 2.336958,
+          "end": 5.739125,
+          "index": 1
+        },
+        {
+          "start": 5.739125,
+          "end": 8.847833,
+          "index": 2
+        },
+        {
+          "start": 8.847833,
+          "end": 11.847833,
+          "index": 3
+        },
+        {
+          "start": 11.847833,
+          "end": 15.315208,
+          "index": 4
+        },
+        {
+          "start": 15.315208,
+          "end": 19.043458,
+          "index": 5
+        },
+        {
+          "start": 19.043458,
+          "end": 20.75,
+          "index": 6
+        },
+        {
+          "start": 20.75,
+          "end": 24.936,
+          "index": 7
+        }
+      ],
+      "duration": 24.936
+    },
+    {
+      "id": "lesson-04",
+      "paragraphCount": 8,
+      "src": "audio/grade7/lesson-04.mp3",
+      "cues": [
+        {
+          "start": 0.0,
+          "end": 2.869583,
+          "index": 0
+        },
+        {
+          "start": 2.869583,
+          "end": 5.02175,
+          "index": 1
+        },
+        {
+          "start": 5.02175,
+          "end": 7.869583,
+          "index": 2
+        },
+        {
+          "start": 7.869583,
+          "end": 11.739125,
+          "index": 3
+        },
+        {
+          "start": 11.739125,
+          "end": 14.97825,
+          "index": 4
+        },
+        {
+          "start": 14.97825,
+          "end": 18.782625,
+          "index": 5
+        },
+        {
+          "start": 18.782625,
+          "end": 20.456541,
+          "index": 6
+        },
+        {
+          "start": 20.456541,
+          "end": 24.792,
+          "index": 7
+        }
+      ],
+      "duration": 24.792
+    },
+    {
+      "id": "lesson-05",
+      "paragraphCount": 8,
+      "src": "audio/grade7/lesson-05.mp3",
+      "cues": [
+        {
+          "start": 0.0,
+          "end": 2.782625,
+          "index": 0
+        },
+        {
+          "start": 2.782625,
+          "end": 5.586958,
+          "index": 1
+        },
+        {
+          "start": 5.586958,
+          "end": 9.717375,
+          "index": 2
+        },
+        {
+          "start": 9.717375,
+          "end": 12.826083,
+          "index": 3
+        },
+        {
+          "start": 12.826083,
+          "end": 16.184791,
+          "index": 4
+        },
+        {
+          "start": 16.184791,
+          "end": 20.152166,
+          "index": 5
+        },
+        {
+          "start": 20.152166,
+          "end": 21.826083,
+          "index": 6
+        },
+        {
+          "start": 21.826083,
+          "end": 25.848,
+          "index": 7
+        }
+      ],
+      "duration": 25.848
+    },
+    {
+      "id": "lesson-06",
+      "paragraphCount": 8,
+      "src": "audio/grade7/lesson-06.mp3",
+      "cues": [
+        {
+          "start": 0.0,
+          "end": 3.630416,
+          "index": 0
+        },
+        {
+          "start": 3.630416,
+          "end": 7.706541,
+          "index": 1
+        },
+        {
+          "start": 7.706541,
+          "end": 11.880416,
+          "index": 2
+        },
+        {
+          "start": 11.880416,
+          "end": 15.0,
+          "index": 3
+        },
+        {
+          "start": 15.0,
+          "end": 17.923916,
+          "index": 4
+        },
+        {
+          "start": 17.923916,
+          "end": 21.47825,
+          "index": 5
+        },
+        {
+          "start": 21.47825,
+          "end": 23.163041,
+          "index": 6
+        },
+        {
+          "start": 23.163041,
+          "end": 27.048,
+          "index": 7
+        }
+      ],
+      "duration": 27.048
+    },
+    {
+      "id": "lesson-07",
+      "paragraphCount": 8,
+      "src": "audio/grade7/lesson-07.mp3",
+      "cues": [
+        {
+          "start": 0.0,
+          "end": 4.815208,
+          "index": 0
+        },
+        {
+          "start": 4.815208,
+          "end": 8.836958,
+          "index": 1
+        },
+        {
+          "start": 8.836958,
+          "end": 11.891291,
+          "index": 2
+        },
+        {
+          "start": 11.891291,
+          "end": 16.173916,
+          "index": 3
+        },
+        {
+          "start": 16.173916,
+          "end": 18.815208,
+          "index": 4
+        },
+        {
+          "start": 18.815208,
+          "end": 23.163041,
+          "index": 5
+        },
+        {
+          "start": 23.163041,
+          "end": 24.858708,
+          "index": 6
+        },
+        {
+          "start": 24.858708,
+          "end": 30.216,
+          "index": 7
+        }
+      ],
+      "duration": 30.216
+    },
+    {
+      "id": "lesson-08",
+      "paragraphCount": 8,
+      "src": "audio/grade7/lesson-08.mp3",
+      "cues": [
+        {
+          "start": 0.0,
+          "end": 4.326083,
+          "index": 0
+        },
+        {
+          "start": 4.326083,
+          "end": 7.75,
+          "index": 1
+        },
+        {
+          "start": 7.75,
+          "end": 11.608708,
+          "index": 2
+        },
+        {
+          "start": 11.608708,
+          "end": 15.402166,
+          "index": 3
+        },
+        {
+          "start": 15.402166,
+          "end": 19.760875,
+          "index": 4
+        },
+        {
+          "start": 19.760875,
+          "end": 23.793458,
+          "index": 5
+        },
+        {
+          "start": 23.793458,
+          "end": 25.5,
+          "index": 6
+        },
+        {
+          "start": 25.5,
+          "end": 29.616,
+          "index": 7
+        }
+      ],
+      "duration": 29.616
+    }
+  ]
+}

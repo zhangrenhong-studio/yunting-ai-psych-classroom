@@ -27,3 +27,24 @@ body .teaching-entry-card>header{justify-content:flex-start!important;gap:8px}
 body .teaching-entry-card .teaching-card-grade{font-size:17px!important;font-weight:750!important;color:#244e48!important}
 body .teaching-entry-card .teaching-card-entry{position:relative;z-index:1;font-size:13px;font-weight:650;color:#39766b;margin-top:20px}
 body .teaching-entry-card:focus-visible{outline:3px solid #278774;outline-offset:3px}
+
+/* Teacher course management: completion belongs to class + course, never the library. */
+body #content .modern-course-card.course-completed,
+body #content .modern-course-card.course-completed:nth-child(n){background:#f1f3f4!important;border-color:#e3e6e8!important;box-shadow:0 8px 20px rgba(55,65,75,.06)!important}
+body #content .modern-course-card.course-completed:before{background:rgba(120,130,140,.08)!important}
+body #content .modern-course-card.course-completed .course-history-open{background:#e1e5e8!important;border:1px solid #cbd2d7!important;color:#46515a!important;cursor:pointer;opacity:1}
+body #content .modern-course-card.course-completed .course-history-open:hover{background:#d5dce1!important}
+body #content .course-history-open:focus-visible,body #content .course-create:focus-visible{outline:3px solid #278774;outline-offset:3px}
+body #content .course-create{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;min-width:148px;padding:12px 24px;border-radius:12px;background:#168677;color:#fff;font-size:16px;font-weight:700;text-decoration:none;white-space:nowrap}
+body #content .course-create i{font-size:22px;font-style:normal;line-height:1}
+body #content .course-create:hover{background:#117364}
+body #content .course-dimensions{display:flex;flex-wrap:wrap;gap:5px;margin:5px 0 9px;position:relative;z-index:1}
+body #content .course-dimensions span{display:inline-block;padding:2px 7px;border-radius:6px;background:rgba(255,255,255,.76);border:1px solid rgba(85,114,108,.16);color:#536c65;font-size:11px;line-height:16px;white-space:nowrap}
+body #content .modern-course-card.course-card-compact:has(.course-dimensions){height:198px!important}
+/* Semantic hook for supplemental-content actions (kept distinct from launch/records). */
+body #content .course-supplement,body #content [data-supplement-content]{background:#fff0cc!important;border:1px solid #dfb45e!important;color:#80520c!important}
+@media(max-width:600px){body #content .arrangement-toolbar-actions{flex-wrap:wrap}body #content .course-create{min-height:48px;padding:12px 18px}}
+
+
+/* Actual weekly teaching-plan cards: completion and content readiness. */
+body .slot-card-v3:has(.slot-status[data-status="已结束"]){background:#f0f2f3!important;border-color:#dce0e3!important;box-shadow:none!important}body .slot-card-v3:has(.slot-status[data-status="已结束"]) [data-slot-action]{background:#dfe3e6!important;border-color:#cdd3d8!important;color:#4d5860!important}body .slot-card-v3:has(.slot-status[data-status="待补内容"]) [data-slot-action],body .slot-card-v3:has(.slot-status[data-status="备课未完成"]) [data-slot-action]{background:#fff0cc!important;border-color:#dfb45e!important;color:#80520c!important}

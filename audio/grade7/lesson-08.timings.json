@@ -1,0 +1,614 @@
+{
+  "voice": "zh-CN-XiaoxiaoNeural",
+  "rate": "+15%",
+  "textSha256": "7b86f0992b2f65b5657a5609a4840fe25c1f9593492cfee1984a34080e82974a",
+  "narratedText": "学期快结束了，老师让大家写一份学期心理小结。\n小琳拿着笔坐了半天，不知道该写什么。\n这一学期好像过得很快，又好像什么都没留下。\n她想不起来自己到底学会了什么，改变了什么，\n也说不出自己还有什么困惑，下学期想变成什么样。\n她有点慌：一学期过去了，我是不是什么都没成长？\n小琳不知道的是：\n成长不是惊天动地的变化，它藏在每一个小瞬间里。",
+  "titleNarrated": false,
+  "timingMethod": "Edge WordBoundary monotonic normalized text alignment",
+  "boundaries": [
+    {
+      "type": "WordBoundary",
+      "offset": 934580,
+      "duration": 3260830,
+      "text": "学期"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 4412910,
+      "duration": 1521660,
+      "text": "快"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 5934580,
+      "duration": 4130410,
+      "text": "结束"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 10065410,
+      "duration": 1739160,
+      "text": "了"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 14739160,
+      "duration": 4130410,
+      "text": "老师"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 18978330,
+      "duration": 1630410,
+      "text": "让"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 20717500,
+      "duration": 2608750,
+      "text": "大家"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 23543330,
+      "duration": 1521660,
+      "text": "写"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 25065410,
+      "duration": 869160,
+      "text": "一"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 25934580,
+      "duration": 1412910,
+      "text": "份"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 27565410,
+      "duration": 2934580,
+      "text": "学期"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 30608750,
+      "duration": 2500000,
+      "text": "心理"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 33217500,
+      "duration": 5108750,
+      "text": "小结"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 43260830,
+      "duration": 4239160,
+      "text": "小琳"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 47717500,
+      "duration": 1521660,
+      "text": "拿"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 49239160,
+      "duration": 3369580,
+      "text": "着笔"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 52826250,
+      "duration": 1412910,
+      "text": "坐"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 54239160,
+      "duration": 652080,
+      "text": "了"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 55000000,
+      "duration": 4782500,
+      "text": "半天"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 61847910,
+      "duration": 1086660,
+      "text": "不"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 62934580,
+      "duration": 2608750,
+      "text": "知道"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 65760830,
+      "duration": 1521660,
+      "text": "该"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 67282500,
+      "duration": 1739160,
+      "text": "写"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 69021660,
+      "duration": 3587080,
+      "text": "什么"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 77500000,
+      "duration": 1739160,
+      "text": "这"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 79239160,
+      "duration": 869580,
+      "text": "一"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 80217500,
+      "duration": 4782500,
+      "text": "学期"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 85869580,
+      "duration": 2934580,
+      "text": "好像"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 88912910,
+      "duration": 978330,
+      "text": "过"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 89891250,
+      "duration": 760830,
+      "text": "得"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 90760830,
+      "duration": 4673750,
+      "text": "很快"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 97934580,
+      "duration": 1087080,
+      "text": "又"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 99021660,
+      "duration": 2934580,
+      "text": "好像"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 102173750,
+      "duration": 6521660,
+      "text": "什么都没留"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 108695830,
+      "duration": 2500000,
+      "text": "下"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 116087080,
+      "duration": 1412910,
+      "text": "她"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 117500000,
+      "duration": 1739160,
+      "text": "想"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 119239160,
+      "duration": 652080,
+      "text": "不"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 120000000,
+      "duration": 4456660,
+      "text": "起来"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 125434580,
+      "duration": 2391250,
+      "text": "自己"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 127934580,
+      "duration": 2500000,
+      "text": "到底"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 130652080,
+      "duration": 3695830,
+      "text": "学会"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 134347910,
+      "duration": 652080,
+      "text": "了"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 135108750,
+      "duration": 3369580,
+      "text": "什么"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 141087080,
+      "duration": 3804160,
+      "text": "改变"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 144891250,
+      "duration": 652080,
+      "text": "了"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 145652080,
+      "duration": 3369580,
+      "text": "什么"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 154021660,
+      "duration": 1412910,
+      "text": "也"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 155434580,
+      "duration": 1630410,
+      "text": "说"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 157065410,
+      "duration": 869160,
+      "text": "不"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 157934580,
+      "duration": 3043330,
+      "text": "出"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 161847910,
+      "duration": 2717500,
+      "text": "自己"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 164673750,
+      "duration": 2282500,
+      "text": "还有"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 167065410,
+      "duration": 1847910,
+      "text": "什么"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 169021660,
+      "duration": 4782500,
+      "text": "困惑"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 176630410,
+      "duration": 1847910,
+      "text": "下"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 178478330,
+      "duration": 4673750,
+      "text": "学期"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 183369580,
+      "duration": 1956660,
+      "text": "想"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 185434580,
+      "duration": 2608750,
+      "text": "变成"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 188152080,
+      "duration": 4456660,
+      "text": "什么样"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 197608750,
+      "duration": 1195830,
+      "text": "她"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 198912910,
+      "duration": 2934580,
+      "text": "有点"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 201847910,
+      "duration": 2500000,
+      "text": "慌"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 207065410,
+      "duration": 1195410,
+      "text": "一"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 208260830,
+      "duration": 3369580,
+      "text": "学期"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 211739160,
+      "duration": 3260830,
+      "text": "过去"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 215000000,
+      "duration": 1630410,
+      "text": "了"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 219130410,
+      "duration": 1087080,
+      "text": "我"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 220326250,
+      "duration": 3152080,
+      "text": "是不是"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 223695830,
+      "duration": 2282500,
+      "text": "什么"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 226087080,
+      "duration": 1195410,
+      "text": "都"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 227282500,
+      "duration": 1195830,
+      "text": "没"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 228587080,
+      "duration": 4347910,
+      "text": "成长"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 237934580,
+      "duration": 4021660,
+      "text": "小琳"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 241956660,
+      "duration": 1087080,
+      "text": "不"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 243152080,
+      "duration": 2934580,
+      "text": "知道"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 246087080,
+      "duration": 978330,
+      "text": "的"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 247065410,
+      "duration": 3043330,
+      "text": "是"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 255000000,
+      "duration": 3912910,
+      "text": "成长"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 259130410,
+      "duration": 2282500,
+      "text": "不是"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 261521660,
+      "duration": 6195830,
+      "text": "惊天动地"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 267717500,
+      "duration": 760830,
+      "text": "的"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 268587080,
+      "duration": 4456660,
+      "text": "变化"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 275543330,
+      "duration": 1195830,
+      "text": "它"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 276739160,
+      "duration": 1847910,
+      "text": "藏"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 278587080,
+      "duration": 1304160,
+      "text": "在"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 280108750,
+      "duration": 1630410,
+      "text": "每"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 281739160,
+      "duration": 1739160,
+      "text": "一个"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 283587080,
+      "duration": 1739160,
+      "text": "小"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 285326250,
+      "duration": 4130410,
+      "text": "瞬间"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 289456660,
+      "duration": 1630410,
+      "text": "里"
+    }
+  ],
+  "cues": [
+    {
+      "start": 0.0,
+      "end": 4.326083,
+      "index": 0
+    },
+    {
+      "start": 4.326083,
+      "end": 7.75,
+      "index": 1
+    },
+    {
+      "start": 7.75,
+      "end": 11.608708,
+      "index": 2
+    },
+    {
+      "start": 11.608708,
+      "end": 15.402166,
+      "index": 3
+    },
+    {
+      "start": 15.402166,
+      "end": 19.760875,
+      "index": 4
+    },
+    {
+      "start": 19.760875,
+      "end": 23.793458,
+      "index": 5
+    },
+    {
+      "start": 23.793458,
+      "end": 25.5,
+      "index": 6
+    },
+    {
+      "start": 25.5,
+      "end": 29.616,
+      "index": 7
+    }
+  ],
+  "duration": 29.616,
+  "probe": {
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "codec_name": "mp3",
+        "sample_rate": "24000",
+        "channels": 1
+      }
+    ],
+    "format": {
+      "duration": "29.616000",
+      "size": "177696"
+    }
+  }
+}

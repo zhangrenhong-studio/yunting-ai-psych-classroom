@@ -1,0 +1,590 @@
+{
+  "voice": "zh-CN-XiaoxiaoNeural",
+  "rate": "+15%",
+  "textSha256": "e7538fb4c08e542f01a355550c741d9ed0bfc41e08d97db729052b7a86ac4e51",
+  "narratedText": "最近小琪特别爱照镜子，也特别怕照镜子。\n她发现自己脸上长了小痘痘，眼睛好像也不够大，\n腿好像也有点粗。为什么同桌就长得那么好看？\n她开始不爱拍照，也不太敢抬头看人，\n总觉得别人都在盯着她的缺点看。\n她甚至开始想：要是我能变成另一个人就好了。\n小琪不知道的是：\n她眼中的「缺点」，其实是成长正在发生的信号。",
+  "titleNarrated": false,
+  "timingMethod": "Edge WordBoundary monotonic normalized text alignment",
+  "boundaries": [
+    {
+      "type": "WordBoundary",
+      "offset": 934580,
+      "duration": 3043330,
+      "text": "最近"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 4087080,
+      "duration": 1847500,
+      "text": "小"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 5934580,
+      "duration": 2065410,
+      "text": "琪"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 8217500,
+      "duration": 4021660,
+      "text": "特别爱"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 12239160,
+      "duration": 1412910,
+      "text": "照"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 13760830,
+      "duration": 4130410,
+      "text": "镜子"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 20173750,
+      "duration": 978330,
+      "text": "也"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 21260830,
+      "duration": 3043330,
+      "text": "特别"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 24412910,
+      "duration": 1412910,
+      "text": "怕"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 25826250,
+      "duration": 1412910,
+      "text": "照"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 27347910,
+      "duration": 4021660,
+      "text": "镜子"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 36304160,
+      "duration": 1304160,
+      "text": "她"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 37608750,
+      "duration": 5000000,
+      "text": "发现"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 43478330,
+      "duration": 2608750,
+      "text": "自己"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 46195830,
+      "duration": 3260830,
+      "text": "脸上"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 49673750,
+      "duration": 1195830,
+      "text": "长"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 50869580,
+      "duration": 652080,
+      "text": "了"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 51630410,
+      "duration": 1739160,
+      "text": "小"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 53369580,
+      "duration": 3912910,
+      "text": "痘痘"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 59891250,
+      "duration": 2826250,
+      "text": "眼睛"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 62826250,
+      "duration": 3152080,
+      "text": "好像"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 66087080,
+      "duration": 978330,
+      "text": "也"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 67173750,
+      "duration": 2826250,
+      "text": "不够"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 70000000,
+      "duration": 2173750,
+      "text": "大"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 77065410,
+      "duration": 2065410,
+      "text": "腿"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 79239160,
+      "duration": 3478330,
+      "text": "好像"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 82826250,
+      "duration": 869580,
+      "text": "也"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 83804160,
+      "duration": 3043330,
+      "text": "有点"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 86847910,
+      "duration": 3152080,
+      "text": "粗"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 94891250,
+      "duration": 3804160,
+      "text": "为什么"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 98804160,
+      "duration": 2282500,
+      "text": "同"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 101087080,
+      "duration": 2282500,
+      "text": "桌"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 103587080,
+      "duration": 1412910,
+      "text": "就"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 105000000,
+      "duration": 1630410,
+      "text": "长"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 106630410,
+      "duration": 760830,
+      "text": "得"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 107608750,
+      "duration": 1739160,
+      "text": "那么"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 109456660,
+      "duration": 4347910,
+      "text": "好看"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 118804160,
+      "duration": 1304160,
+      "text": "她"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 120108750,
+      "duration": 2934580,
+      "text": "开始"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 123260830,
+      "duration": 869580,
+      "text": "不"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 124130410,
+      "duration": 1195830,
+      "text": "爱"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 125434580,
+      "duration": 4673750,
+      "text": "拍照"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 132500000,
+      "duration": 1195830,
+      "text": "也"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 133804160,
+      "duration": 978330,
+      "text": "不"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 134782500,
+      "duration": 1412910,
+      "text": "太"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 136195830,
+      "duration": 1521660,
+      "text": "敢"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 137934580,
+      "duration": 2826250,
+      "text": "抬头"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 140869580,
+      "duration": 4130410,
+      "text": "看人"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 150000000,
+      "duration": 2391250,
+      "text": "总"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 152391250,
+      "duration": 4456660,
+      "text": "觉得"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 157826250,
+      "duration": 3043330,
+      "text": "别人"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 160978330,
+      "duration": 1195410,
+      "text": "都"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 162173750,
+      "duration": 1521660,
+      "text": "在"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 163804160,
+      "duration": 1521660,
+      "text": "盯"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 165326250,
+      "duration": 652080,
+      "text": "着"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 166195830,
+      "duration": 977910,
+      "text": "她"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 167173750,
+      "duration": 760830,
+      "text": "的"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 168043330,
+      "duration": 3587080,
+      "text": "缺点"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 171630410,
+      "duration": 2717500,
+      "text": "看"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 179239160,
+      "duration": 1304160,
+      "text": "她"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 180543330,
+      "duration": 2500000,
+      "text": "甚至"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 183152080,
+      "duration": 3369580,
+      "text": "开始"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 186521660,
+      "duration": 2934580,
+      "text": "想"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 192065410,
+      "duration": 2717500,
+      "text": "要是"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 194891250,
+      "duration": 1087080,
+      "text": "我"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 195978330,
+      "duration": 978330,
+      "text": "能"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 197065410,
+      "duration": 2826250,
+      "text": "变成"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 200108750,
+      "duration": 4673750,
+      "text": "另一个人"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 205000000,
+      "duration": 760830,
+      "text": "就"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 205869580,
+      "duration": 2173750,
+      "text": "好"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 208043330,
+      "duration": 1847910,
+      "text": "了"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 214782500,
+      "duration": 3804160,
+      "text": "小琪"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 218804160,
+      "duration": 978330,
+      "text": "不"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 219782500,
+      "duration": 3043330,
+      "text": "知道"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 222826250,
+      "duration": 977910,
+      "text": "的"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 223804160,
+      "duration": 2934580,
+      "text": "是"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 231630410,
+      "duration": 1412910,
+      "text": "她"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 233043330,
+      "duration": 3152080,
+      "text": "眼中"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 236195830,
+      "duration": 869580,
+      "text": "的"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 237173750,
+      "duration": 4891250,
+      "text": "缺点"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 244673750,
+      "duration": 2826250,
+      "text": "其实"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 247500000,
+      "duration": 1304160,
+      "text": "是"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 248912910,
+      "duration": 4782500,
+      "text": "成长"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 253912910,
+      "duration": 2934580,
+      "text": "正在"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 256956660,
+      "duration": 2934580,
+      "text": "发生"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 259891250,
+      "duration": 652080,
+      "text": "的"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 260652080,
+      "duration": 4782500,
+      "text": "信号"
+    }
+  ],
+  "cues": [
+    {
+      "start": 0.0,
+      "end": 3.630416,
+      "index": 0
+    },
+    {
+      "start": 3.630416,
+      "end": 7.706541,
+      "index": 1
+    },
+    {
+      "start": 7.706541,
+      "end": 11.880416,
+      "index": 2
+    },
+    {
+      "start": 11.880416,
+      "end": 15.0,
+      "index": 3
+    },
+    {
+      "start": 15.0,
+      "end": 17.923916,
+      "index": 4
+    },
+    {
+      "start": 17.923916,
+      "end": 21.47825,
+      "index": 5
+    },
+    {
+      "start": 21.47825,
+      "end": 23.163041,
+      "index": 6
+    },
+    {
+      "start": 23.163041,
+      "end": 27.048,
+      "index": 7
+    }
+  ],
+  "duration": 27.048,
+  "probe": {
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "codec_name": "mp3",
+        "sample_rate": "24000",
+        "channels": 1
+      }
+    ],
+    "format": {
+      "duration": "27.048000",
+      "size": "162288"
+    }
+  }
+}

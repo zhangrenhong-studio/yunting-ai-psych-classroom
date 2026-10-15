@@ -30,12 +30,12 @@
             courses: [
               { order: 1, title: '走进初中，拥抱新起点',   summary: '初中生活变化与心理适应、新生常见迷茫调适、班级心理融入', courseId: 'lesson-01' },
               { order: 2, title: '独一无二的我',           summary: '我的优缺点盘点、正视不完美、拒绝自我否定、学会接纳自己', courseId: 'lesson-02' },
-              { order: 3, title: '情绪小管家',             summary: '喜怒哀乐的情绪分类、读懂自己的情绪信号、情绪无好坏', courseId: null },
-              { order: 4, title: '学会好好说话',           summary: '同学相处之道、初识交往边界、学会倾听与礼貌表达', courseId: null },
-              { order: 5, title: '告别拖延，轻松学习',     summary: '拖延心理成因、克服惰性的小方法、合理分配时间', courseId: null },
-              { order: 6, title: '青春期的小变化',         summary: '身心变化、正视成长发育差异、克服容貌焦虑', courseId: null },
-              { order: 7, title: '面对挫折，勇敢前行',     summary: '考试失利、交友受挫后的心理调适、培养初步抗挫能力', courseId: null },
-              { order: 8, title: '学期心理复盘与成长规划', summary: '本学期心理成长总结、梳理自身问题、制定下学期目标', courseId: null }
+              { order: 3, title: '情绪小管家',             summary: '喜怒哀乐的情绪分类、读懂自己的情绪信号、情绪无好坏', courseId: 'lesson-03' },
+              { order: 4, title: '学会好好说话',           summary: '同学相处之道、初识交往边界、学会倾听与礼貌表达', courseId: 'lesson-04' },
+              { order: 5, title: '告别拖延，轻松学习',     summary: '拖延心理成因、克服惰性的小方法、合理分配时间', courseId: 'lesson-05' },
+              { order: 6, title: '青春期的小变化',         summary: '身心变化、正视成长发育差异、克服容貌焦虑', courseId: 'lesson-06' },
+              { order: 7, title: '面对挫折，勇敢前行',     summary: '考试失利、交友受挫后的心理调适、培养初步抗挫能力', courseId: 'lesson-07' },
+              { order: 8, title: '学期心理复盘与成长规划', summary: '本学期心理成长总结、梳理自身问题、制定下学期目标', courseId: 'lesson-08' }
             ]
           },
           {

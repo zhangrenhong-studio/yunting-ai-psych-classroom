@@ -1,0 +1,554 @@
+{
+  "voice": "zh-CN-XiaoxiaoNeural",
+  "rate": "+15%",
+  "textSha256": "473baa90b02a135d50e9e6ae5dd5955d0487fa92d938ae72dd8c4381aff27316",
+  "narratedText": "小辰有个小本子，上面写着他的「缺点清单」：\n体育不好、数学不算拔尖、口才也一般，\n长得也不是那种特别帅的男生。\n每次看到同桌又考了高分、又被老师表扬，\n小辰就会翻开那个小本子，一条一条对照——\n嗯，我果然还是哪里都不够好。\n小辰从来没在本子上写过：\n「我画画很好看」「我对朋友特别真心」「我很会安慰人」。",
+  "titleNarrated": false,
+  "timingMethod": "Edge WordBoundary monotonic normalized text alignment",
+  "boundaries": [
+    {
+      "type": "WordBoundary",
+      "offset": 934580,
+      "duration": 4021660,
+      "text": "小辰"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 5173750,
+      "duration": 1087080,
+      "text": "有"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 6260830,
+      "duration": 543330,
+      "text": "个"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 6912910,
+      "duration": 1847910,
+      "text": "小"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 8760830,
+      "duration": 4565410,
+      "text": "本子"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 16043330,
+      "duration": 3369580,
+      "text": "上面"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 19521660,
+      "duration": 1630410,
+      "text": "写"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 21152080,
+      "duration": 760830,
+      "text": "着"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 22021660,
+      "duration": 1087080,
+      "text": "他"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 23108750,
+      "duration": 760830,
+      "text": "的"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 24087080,
+      "duration": 3043330,
+      "text": "缺点"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 27239160,
+      "duration": 4239160,
+      "text": "清单"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 36412910,
+      "duration": 3043330,
+      "text": "体育"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 39565410,
+      "duration": 4130410,
+      "text": "不好"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 45978330,
+      "duration": 3043330,
+      "text": "数学"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 49239160,
+      "duration": 869580,
+      "text": "不"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 50108750,
+      "duration": 6087080,
+      "text": "算拔尖"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 57934580,
+      "duration": 4130410,
+      "text": "口才"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 62282500,
+      "duration": 978330,
+      "text": "也"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 63369580,
+      "duration": 3478330,
+      "text": "一般"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 71847910,
+      "duration": 2500000,
+      "text": "长"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 74347910,
+      "duration": 978330,
+      "text": "得"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 75543330,
+      "duration": 978330,
+      "text": "也"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 76521660,
+      "duration": 2173750,
+      "text": "不是"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 78804160,
+      "duration": 2826250,
+      "text": "那种"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 81847910,
+      "duration": 3152080,
+      "text": "特别"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 85108750,
+      "duration": 2065000,
+      "text": "帅"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 87173750,
+      "duration": 652080,
+      "text": "的"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 87934580,
+      "duration": 4347910,
+      "text": "男生"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 97282500,
+      "duration": 3369580,
+      "text": "每次"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 100760830,
+      "duration": 4782500,
+      "text": "看到"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 106412910,
+      "duration": 2065410,
+      "text": "同"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 108478330,
+      "duration": 1304160,
+      "text": "桌"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 110000000,
+      "duration": 1087080,
+      "text": "又"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 111195830,
+      "duration": 1630410,
+      "text": "考"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 112826250,
+      "duration": 652080,
+      "text": "了"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 113587080,
+      "duration": 4021660,
+      "text": "高分"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 120000000,
+      "duration": 1304160,
+      "text": "又"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 121304160,
+      "duration": 978330,
+      "text": "被"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 122391250,
+      "duration": 2934580,
+      "text": "老师"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 125434580,
+      "duration": 4673750,
+      "text": "表扬"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 135108750,
+      "duration": 5326250,
+      "text": "小辰"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 140652080,
+      "duration": 1087080,
+      "text": "就"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 141739160,
+      "duration": 1087080,
+      "text": "会"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 142934580,
+      "duration": 2826250,
+      "text": "翻开"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 145978330,
+      "duration": 1521660,
+      "text": "那个"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 147608750,
+      "duration": 1739160,
+      "text": "小"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 149347910,
+      "duration": 4347910,
+      "text": "本子"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 155869580,
+      "duration": 2608750,
+      "text": "一条"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 158587080,
+      "duration": 2500000,
+      "text": "一条"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 161195830,
+      "duration": 4239160,
+      "text": "对照"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 170434580,
+      "duration": 2065410,
+      "text": "嗯"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 175434580,
+      "duration": 1195830,
+      "text": "我"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 176739160,
+      "duration": 4565410,
+      "text": "果然"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 182065410,
+      "duration": 2391250,
+      "text": "还是"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 184565410,
+      "duration": 2608750,
+      "text": "哪里"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 187282500,
+      "duration": 978330,
+      "text": "都"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 188369580,
+      "duration": 2173750,
+      "text": "不够"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 190543330,
+      "duration": 2826250,
+      "text": "好"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 198260830,
+      "duration": 4239160,
+      "text": "小辰"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 202717500,
+      "duration": 3043330,
+      "text": "从来"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 205869580,
+      "duration": 1195830,
+      "text": "没"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 207065410,
+      "duration": 1304160,
+      "text": "在"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 208587080,
+      "duration": 2391250,
+      "text": "本子"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 210978330,
+      "duration": 1630410,
+      "text": "上"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 212717500,
+      "duration": 2282500,
+      "text": "写"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 215000000,
+      "duration": 2717500,
+      "text": "过"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 222608750,
+      "duration": 1195410,
+      "text": "我"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 223804160,
+      "duration": 3152080,
+      "text": "画画"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 227173750,
+      "duration": 1630410,
+      "text": "很"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 228804160,
+      "duration": 4239160,
+      "text": "好看"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 233260830,
+      "duration": 869580,
+      "text": "我"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 234130410,
+      "duration": 978330,
+      "text": "对"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 235217500,
+      "duration": 3043330,
+      "text": "朋友"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 238478330,
+      "duration": 2717500,
+      "text": "特别"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 241304160,
+      "duration": 4021660,
+      "text": "真心"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 245543330,
+      "duration": 869580,
+      "text": "我"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 246521660,
+      "duration": 1739160,
+      "text": "很"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 248260830,
+      "duration": 1412910,
+      "text": "会"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 249782500,
+      "duration": 3152080,
+      "text": "安慰"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 252934580,
+      "duration": 2065410,
+      "text": "人"
+    }
+  ],
+  "cues": [
+    {
+      "start": 0.0,
+      "end": 3.641291,
+      "index": 0
+    },
+    {
+      "start": 3.641291,
+      "end": 7.184791,
+      "index": 1
+    },
+    {
+      "start": 7.184791,
+      "end": 9.72825,
+      "index": 2
+    },
+    {
+      "start": 9.72825,
+      "end": 13.510875,
+      "index": 3
+    },
+    {
+      "start": 13.510875,
+      "end": 17.043458,
+      "index": 4
+    },
+    {
+      "start": 17.043458,
+      "end": 19.826083,
+      "index": 5
+    },
+    {
+      "start": 19.826083,
+      "end": 22.260875,
+      "index": 6
+    },
+    {
+      "start": 22.260875,
+      "end": 25.992,
+      "index": 7
+    }
+  ],
+  "duration": 25.992,
+  "probe": {
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "codec_name": "mp3",
+        "sample_rate": "24000",
+        "channels": 1
+      }
+    ],
+    "format": {
+      "duration": "25.992000",
+      "size": "155952"
+    }
+  }
+}

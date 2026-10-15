@@ -1,0 +1,542 @@
+{
+  "voice": "zh-CN-XiaoxiaoNeural",
+  "rate": "+15%",
+  "textSha256": "71790c7d20d1719c0eaab141063fa0e2cfa591bc200876f814c77de0c71d1578",
+  "narratedText": "课间的时候，小浩随口说了一句：\n「你这衣服也太丑了吧。」\n他本来只是开玩笑，说完就忘了。\n可旁边的小宇却一下子红了脸，半天没说话。\n之后好几天，小宇都不太爱搭理小浩。\n小浩特别纳闷：不就一句话吗，至于这么小气？\n小浩不知道的是：\n那件衣服是小宇妈妈攒了好久钱给他买的生日礼物。",
+  "titleNarrated": false,
+  "timingMethod": "Edge WordBoundary monotonic normalized text alignment",
+  "boundaries": [
+    {
+      "type": "WordBoundary",
+      "offset": 934580,
+      "duration": 3587080,
+      "text": "课间"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 4521660,
+      "duration": 760830,
+      "text": "的"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 5391250,
+      "duration": 4021660,
+      "text": "时候"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 11369580,
+      "duration": 3043330,
+      "text": "小浩"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 14630410,
+      "duration": 3152080,
+      "text": "随口"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 17891250,
+      "duration": 1521660,
+      "text": "说"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 19412910,
+      "duration": 652080,
+      "text": "了"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 20173750,
+      "duration": 1412910,
+      "text": "一"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 21587080,
+      "duration": 2282500,
+      "text": "句"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 28695830,
+      "duration": 1304160,
+      "text": "你"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 30108750,
+      "duration": 1087080,
+      "text": "这"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 31195830,
+      "duration": 4891250,
+      "text": "衣服"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 36956660,
+      "duration": 1195410,
+      "text": "也"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 38152080,
+      "duration": 1956660,
+      "text": "太"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 40108750,
+      "duration": 2065000,
+      "text": "丑"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 42173750,
+      "duration": 760830,
+      "text": "了"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 42934580,
+      "duration": 2391250,
+      "text": "吧"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 50217500,
+      "duration": 1304160,
+      "text": "他"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 51630410,
+      "duration": 2826250,
+      "text": "本来"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 54673750,
+      "duration": 2173750,
+      "text": "只是"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 56956660,
+      "duration": 5978330,
+      "text": "开玩笑"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 65000000,
+      "duration": 1847910,
+      "text": "说"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 66847910,
+      "duration": 1847910,
+      "text": "完"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 68804160,
+      "duration": 978330,
+      "text": "就"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 69891250,
+      "duration": 2391250,
+      "text": "忘"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 72282500,
+      "duration": 1521660,
+      "text": "了"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 78695830,
+      "duration": 1304160,
+      "text": "可"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 80108750,
+      "duration": 2934580,
+      "text": "旁边"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 83043330,
+      "duration": 652080,
+      "text": "的"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 83804160,
+      "duration": 5108750,
+      "text": "小宇"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 89891250,
+      "duration": 1739160,
+      "text": "却"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 91739160,
+      "duration": 4130410,
+      "text": "一下子"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 95978330,
+      "duration": 1630410,
+      "text": "红"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 97608750,
+      "duration": 869580,
+      "text": "了"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 98478330,
+      "duration": 2391250,
+      "text": "脸"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 103478330,
+      "duration": 3152080,
+      "text": "半天"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 106739160,
+      "duration": 1412910,
+      "text": "没"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 108152080,
+      "duration": 4347910,
+      "text": "说话"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 117391250,
+      "duration": 2717500,
+      "text": "之后"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 120217500,
+      "duration": 5869580,
+      "text": "好几天"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 128478330,
+      "duration": 4456660,
+      "text": "小宇"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 133152080,
+      "duration": 1412910,
+      "text": "都"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 134673750,
+      "duration": 869580,
+      "text": "不"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 135543330,
+      "duration": 1304160,
+      "text": "太"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 136847910,
+      "duration": 1195830,
+      "text": "爱"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 138152080,
+      "duration": 2282500,
+      "text": "搭理"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 140543330,
+      "duration": 4239160,
+      "text": "小浩"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 149782500,
+      "duration": 3587080,
+      "text": "小浩"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 153587080,
+      "duration": 2826250,
+      "text": "特别"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 156521660,
+      "duration": 3587080,
+      "text": "纳闷"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 162500000,
+      "duration": 1087080,
+      "text": "不"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 163587080,
+      "duration": 1195830,
+      "text": "就"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 164891250,
+      "duration": 4782500,
+      "text": "一句话"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 169673750,
+      "duration": 2173750,
+      "text": "吗"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 173912910,
+      "duration": 2282500,
+      "text": "至于"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 176304160,
+      "duration": 1956660,
+      "text": "这么"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 178369580,
+      "duration": 4456660,
+      "text": "小气"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 187826250,
+      "duration": 4021660,
+      "text": "小浩"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 191847910,
+      "duration": 869580,
+      "text": "不"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 192826250,
+      "duration": 2934580,
+      "text": "知道"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 195760830,
+      "duration": 978330,
+      "text": "的"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 196739160,
+      "duration": 2934580,
+      "text": "是"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 204565410,
+      "duration": 1521660,
+      "text": "那"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 206087080,
+      "duration": 1521660,
+      "text": "件"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 207717500,
+      "duration": 4782500,
+      "text": "衣服"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 213369580,
+      "duration": 1304160,
+      "text": "是"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 214782500,
+      "duration": 1847910,
+      "text": "小"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 216630410,
+      "duration": 1195830,
+      "text": "宇"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 217826250,
+      "duration": 2826250,
+      "text": "妈妈"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 220869580,
+      "duration": 1630410,
+      "text": "攒"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 222500000,
+      "duration": 652080,
+      "text": "了"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 223260830,
+      "duration": 3587080,
+      "text": "好久"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 226847910,
+      "duration": 3369580,
+      "text": "钱"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 231087080,
+      "duration": 1195410,
+      "text": "给"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 232282500,
+      "duration": 1087080,
+      "text": "他"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 233478330,
+      "duration": 1412910,
+      "text": "买"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 234891250,
+      "duration": 760830,
+      "text": "的"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 235869580,
+      "duration": 2717500,
+      "text": "生日"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 238695830,
+      "duration": 4130410,
+      "text": "礼物"
+    }
+  ],
+  "cues": [
+    {
+      "start": 0.0,
+      "end": 2.869583,
+      "index": 0
+    },
+    {
+      "start": 2.869583,
+      "end": 5.02175,
+      "index": 1
+    },
+    {
+      "start": 5.02175,
+      "end": 7.869583,
+      "index": 2
+    },
+    {
+      "start": 7.869583,
+      "end": 11.739125,
+      "index": 3
+    },
+    {
+      "start": 11.739125,
+      "end": 14.97825,
+      "index": 4
+    },
+    {
+      "start": 14.97825,
+      "end": 18.782625,
+      "index": 5
+    },
+    {
+      "start": 18.782625,
+      "end": 20.456541,
+      "index": 6
+    },
+    {
+      "start": 20.456541,
+      "end": 24.792,
+      "index": 7
+    }
+  ],
+  "duration": 24.792,
+  "probe": {
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "codec_name": "mp3",
+        "sample_rate": "24000",
+        "channels": 1
+      }
+    ],
+    "format": {
+      "duration": "24.792000",
+      "size": "148752"
+    }
+  }
+}

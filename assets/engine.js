@@ -145,6 +145,7 @@
      ====================================================================== */
 
   function buildStory(course, onDone) {
+    if (global.YTStoryLetter) { return global.YTStoryLetter.build(course, onDone); }
     var d = course.stages.story;
     var beats = d.beats || [];
     var p = d.prompt || {};
@@ -801,11 +802,7 @@
 
     for (var i = 0; i < app.stages.length; i++) {
       var s = app.stages[i];
-      if (i === idx) {
-        s.root.className = 'stage is-active';
-      } else {
-        s.root.className = 'stage';
-      }
+      s.root.classList.toggle('is-active', i === idx);
     }
 
     applyTrack(document.body, (app.course.tracks || {})[STAGE_ORDER[idx]] || 'green');
@@ -948,7 +945,7 @@
     }
 
     /* 评审导航：真实课堂版本没有这个入口，学生不能自由跳转 */
-    if (app.review) {
+    if (app.review && param('review') === '1') {
       document.body.className = 'has-review-nav';
 
       var nav = el('nav', 'review-nav');
@@ -1039,7 +1036,7 @@
        真实产品须由已鉴权的实时课堂服务替代此浏览器本地状态。 */
     if (!app.review && global.YTClassroomDemo) {
       function followTeacher(session) {
-        if (!session || !session.active || session.courseId !== course.id) { return; }
+        if (!session || !session.active || session.courseId !== course.id) { if (story.setPaused) story.setPaused(true); return; }
         var followedStage = app.teacherPreview
           ? (session.progressMode === 'student' ? (session.teacherPreviewStage || session.stage) : session.stage)
           : (session.progressMode === 'student' ? (session.studentStage || session.stage) : session.stage);
@@ -1049,6 +1046,7 @@
           goTo(target, true);
           setClassroomGate(null);
         }
+        if (story.setPaused) story.setPaused(!!session.paused || session.status === 'waiting');
         document.body.className = session.paused ? 'classroom-is-paused' : (session.status === 'waiting' ? 'classroom-is-waiting' : '');
         if (session.status === 'waiting') {
           setClassroomGate('waiting', '课堂即将开始', '请留在这里，老师准备好后会带大家一起进入。');
