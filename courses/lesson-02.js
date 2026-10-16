@@ -227,7 +227,7 @@ window.COURSE_REGISTRY.push({
        ------------------------------------------------------------------ */
     playground: {
       title: '选择一项大脑训练',
-      intro: '从注意力、视觉观察和记忆等训练中自由选择。每一项都可以反复玩，也可以随时返回选择其他训练。',
+      intro: '从注意力、视觉观察和记忆等训练中自由选择。每一项都可以反复训练，也可以随时返回选择其他训练。',
       appIds: ['schulte','kaleidoscope','stroop','digit','path','target']
     },
 
@@ -245,14 +245,10 @@ window.COURSE_REGISTRY.push({
         { id: 'unsaid',  label: '说不上来', meaning: '暂时不想定义',           hex: '#d1d5db' }
       ],
 
-      leavingPrompt: '想留下点什么吗？',
-      /* 四个出口的 id 与 label 跨课稳定，只有 hint 按课定制。
-         teacher 是求助通道，任何一课都必须出现在同一位置、用同一个说法。 */
+      leavingPrompt: '给老师留一句话',
+      /* 留言只交给老师，持久化出口固定为 teacher。 */
       outlets: [
-        { id: 'self',    label: '留给自己',   hint: '上完这节课，我想记住关于自己的……' },
-        { id: 'class',   label: '送给班级',   hint: '我想对也在悄悄挑剔自己的同学说……' },
-        { id: 'teacher', label: '想让老师知道', hint: '有一件事，我希望有机会和老师说说……', shared: true },
-        { id: 'none',    label: '这次先不写' }
+        { id: 'teacher', label: '留给老师', hint: '有一件事，我希望有机会和老师说说……', shared: true },
       ],
 
       ending: [

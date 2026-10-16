@@ -236,7 +236,7 @@ window.COURSE_REGISTRY.push({
        ------------------------------------------------------------------ */
     playground: {
       title: '选择一项大脑训练',
-      intro: '从注意力、视觉观察和记忆等训练中自由选择。每一项都可以反复玩，也可以随时返回选择其他训练。',
+      intro: '从注意力、视觉观察和记忆等训练中自由选择。每一项都可以反复训练，也可以随时返回选择其他训练。',
       appIds: ['schulte','kaleidoscope','stroop','digit','path','target']
     },
 
@@ -256,12 +256,9 @@ window.COURSE_REGISTRY.push({
         { id: 'unsaid',  label: '说不上来', meaning: '暂时不想定义',           hex: '#d1d5db' }
       ],
 
-      leavingPrompt: '想留下点什么吗？',
+      leavingPrompt: '给老师留一句话',
       outlets: [
-        { id: 'self',    label: '留给自己',   hint: '这一课后，我想记住……' },
-        { id: 'class',   label: '送给班级',   hint: '我想送给也在适应新生活的同学一句话……' },
-        { id: 'teacher', label: '想让老师知道', hint: '有一件事，我希望有机会和老师说说……', shared: true },
-        { id: 'none',    label: '这次先不写' }
+        { id: 'teacher', label: '留给老师', hint: '有一件事，我希望有机会和老师说说……', shared: true },
       ],
 
       ending: [

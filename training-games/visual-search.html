@@ -216,7 +216,7 @@
       <h1>火眼金睛</h1>
       <div class="sub">在相似图形里，锁定那一个「不同」</div>
     </header>
-    <button class="howto" v-show="phase==='play'" @click="openHowto">📖 玩法说明</button>
+    <button class="howto" v-show="phase==='play'" @click="openHowto">📖 训练规则说明</button>
 
     <main>
       <div class="stage" :data-phase="phase">
@@ -240,7 +240,7 @@
           <p class="lead">网格里只有一个图形不同，<br>锁定它并点击！</p>
           <button class="btn" @click="newGame">开始训练</button>
           <div class="startfoot">
-            <span class="link" @click="openHowto">📖 查看详细玩法</span>
+            <span class="link" @click="openHowto">📖 查看详细训练规则</span>
             <span class="sound" @click="toggleSound">{{ soundLabel }}</span>
           </div>
         </div>
@@ -257,7 +257,7 @@
 
     <div class="modal" v-show="howtoOpen" @click.self="closeHowto">
       <div class="modal-box">
-        <h3>📖 玩法说明</h3>
+        <h3>📖 训练规则说明</h3>
         <div class="modal-body">
           <div class="row"><span class="t">目标</span>网格里大部分图形相同，只有<b>一个不同</b>。把它找出来并点击。</div>
           <div class="row"><span class="t">操作</span>用鼠标或手指点击你认为「不同」的那一个格子。</div>

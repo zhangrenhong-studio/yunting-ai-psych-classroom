@@ -68,7 +68,7 @@
   function renderInbox() {
     var rows = all();
     if (!rows.length) {
-      return '<div class="support-empty"><b>目前没有待回应请求</b><p>学生明确选择“想让老师知道”或使用“现在需要大人帮助”后，请求会进入这里。</p></div>';
+      return '<div class="support-empty"><b>目前没有待回应请求</b><p>学生明确选择给老师留言后，请求会进入这里。</p></div>';
     }
     return '<div class="support-list">' + rows.map(function (row) {
       var time = new Date(row.createdAt).toLocaleString('zh-CN');
@@ -106,18 +106,8 @@
     });
   }
 
-  function shouldInjectHelp() {
-    var path = global.location.pathname.split('/').pop() || 'index.html';
-    return ['student.html', 'student-space.html', 'daily-record.html', 'course.html'].indexOf(path) >= 0;
-  }
-  function injectHelp() {
-    if (!shouldInjectHelp() || document.getElementById('urgent-help-button')) { return; }
-    var button = document.createElement('button');
-    button.id = 'urgent-help-button'; button.className = 'urgent-help-button';
-    button.textContent = '现在需要大人帮助';
-    button.onclick = openHelp;
-    document.body.appendChild(button);
-  }
+  /* 学生端不再注入固定求助按钮；保留既有求助数据与教师处理 API。 */
+  function injectHelp() {}
   function openHelp() {
     if (document.getElementById('urgent-help-modal')) { return; }
     var modal = document.createElement('div'); modal.id = 'urgent-help-modal'; modal.className = 'urgent-help-modal';

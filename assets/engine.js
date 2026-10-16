@@ -172,7 +172,6 @@
             '</div>' +
             '<div class="story-actions">' +
               '<button class="btn btn-primary" data-act="submit">写好了，继续</button>' +
-              '<button class="btn btn-ghost" data-act="skip">' + esc(p.skipLabel || '这次先不写') + '</button>' +
             '</div>' +
           '</div>' +
           '<div class="story-nav" data-nav>' +
@@ -222,19 +221,14 @@
     renderPage(false);
     if (!beats.length) { showReflection(); }
 
-    function submit(skipped) {
+    function submit() {
       var ta = root.querySelector('[data-input]');
       var val = ta ? ta.value : '';
-      if (skipped || !val.trim()) {
-        global.YTStore.recordSkip({ stage: 'story', nodeId: p.id, prompt: p.text });
-      } else {
-        global.YTStore.record({ stage: 'story', nodeId: p.id, prompt: p.text, raw: val });
-      }
+      if (!val.trim()) { if (ta) { ta.focus(); } return; }
+      global.YTStore.record({ stage: 'story', nodeId: p.id, prompt: p.text, raw: val });
       onDone();
     }
-
-    root.querySelector('[data-act="submit"]').addEventListener('click', function () { submit(false); });
-    root.querySelector('[data-act="skip"]').addEventListener('click', function () { submit(true); });
+    root.querySelector('[data-act="submit"]').addEventListener('click', submit);
 
     return { root: root, activate: function () {}, deactivate: function () {} };
   }
@@ -243,18 +237,45 @@
      环节 3 · 和小悦悦聊聊 —— 私密房间
      ====================================================================== */
 
+  /* A message row, not a second card: only 小悦悦 has an avatar. */
+  function appendTalkMessage(log, html, isStudent) {
+    var row = el('div', 'talk-message ' + (isStudent ? 'talk-message-student' : 'talk-message-yue'));
+    if (!isStudent) {
+      var avatar = document.createElement('img');
+      avatar.className = 'talk-avatar';
+      avatar.src = 'assets/xiaoyueyue-dialogue.jpg';
+      avatar.alt = '小悦悦';
+      avatar.width = 44;
+      avatar.height = 44;
+      row.appendChild(avatar);
+    }
+    row.appendChild(el('div', 'msg ' + (isStudent ? 'msg-me msg-student' : 'msg-yue'), html));
+    log.appendChild(row);
+    log.scrollTop = log.scrollHeight;
+    return row;
+  }
+
   function buildThemeReflection(course, onDone) {
     var d = course.stages.talk, root = el('section', 'stage');
     root.setAttribute('data-stage', 'talk');
-    root.innerHTML = '<div class="scene-talk"><div class="room"></div><div class="talk-head"><span class="t-small">主题表达</span><span class="talk-private">只在这里，不在班级公开</span></div><div class="talk-log" data-log><p class="msg msg-yue">AI服务暂未连接，当前是主题表达练习，不会生成自动回复。</p><p class="msg msg-yue">' + esc(d.reflectionPrompt) + '</p></div><div class="talk-composer"><div class="composer-row"><textarea class="field" rows="3" maxlength="1200" data-reflection placeholder="可以只聊故事，也可以写自己的想法。不想写时可直接继续。"></textarea><button class="btn btn-primary" data-save-expression>保存表达</button></div><p class="t-small" data-reflection-status>表达仅保存在当前浏览器，不会发送给老师或其他学生。</p><button class="btn btn-ghost" data-reflection-next>结束本环节</button></div></div>';
+    root.innerHTML = '<div class="scene-talk"><div class="talk-head"><span class="t-small">小悦悦 · 主题表达</span><span class="talk-private">只在这里，不在班级公开</span></div><div class="talk-log" data-log role="log" aria-live="polite" aria-label="主题表达记录"></div><div class="talk-composer" data-composer><div class="composer-row"><textarea class="field" rows="2" maxlength="1200" data-reflection aria-label="写下你的表达" placeholder="可以只聊故事，也可以写自己的想法。不想写时可直接继续。"></textarea><button type="button" class="btn btn-primary" data-save-expression>发送</button></div><p class="t-small" role="status" data-reflection-status>表达仅保存在当前浏览器，不会发送给老师或其他学生。</p><button type="button" class="btn btn-ghost" data-reflection-next>结束本环节</button></div></div>';
+    var log = root.querySelector('[data-log]');
+    appendTalkMessage(log, 'AI服务暂未连接，当前是主题表达练习，不会生成自动回复。', false);
+    appendTalkMessage(log, esc(d.reflectionPrompt || ''), false);
     root.querySelector('[data-save-expression]').onclick = function () {
       var input = root.querySelector('[data-reflection]'), value = input.value.trim();
       if (!value) return;
       global.YTStore.record({stage:'talk',nodeId:'theme-expression',prompt:d.reflectionPrompt,raw:value});
-      root.querySelector('[data-log]').appendChild(el('div','msg msg-student',esc(value)));
+      appendTalkMessage(log, esc(value), true);
       input.value = ''; root.querySelector('[data-reflection-status]').textContent = '已保存到当前浏览器，没有生成AI回复。';
       root.querySelector('[data-log]').scrollTop = root.querySelector('[data-log]').scrollHeight;
     };
+    root.querySelector('[data-reflection]').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' && (e.ctrlKey || e.metaKey) && !e.isComposing) {
+        e.preventDefault();
+        root.querySelector('[data-save-expression]').click();
+      }
+    });
     root.querySelector('[data-reflection-next]').onclick = onDone;
     return {root:root,activate:function(){},deactivate:function(){}};
   }
@@ -269,13 +290,12 @@
 
     root.innerHTML =
       '<div class="scene-talk">' +
-        '<div class="room"></div>' +
         '<div class="talk-head">' +
           '<span class="talk-presence-dot" aria-hidden="true"></span>' +
           '<span class="t-small">' + esc(d.presenceLabel || '小悦悦') + '</span>' +
           '<span class="talk-private">只在这里，不在班级公开</span>' +
         '</div>' +
-        '<div class="talk-log" data-log></div>' +
+        '<div class="talk-log" data-log role="log" aria-live="polite" aria-label="和小悦悦的聊天记录"></div>' +
         '<div class="talk-composer" data-composer></div>' +
       '</div>';
 
@@ -295,8 +315,8 @@
     }
 
     function say(text, cls) {
-      var bubble = el('div', 'msg ' + (cls || 'msg-yue'), fill(text, { storyEcho: echo }));
-      log.appendChild(bubble);
+      var isStudent = cls === 'msg-me' || cls === 'msg-student';
+      appendTalkMessage(log, isStudent ? esc(text) : fill(text, { storyEcho: echo }), isStudent);
       scrollDown();
     }
 
@@ -319,8 +339,9 @@
       ta.rows = 2;
       ta.maxLength = cfg.maxLen || 200;
       ta.placeholder = cfg.placeholder || '';
+      ta.setAttribute('aria-label', '发给小悦悦的消息');
 
-      var send = el('button', 'btn btn-primary', '说完了');
+      var send = el('button', 'btn btn-primary', '发送');
       wrap.appendChild(ta);
       wrap.appendChild(send);
       composer.appendChild(wrap);
@@ -337,7 +358,7 @@
 
       send.addEventListener('click', submit);
       ta.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) { submit(); }
+        if (e.key === 'Enter' && (e.ctrlKey || e.metaKey) && !e.isComposing) { e.preventDefault(); submit(); }
       });
       ta.focus();
     }
@@ -391,6 +412,7 @@
           global.YTStore.recordSkip({ stage: 'talk', nodeId: node.id, prompt: (node.say || []).join('') });
         } else if (res.text) {
           global.YTStore.record({ stage: 'talk', nodeId: node.id, prompt: (node.say || []).join(''), raw: res.text });
+          say(res.text, 'msg-me');
         }
 
         /* 选项节点：回复直接来自课程包里的 option.reply */
@@ -592,7 +614,7 @@
   function buildClosing(course, onDone) {
     var d = course.stages.closing;
     var colors = d.colors || [];
-    var outlets = d.outlets || [];
+    var outlets = [{ id: 'teacher', label: '留给老师', hint: ((d.outlets || []).filter(function (x) { return x.id === 'teacher'; })[0] || {}).hint || '有一件事，我希望有机会和老师说说……', shared: true }];
     var root = el('section', 'stage');
     root.setAttribute('data-stage', 'closing');
 
@@ -630,26 +652,22 @@
           '</div>' +
 
           '<div class="closing-step stack-5 is-hidden" data-step="leave">' +
-            '<h2 class="t-title">' + esc(d.leavingPrompt || '') + '</h2>' +
-            '<div class="outlets" data-outlets>' + outletHtml + '</div>' +
-            '<div class="stack-3 is-hidden" data-write>' +
+            '<h2 class="t-title">' + esc('最后，想留下点什么吗？') + '</h2>' +
+            '<div class="row gap-4 wrap" data-leave-choices><button class="btn btn-primary" data-act="write-teacher">留言给老师</button><button class="btn btn-ghost" data-act="exit-now">这次先退出</button></div>' +
+            '<div class="stack-3" data-write hidden>' +
               '<p class="t-body" data-hint></p>' +
               '<div class="note">' +
-                '<textarea class="field" rows="3" data-text maxlength="200"></textarea>' +
+                '<textarea class="field" rows="3" data-text maxlength="200" aria-label="给老师的留言"></textarea>' +
               '</div>' +
               '<div class="row gap-4 wrap">' +
-                '<button class="btn btn-primary" data-act="keep">留在这里</button>' +
-                '<button class="btn btn-ghost" data-act="nokeep">还是不写了</button>' +
+                '<button class="btn btn-primary" data-act="keep">提交留言并结束</button>' +
               '</div>' +
             '</div>' +
           '</div>' +
 
           '<div class="closing-step stack-6 is-hidden" data-step="end">' +
-            '<div class="ending">' + endingHtml + '</div>' +
-            '<div class="row gap-4 wrap center" style="justify-content:center">' +
-              '<button class="btn btn-quiet" data-act="restart">再走一次这节课</button>' +
-              '<a class="btn btn-quiet" href="student.html">回到课程库</a>' +
-            '</div>' +
+            '<div class="ending"><h2 class="t-title">本堂课已结束</h2></div>' +
+            (app.teacherPreview ? '<button class="btn btn-quiet" data-act="close-preview">关闭预览</button>' : '') +
           '</div>' +
 
         '</div>' +
@@ -663,7 +681,8 @@
     var write = root.querySelector('[data-write]');
     var hint = root.querySelector('[data-hint]');
     var ta = root.querySelector('[data-text]');
-    var currentOutlet = null;
+    var currentOutlet = outlets[0];
+    hint.textContent = currentOutlet.hint + '（填写后交给老师；当前演示仅保存在本浏览器）';
 
     function colorById(id) {
       for (var i = 0; i < colors.length; i++) { if (colors[i].id === id) { return colors[i]; } }
@@ -715,42 +734,12 @@
       stepLeave.className = 'closing-step stack-5 rise';
     }
 
-    /* --- 第二步：留不留 --- */
-    var outletEls = root.querySelectorAll('.outlet');
-    for (var o = 0; o < outletEls.length; o++) {
-      (function (b) {
-        b.addEventListener('click', function () {
-          var id = b.getAttribute('data-outlet');
-          var item = outletById(id);
-          global.YTStore.get().pickedOutlet = id;
-          /* 观察材料是给老师看的，存 id 老师看不懂（"self"）——
-             和 pickedColorLabel 一样，把中文说法一起存下来。 */
-          global.YTStore.get().pickedOutletLabel = item ? item.label : id;
-
-          for (var i = 0; i < outletEls.length; i++) {
-            outletEls[i].className = (outletEls[i] === b) ? 'outlet is-picked' : 'outlet';
-          }
-
-          if (id === 'none') {
-            global.YTStore.recordSkip({ stage: 'closing', nodeId: 'leave', prompt: d.leavingPrompt });
-            setTimeout(toEnd, 500);
-            return;
-          }
-
-          currentOutlet = item;
-          hint.textContent = item.hint || '';
-          write.className = 'stack-3 rise';
-          /* 求助通道语义不同，必须让学生知道它会被谁看到 */
-          if (item.shared) {
-            hint.textContent = (item.hint || '') + '（这条会被老师看到）';
-          }
-          ta.focus();
-        });
-      })(outletEls[o]);
-    }
-
     function keepClick() {
+      if (app.courseCompleted) { return; }
       var v = ta.value;
+      if (!v.trim()) { toEnd(); return; }
+      global.YTStore.get().pickedOutlet = 'teacher';
+      global.YTStore.get().pickedOutletLabel = '留给老师';
       if (v.trim()) {
         global.YTStore.record({
           stage: 'closing',
@@ -761,18 +750,13 @@
         if (!app.teacherPreview && currentOutlet && currentOutlet.id === 'teacher' && global.YTSupportFlow) {
           global.YTSupportFlow.create({ text: v, source: '课程收束 · 想让老师知道', courseTitle: course.title || '' });
         }
-      } else {
-        global.YTStore.recordSkip({ stage: 'closing', nodeId: currentOutlet ? currentOutlet.id : 'leave', prompt: '' });
       }
       toEnd();
     }
 
     root.querySelector('[data-act="keep"]').addEventListener('click', keepClick);
-    root.querySelector('[data-act="nokeep"]').addEventListener('click', function () {
-      global.YTStore.recordSkip({ stage: 'closing', nodeId: currentOutlet ? currentOutlet.id : 'leave', prompt: '' });
-      toEnd();
-    });
-
+    root.querySelector('[data-act="write-teacher"]').addEventListener('click', function(){write.hidden=false;root.querySelector('[data-leave-choices]').style.display='none';ta.focus();});
+    root.querySelector('[data-act="exit-now"]').addEventListener('click', function(){toEnd();});
     function toEnd() {
       stepLeave.className = 'closing-step stack-5 is-hidden';
       stepEnd.className = 'closing-step stack-6 rise';
@@ -782,9 +766,20 @@
       onDone();
     }
 
-    root.querySelector('[data-act="restart"]').addEventListener('click', function () {
-      global.location.reload();
-    });
+    var closePreview = root.querySelector('[data-act="close-preview"]');
+    if (closePreview) { closePreview.addEventListener('click', function () {
+      if (global.parent !== global) {
+        try {
+          var parentDoc = global.parent.document;
+          var expand = parentDoc.getElementById('previewExpand');
+          if (parentDoc.body.classList.contains('preview-open') && expand) { expand.click(); }
+          var toggle = parentDoc.getElementById('previewToggle');
+          if (toggle && toggle.getAttribute('aria-expanded') !== 'false') { toggle.click(); return; }
+        } catch (ignore) {}
+        global.parent.postMessage({ type: 'yunting:close-preview' }, global.location.origin);
+      }
+      else { global.close(); if (!global.closed) { global.location.replace('teacher.html'); } }
+    }); }
 
     return { root: root, activate: function () {}, deactivate: function () {} };
   }
@@ -838,6 +833,23 @@
   /* 课堂模式下记录学生当前环节的个人任务。统一控制模式完成后等待老师推进；
      自主探索模式完成后自行进入下一环节，完成整课后自动退出课堂。 */
   function completeCurrentStage() {
+    if (STAGE_ORDER[app.index] === 'closing') {
+      app.courseCompleted = true;
+      setClassroomGate(null);
+      if (app.teacherPreview) { return; }
+      if (!app.review && global.YTClassroomDemo) {
+        var completedSession = global.YTClassroomDemo.read();
+        completedSession.studentProgress = completedSession.studentProgress || {};
+        completedSession.studentProgress.closing = { status: 'completed', completedAt: Date.now() };
+        completedSession.studentStage = 'closing';
+        completedSession.studentCourseCompleted = true;
+        completedSession.studentExitedAt = Date.now();
+        completedSession.reachedStages = Array.from(new Set((completedSession.reachedStages || []).concat('closing')));
+        global.YTClassroomDemo.write(completedSession);
+      }
+      global.location.replace('student.html?classroomCompleted=1');
+      return;
+    }
     if (app.teacherPreview) {
       var previewSession = global.YTClassroomDemo && global.YTClassroomDemo.read();
       if (previewSession && previewSession.progressMode === 'student') {
@@ -1036,6 +1048,17 @@
        真实产品须由已鉴权的实时课堂服务替代此浏览器本地状态。 */
     if (!app.review && global.YTClassroomDemo) {
       function followTeacher(session) {
+        if (app.courseCompleted) { setClassroomGate(null); return; }
+        if (session && session.courseId === course.id && (session.status === 'ended' || (!app.teacherPreview && session.studentCourseCompleted))) {
+          if (app.teacherPreview) {
+            goTo(STAGE_ORDER.indexOf('closing'), true);
+            var closingRoot = closing.root;
+            closingRoot.querySelectorAll('[data-step]').forEach(function (step) { step.classList.toggle('is-hidden', step.getAttribute('data-step') !== 'end'); });
+            app.courseCompleted = true;
+            setClassroomGate(null);
+          } else { global.location.replace('student.html?classroomCompleted=1'); }
+          return;
+        }
         if (!session || !session.active || session.courseId !== course.id) { if (story.setPaused) story.setPaused(true); return; }
         var followedStage = app.teacherPreview
           ? (session.progressMode === 'student' ? (session.teacherPreviewStage || session.stage) : session.stage)

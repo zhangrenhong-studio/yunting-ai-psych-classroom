@@ -212,7 +212,7 @@
       <h1>苹果炸弹</h1>
       <div class="sub">看到苹果就点，看到炸弹忍住</div>
     </header>
-    <button class="howto" @click="openHowto">📖 玩法说明</button>
+    <button class="howto" @click="openHowto">📖 训练规则说明</button>
 
     <main>
       <div class="stage" :data-phase="phase">
@@ -258,7 +258,7 @@
 
     <div class="modal" v-show="howtoOpen" @click.self="closeHowto">
       <div class="modal-box">
-        <h3>📖 玩法说明</h3>
+        <h3>📖 训练规则说明</h3>
         <div class="modal-body">
           <div class="row"><span class="t">目标</span>屏幕上随机冒出 <b>🍎</b> 和 <b>💣</b>。</div>
           <div class="row"><span class="t">操作</span>刺激出现后，点击屏幕（竞技区）。</div>

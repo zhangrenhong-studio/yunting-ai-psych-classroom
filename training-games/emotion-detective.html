@@ -185,7 +185,7 @@
           <p>读表情、看情境，<b>识别心情、判断混合情绪与强度</b>。<br>每局固定 12 题，共 3 颗❤，闯得越久越强。</p>
           <button class="btn" @click="newGame">开始训练</button>
           <div class="foot">
-            <span class="link" @click="openHowto">📖 玩法说明</span>
+            <span class="link" @click="openHowto">📖 训练规则说明</span>
             <span class="sound" @click="toggleSound">{{ soundLabel }}</span>
           </div>
         </div>
@@ -209,7 +209,7 @@
               :class="{right: fb.right===o, wrong: fb.wrong===o}"
               :disabled="answered" @click="pick(o)">{{ o }}</button>
           </div>
-          <span class="howto" @click="openHowto">📖 玩法说明</span>
+          <span class="howto" @click="openHowto">📖 训练规则说明</span>
         </div>
 
         <!-- 结算卡片 -->
@@ -230,10 +230,10 @@
       </div>
     </main>
 
-    <!-- 玩法说明 -->
+    <!-- 训练规则说明 -->
     <div class="modal" v-show="howtoOpen" @click.self="closeHowto">
       <div class="box">
-        <h3>📖 玩法说明</h3>
+        <h3>📖 训练规则说明</h3>
         <div class="row"><div class="ic">😊</div><div><b>读表情</b>
           <span>屏幕出现一个大表情，从 4 个情绪词里选出它代表的心情。</span></div></div>
         <div class="row"><div class="ic">📖</div><div><b>读情境</b>
@@ -277,7 +277,7 @@
   const scenes=[
     {t:'考试得了满分，他蹦蹦跳跳地跑回家，嘴里还哼着小调',a:'开心'},
     {t:'她的小狗走丢了，一个人躲在墙角，把脸埋进膝盖里',a:'难过'},
-    {t:'有人突然抢走了他的玩具，他咬着牙，拳头慢慢握紧',a:'生气'},
+    {t:'有人突然抢走了他的物品，他咬着牙，拳头慢慢握紧',a:'生气'},
     {t:'半夜一声巨响，她猛地缩进被子里，心跳快得发慌',a:'害怕'},
     {t:'拆开礼物，竟是盼了好久的那本书，她一下子睁圆了眼睛',a:'惊讶'},
     {t:'窗边下着小雨，她捧着热茶，慢慢闭上了眼睛',a:'平静'},
