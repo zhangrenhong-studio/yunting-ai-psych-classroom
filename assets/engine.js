@@ -101,21 +101,13 @@
     var root = el('section', 'stage');
     root.setAttribute('data-stage', 'enter');
 
-    var agreements = '';
-    for (var i = 0; i < (d.agreements || []).length; i++) {
-      agreements += '<span>' + esc(d.agreements[i]) + '</span>';
-    }
-
     root.innerHTML =
       '<div class="scene-enter">' +
         '<div class="enter-body stagger">' +
           '<div>' +
-            '<p class="t-eyebrow enter-eyebrow">' + esc(d.eyebrow || '') + '</p>' +
             '<h1 class="t-display enter-title">' + esc(d.title) + '</h1>' +
-            '<p class="t-lead enter-subtitle">' + esc(d.subtitle || '') + '</p>' +
           '</div>' +
-          '<blockquote class="enter-opening">' + esc(d.opening || '') + '</blockquote>' +
-          '<div class="enter-agreement stack-3">' + agreements + '</div>' +
+          '<p class="t-lead enter-subtitle">请坐舒服，戴好耳机。准备好后，我们就开始。</p>' +
           '<div class="enter-actions">' +
             '<button class="btn btn-primary" data-act="confirm">' +
               esc(d.confirmLabel || '我准备好了') +
@@ -258,16 +250,16 @@
   function buildThemeReflection(course, onDone) {
     var d = course.stages.talk, root = el('section', 'stage');
     root.setAttribute('data-stage', 'talk');
-    root.innerHTML = '<div class="scene-talk"><div class="talk-head"><span class="t-small">小悦悦 · 主题表达</span><span class="talk-private">只在这里，不在班级公开</span></div><div class="talk-log" data-log role="log" aria-live="polite" aria-label="主题表达记录"></div><div class="talk-composer" data-composer><div class="composer-row"><textarea class="field" rows="2" maxlength="1200" data-reflection aria-label="写下你的表达" placeholder="可以只聊故事，也可以写自己的想法。不想写时可直接继续。"></textarea><button type="button" class="btn btn-primary" data-save-expression>发送</button></div><p class="t-small" role="status" data-reflection-status>表达仅保存在当前浏览器，不会发送给老师或其他学生。</p><button type="button" class="btn btn-ghost" data-reflection-next>结束本环节</button></div></div>';
+    root.innerHTML = '<div class="scene-talk"><div class="talk-head"><span class="t-small">小悦悦 · 主题表达</span></div><div class="talk-log" data-log role="log" aria-live="polite" aria-label="主题表达记录"></div><div class="talk-composer" data-composer><div class="composer-row"><textarea class="field" rows="2" maxlength="1200" data-reflection aria-label="写下你的表达" placeholder="可以只聊故事，也可以写自己的想法。不想写时可直接继续。"></textarea><div class="r99-talk-actions"><button type="button" class="btn btn-ghost r99-talk-next" data-reflection-next>下一步</button><button type="button" class="btn btn-primary" data-save-expression>发送</button></div></div><p class="t-small" role="status" data-reflection-status>这里可以写下你对本课主题的想法。</p></div></div>';
     var log = root.querySelector('[data-log]');
-    appendTalkMessage(log, 'AI服务暂未连接，当前是主题表达练习，不会生成自动回复。', false);
+    appendTalkMessage(log, '当前是主题表达练习，不会生成自动回复。', false);
     appendTalkMessage(log, esc(d.reflectionPrompt || ''), false);
     root.querySelector('[data-save-expression]').onclick = function () {
       var input = root.querySelector('[data-reflection]'), value = input.value.trim();
       if (!value) return;
       global.YTStore.record({stage:'talk',nodeId:'theme-expression',prompt:d.reflectionPrompt,raw:value});
       appendTalkMessage(log, esc(value), true);
-      input.value = ''; root.querySelector('[data-reflection-status]').textContent = '已保存到当前浏览器，没有生成AI回复。';
+      input.value = ''; root.querySelector('[data-reflection-status]').textContent = '已记录你的表达，没有生成AI回复。';
       root.querySelector('[data-log]').scrollTop = root.querySelector('[data-log]').scrollHeight;
     };
     root.querySelector('[data-reflection]').addEventListener('keydown', function (e) {
@@ -276,7 +268,13 @@
         root.querySelector('[data-save-expression]').click();
       }
     });
-    root.querySelector('[data-reflection-next]').onclick = onDone;
+    var reflectionCompleted = false;
+    root.querySelector('[data-reflection-next]').onclick = function () {
+      if (reflectionCompleted) { return; }
+      reflectionCompleted = true;
+      this.disabled = true;
+      onDone();
+    };
     return {root:root,activate:function(){},deactivate:function(){}};
   }
 
@@ -293,16 +291,54 @@
         '<div class="talk-head">' +
           '<span class="talk-presence-dot" aria-hidden="true"></span>' +
           '<span class="t-small">' + esc(d.presenceLabel || '小悦悦') + '</span>' +
-          '<span class="talk-private">只在这里，不在班级公开</span>' +
         '</div>' +
         '<div class="talk-log" data-log role="log" aria-live="polite" aria-label="和小悦悦的聊天记录"></div>' +
-        '<div class="talk-composer" data-composer></div>' +
+        '<div class="talk-composer"><div class="r99-talk-actions"><button type="button" class="btn btn-ghost r99-talk-next" data-talk-next>下一步</button></div><div data-composer></div></div>' +
       '</div>';
 
     var log = root.querySelector('[data-log]');
     var composer = root.querySelector('[data-composer]');
     var echo = '';
     var nodeIdx = 0;
+    var active = false;
+    var completed = false;
+    var started = false;
+    var pending = [];
+
+    /* Review navigation pauses pending work; completion cancels it altogether. */
+    function arm(task) {
+      task.startedAt = Date.now();
+      task.id = setTimeout(function () {
+        task.id = null;
+        if (!active || completed) { return; }
+        pending.splice(pending.indexOf(task), 1);
+        task.fn();
+      }, task.delay);
+    }
+    function later(fn, delay) {
+      var task = { fn: fn, delay: delay, id: null, startedAt: 0 };
+      pending.push(task);
+      if (active && !completed) { arm(task); }
+    }
+    function pauseTimers() {
+      active = false;
+      pending.forEach(function (task) {
+        if (task.id !== null) {
+          clearTimeout(task.id);
+          task.id = null;
+          task.delay = Math.max(0, task.delay - (Date.now() - task.startedAt));
+        }
+      });
+    }
+    function completeTalk() {
+      if (completed) { return; }
+      pauseTimers();
+      pending = [];
+      completed = true;
+      root.querySelector('[data-talk-next]').disabled = true;
+      onDone();
+    }
+    root.querySelector('[data-talk-next]').addEventListener('click', completeTalk);
 
     /* 取环节 2 的原话，作为「接住表达」的引用来源 */
     var tr = global.YTStore.get().transcript;
@@ -315,20 +351,16 @@
     }
 
     function say(text, cls) {
+      var transcript = global.YTStore.get().transcript || [];
+      for (var t = 0; t < transcript.length; t++) {
+        if (transcript[t].stage === 'story' && transcript[t].raw) { echo = transcript[t].raw; }
+      }
       var isStudent = cls === 'msg-me' || cls === 'msg-student';
       appendTalkMessage(log, isStudent ? esc(text) : fill(text, { storyEcho: echo }), isStudent);
       scrollDown();
     }
 
     function clearComposer() { composer.innerHTML = ''; }
-
-    function addSkipButton(label, onClick) {
-      var b = el('button', 'btn btn-ghost t-small', esc(label));
-      b.addEventListener('click', onClick);
-      b.style.alignSelf = 'flex-start';
-      composer.appendChild(b);
-      return b;
-    }
 
     /* --- 自由输入 --- */
     function askFree(node, onAnswered) {
@@ -345,10 +377,6 @@
       wrap.appendChild(ta);
       wrap.appendChild(send);
       composer.appendChild(wrap);
-
-      addSkipButton(cfg.skipLabel || '这次先不说', function () {
-        onAnswered({ skipped: true, text: '' });
-      });
 
       function submit() {
         var v = ta.value;
@@ -389,11 +417,11 @@
       var lines = node.say || [];
       for (var i = 0; i < lines.length; i++) {
         (function (line, k) {
-          setTimeout(function () { say(line, 'msg-yue'); }, k * 620);
+          later(function () { say(line, 'msg-yue'); }, k * 620);
         })(lines[i], i);
       }
 
-      setTimeout(function () { presentInput(node); }, lines.length * 620 + 320);
+      later(function () { presentInput(node); }, lines.length * 620 + 320);
     }
 
     function presentInput(node) {
@@ -405,6 +433,8 @@
       clearComposer();
 
       function answered(res) {
+        if (!active || completed || answered.used) { return; }
+        answered.used = true;
         clearComposer();
 
         /* 记录原话或跳过 */
@@ -431,7 +461,7 @@
         counter.spend();
 
         if (counter.exhausted()) { finish(); return; }
-        setTimeout(runNode, 900);
+        later(runNode, 900);
       }
 
       if (cfg.type === 'choice') {
@@ -446,26 +476,30 @@
       var closing = d.closing || [];
       for (var i = 0; i < closing.length; i++) {
         (function (line, k) {
-          setTimeout(function () { say(line, 'msg-yue'); }, k * 700);
+          later(function () { say(line, 'msg-yue'); }, k * 700);
         })(closing[i], i);
       }
-      setTimeout(onDone, closing.length * 700 + 900);
+      later(completeTalk, closing.length * 700 + 900);
     }
 
     return {
       root: root,
       activate: function () {
-        if (!log.childNodes.length) {
+        if (completed || active) { return; }
+        active = true;
+        pending.forEach(arm);
+        if (!started) {
+          started = true;
           var opening = d.opening || [];
           for (var i = 0; i < opening.length; i++) {
             (function (line, k) {
-              setTimeout(function () { say(line, 'msg-yue'); }, k * 620);
+              later(function () { say(line, 'msg-yue'); }, k * 620);
             })(opening[i], i);
           }
-          setTimeout(runNode, opening.length * 620 + 400);
+          later(runNode, opening.length * 620 + 400);
         }
       },
-      deactivate: function () {}
+      deactivate: pauseTimers
     };
   }
 
@@ -653,7 +687,7 @@
 
           '<div class="closing-step stack-5 is-hidden" data-step="leave">' +
             '<h2 class="t-title">' + esc('最后，想留下点什么吗？') + '</h2>' +
-            '<div class="row gap-4 wrap" data-leave-choices><button class="btn btn-primary" data-act="write-teacher">留言给老师</button><button class="btn btn-ghost" data-act="exit-now">这次先退出</button></div>' +
+            '<div class="row gap-4 wrap r99-closing-choices" style="justify-content:center" data-leave-choices><button class="btn btn-primary" data-act="write-teacher">留言给老师</button><button class="btn btn-ghost" data-act="exit-now">这次先退出</button></div>' +
             '<div class="stack-3" data-write hidden>' +
               '<p class="t-body" data-hint></p>' +
               '<div class="note">' +
@@ -661,6 +695,7 @@
               '</div>' +
               '<div class="row gap-4 wrap">' +
                 '<button class="btn btn-primary" data-act="keep">提交留言并结束</button>' +
+                '<button type="button" class="btn btn-ghost" data-act="cancel-message">取消留言</button>' +
               '</div>' +
             '</div>' +
           '</div>' +
@@ -682,7 +717,7 @@
     var hint = root.querySelector('[data-hint]');
     var ta = root.querySelector('[data-text]');
     var currentOutlet = outlets[0];
-    hint.textContent = currentOutlet.hint + '（填写后交给老师；当前演示仅保存在本浏览器）';
+    hint.textContent = currentOutlet.hint;
 
     function colorById(id) {
       for (var i = 0; i < colors.length; i++) { if (colors[i].id === id) { return colors[i]; } }
@@ -756,6 +791,11 @@
 
     root.querySelector('[data-act="keep"]').addEventListener('click', keepClick);
     root.querySelector('[data-act="write-teacher"]').addEventListener('click', function(){write.hidden=false;root.querySelector('[data-leave-choices]').style.display='none';ta.focus();});
+    root.querySelector('[data-act="cancel-message"]').addEventListener('click', function () {
+      write.hidden = true;
+      root.querySelector('[data-leave-choices]').style.display = '';
+      root.querySelector('[data-act="write-teacher"]').focus();
+    });
     root.querySelector('[data-act="exit-now"]').addEventListener('click', function(){toEnd();});
     function toEnd() {
       stepLeave.className = 'closing-step stack-5 is-hidden';
@@ -851,6 +891,12 @@
       return;
     }
     if (app.teacherPreview) {
+      if (app.review || param('layoutPreview') === '99') {
+        app.previewCompletedStage = null;
+        goTo(app.index + 1, true);
+        setClassroomGate(null);
+        return;
+      }
       var previewSession = global.YTClassroomDemo && global.YTClassroomDemo.read();
       if (previewSession && previewSession.progressMode === 'student') {
         var previewNext = app.index + 1;
