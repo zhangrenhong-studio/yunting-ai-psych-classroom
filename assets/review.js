@@ -11,12 +11,12 @@
   'use strict';
 
   var STAGE_LABEL = {
-    enter: '进入课堂',
-    story: '故事导入',
-    talk: '和小悦悦聊聊',
-    energy: '心理能量补给',
-    playground: '成长训练场',
-    closing: '收束与尾声'
+    enter: '课前准备',
+    story: '故事引导',
+    talk: 'AI 互动陪伴',
+    energy: '音频干预',
+    playground: '成长训练',
+    closing: '心语留言'
   };
 
   var STAGE_ORDER = ['enter', 'story', 'talk', 'energy', 'playground', 'closing'];

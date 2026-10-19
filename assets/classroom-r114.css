@@ -1,0 +1,18 @@
+/* r114: audio-only canvas with a separate teacher-demo next action. */
+html[data-classroom-stage="energy"]{--ui-header:0px}
+html[data-classroom-stage="energy"] .u-classroom-header{display:none}
+html[data-classroom-stage="energy"] .scene-energy{position:relative;box-sizing:border-box;min-height:0;height:100%;padding:84px 6vw 42px;overflow-y:auto;overflow-x:hidden;display:flex;align-items:center;justify-content:center}
+.energy-demo-next{position:absolute;top:24px;right:32px;z-index:5;min-width:88px;min-height:40px;padding:9px 18px;font-size:14px;font-weight:550;border-radius:12px!important}
+.scene-energy .energy-player{width:min(940px,100%);padding:42px;gap:46px;grid-template-columns:240px minmax(0,1fr);border-radius:28px}
+.scene-energy .energy-cover{width:100%;max-width:240px}
+.scene-energy .energy-copy .t-title{font-size:clamp(28px,3vw,39px);line-height:1.45;max-width:none;margin:0 0 32px;letter-spacing:0}
+.scene-energy .energy-progress{margin-top:0}
+.scene-energy .energy-time{font-variant-numeric:tabular-nums}
+.scene-energy .energy-controls{margin-top:24px;gap:20px}
+.scene-energy .energy-status{min-height:24px;margin:15px 0 12px;font-size:13px;line-height:1.7;color:#708b86}
+.scene-energy .energy-actions{display:flex;justify-content:flex-start;margin-top:0}
+.scene-energy .energy-actions .btn{min-height:48px;padding:12px 24px;border-radius:14px;font-size:16px}
+@media(max-width:900px){.scene-energy .energy-player{padding:30px;gap:30px;grid-template-columns:190px minmax(0,1fr)}.scene-energy .energy-copy .t-title{font-size:29px;margin-bottom:25px}}
+@media(max-width:760px){html[data-classroom-stage="energy"] .scene-energy{padding:78px 18px 24px}.scene-energy .energy-player{max-width:440px;grid-template-columns:1fr;padding:25px 26px;gap:27px}.scene-energy .energy-cover{width:170px;margin:auto}.scene-energy .energy-copy .t-title{text-align:center;font-size:27px;margin-bottom:24px}.scene-energy .energy-actions{justify-content:center}.energy-demo-next{top:18px;right:19px;min-width:80px}}
+@media(max-width:460px){.scene-energy .energy-player{padding:22px;gap:23px;border-radius:23px}.scene-energy .energy-cover{width:150px}.scene-energy .energy-copy .t-title{font-size:25px}.scene-energy .energy-controls{margin-top:20px;gap:17px}.scene-energy .energy-actions .btn{width:100%}.scene-energy .energy-status{text-align:center}.energy-demo-next{min-height:38px;padding:8px 15px}}
+@media(max-width:460px) and (max-height:710px){html[data-classroom-stage="energy"] .scene-energy{padding-top:70px;padding-bottom:18px;align-items:flex-start}.scene-energy .energy-player{gap:18px;padding:20px}.scene-energy .energy-cover{width:122px}.scene-energy .energy-copy .t-title{font-size:24px;margin-bottom:19px}.scene-energy .energy-controls{margin-top:15px}.scene-energy .energy-status{margin-top:10px;margin-bottom:8px}}

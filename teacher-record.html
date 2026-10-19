@@ -18,7 +18,7 @@
 (function(){
 'use strict';
 window.YTSeedDemo&&window.YTSeedDemo.ensure();
-var recordKeyName='yunting-class-records-v1',studentKey='yunting-class-students-v1',sessionId=new URLSearchParams(location.search).get('session'),app=document.getElementById('app'),stageDefs=[['进入课堂','enter'],['故事导入','story'],['和小悦悦聊聊','talk'],['心理能量补给','energy'],['成长训练场','playground'],['收束与尾声','closing']];
+var recordKeyName='yunting-class-records-v1',studentKey='yunting-class-students-v1',sessionId=new URLSearchParams(location.search).get('session'),app=document.getElementById('app'),stageDefs=[['课前准备','enter'],['故事引导','story'],['AI 互动陪伴','talk'],['音频干预','energy'],['成长训练','playground'],['心语留言','closing']];
 function read(key){try{var x=JSON.parse(localStorage.getItem(key))||[];return Array.isArray(x)?x:[]}catch(e){return[]}}
 function esc(v){return String(v==null?'':v).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot',"'":'&#39;'}[c]})}
 function safeReturn(raw){try{var u=new URL(raw,location.href),local=new URL('teacher.html',location.href);if(!raw||u.origin!==location.origin||u.pathname!==local.pathname||u.username||u.password)return null;return u.pathname+u.search+u.hash}catch(e){return null}}

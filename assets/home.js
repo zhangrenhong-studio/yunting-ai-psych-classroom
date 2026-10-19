@@ -299,7 +299,7 @@
     } else {
       band = '<form class="classroom-band"><b>连接手环（可选）</b><div><input inputmode="numeric" maxlength="6" pattern="[0-9]{6}" placeholder="六位配对码"><button type="submit">连接</button></div><span data-band-message>可以直接配对，遇到问题可请老师帮助</span></form>';
     }
-    var stageNames = { enter: '进入课堂', story: '故事导入', talk: '和小悦悦聊聊', energy: '心理能量补给', playground: '成长训练场', closing: '收束与尾声' };
+    var stageNames = { enter: '课前准备', story: '故事引导', talk: 'AI 互动陪伴', energy: '音频干预', playground: '成长训练', closing: '心语留言' };
     var element = document.createElement('section');
     element.className = 'classroom-overlay';
     element.innerHTML = '<div class="classroom-glow"></div><div class="classroom-call"><p class="eyebrow">' + esc(state.className) + ' · 心理成长课进行中</p><h2>' + esc(state.courseTitle) + '</h2><p>' + (state.progressMode === 'student' ? '继续你的自主探索' : '老师正在带领大家进入') + '「' + esc(stageNames[currentStage] || '课堂') + '」。</p>' + band + '<button class="cta" data-join>进入课堂</button><small>没有手环也可以正常进入课堂。</small></div>';

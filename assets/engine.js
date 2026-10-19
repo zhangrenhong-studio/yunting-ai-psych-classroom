@@ -14,12 +14,12 @@
   var STAGE_ORDER = ['enter', 'story', 'talk', 'energy', 'playground', 'closing'];
 
   var STAGE_LABEL = {
-    enter: '进入课堂',
-    story: '故事导入',
-    talk: '和小悦悦聊聊',
-    energy: '心理能量补给',
-    playground: '成长训练场',
-    closing: '收束与尾声'
+    enter: '课前准备',
+    story: '故事引导',
+    talk: 'AI 互动陪伴',
+    energy: '音频干预',
+    playground: '成长训练',
+    closing: '心语留言'
   };
 
   var TRACK_SETS = {
@@ -110,7 +110,7 @@
           '<p class="t-lead enter-subtitle">请坐舒服，戴好耳机。准备好后，我们就开始。</p>' +
           '<div class="enter-actions">' +
             '<button class="btn btn-primary" data-act="confirm">' +
-              esc(d.confirmLabel || '我准备好了') +
+              esc('准备好了，进入课堂') +
             '</button>' +
           '</div>' +
         '</div>' +
@@ -147,9 +147,9 @@
     /* 故事一次只呈现一个情境片段：用渐隐渐显推进，而不是让长文本滚动。 */
     root.innerHTML =
       '<div class="scene-story">' +
-        '<article class="story-frame" aria-label="故事导入">' +
+        '<article class="story-frame" aria-label="故事引导">' +
           '<div class="story-header">' +
-            '<p class="t-eyebrow">故事导入</p>' +
+            '<p class="t-eyebrow">故事引导</p>' +
             '<p class="story-frame-label">' + esc(d.frameLabel || '') + '</p>' +
           '</div>' +
           '<div class="story-page" data-page>' +
@@ -250,7 +250,7 @@
   function buildThemeReflection(course, onDone) {
     var d = course.stages.talk, root = el('section', 'stage');
     root.setAttribute('data-stage', 'talk');
-    root.innerHTML = '<div class="scene-talk"><div class="talk-head"><span class="t-small">小悦悦 · 主题表达</span></div><div class="talk-log" data-log role="log" aria-live="polite" aria-label="主题表达记录"></div><div class="talk-composer" data-composer><div class="composer-row"><textarea class="field" rows="2" maxlength="1200" data-reflection aria-label="写下你的表达" placeholder="可以只聊故事，也可以写自己的想法。不想写时可直接继续。"></textarea><div class="r99-talk-actions"><button type="button" class="btn btn-ghost r99-talk-next" data-reflection-next>下一步</button><button type="button" class="btn btn-primary" data-save-expression>发送</button></div></div><p class="t-small" role="status" data-reflection-status>这里可以写下你对本课主题的想法。</p></div></div>';
+    root.innerHTML = '<div class="scene-talk"><div class="talk-head"><span class="t-small">小悦悦 · 主题表达</span><button type="button" class="btn btn-ghost r99-talk-next" data-reflection-next>下一步</button></div><div class="talk-log" data-log role="log" aria-live="polite" aria-label="主题表达记录"></div><div class="talk-composer" data-composer><div class="composer-row"><textarea class="field" rows="1" maxlength="1200" data-reflection aria-label="写下你的表达"></textarea><div class="r99-talk-actions"><button type="button" class="btn btn-primary" data-save-expression>发送</button></div></div></div></div>';
     var log = root.querySelector('[data-log]');
     appendTalkMessage(log, '当前是主题表达练习，不会生成自动回复。', false);
     appendTalkMessage(log, esc(d.reflectionPrompt || ''), false);
@@ -259,7 +259,7 @@
       if (!value) return;
       global.YTStore.record({stage:'talk',nodeId:'theme-expression',prompt:d.reflectionPrompt,raw:value});
       appendTalkMessage(log, esc(value), true);
-      input.value = ''; root.querySelector('[data-reflection-status]').textContent = '已记录你的表达，没有生成AI回复。';
+      input.value = '';
       root.querySelector('[data-log]').scrollTop = root.querySelector('[data-log]').scrollHeight;
     };
     root.querySelector('[data-reflection]').addEventListener('keydown', function (e) {
@@ -291,13 +291,19 @@
         '<div class="talk-head">' +
           '<span class="talk-presence-dot" aria-hidden="true"></span>' +
           '<span class="t-small">' + esc(d.presenceLabel || '小悦悦') + '</span>' +
+          '<button type="button" class="btn btn-ghost r99-talk-next" data-talk-next>下一步</button>' +
         '</div>' +
         '<div class="talk-log" data-log role="log" aria-live="polite" aria-label="和小悦悦的聊天记录"></div>' +
-        '<div class="talk-composer"><div class="r99-talk-actions"><button type="button" class="btn btn-ghost r99-talk-next" data-talk-next>下一步</button></div><div data-composer></div></div>' +
+        '<div class="talk-composer"><div data-composer><div class="composer-row"><textarea class="field" rows="1" maxlength="1200" data-talk-input aria-label="发给小悦悦的消息"></textarea><button type="button" class="btn btn-primary" data-talk-send>发送</button></div></div></div>' +
       '</div>';
 
     var log = root.querySelector('[data-log]');
-    var composer = root.querySelector('[data-composer]');
+    var ta = root.querySelector('[data-talk-input]');
+    var send = root.querySelector('[data-talk-send]');
+    var answerQueue = [];
+    var answerHandler = null;
+    var currentNode = null;
+    var finishing = false;
     var echo = '';
     var nodeIdx = 0;
     var active = false;
@@ -307,11 +313,15 @@
 
     /* Review navigation pauses pending work; completion cancels it altogether. */
     function arm(task) {
+      if (task.id !== null || completed) { return; }
+      var generation = task.generation = (task.generation || 0) + 1;
       task.startedAt = Date.now();
       task.id = setTimeout(function () {
+        if (generation !== task.generation || !active || completed) { return; }
         task.id = null;
-        if (!active || completed) { return; }
-        pending.splice(pending.indexOf(task), 1);
+        var index = pending.indexOf(task);
+        if (index < 0) { return; }
+        pending.splice(index, 1);
         task.fn();
       }, task.delay);
     }
@@ -325,6 +335,7 @@
       pending.forEach(function (task) {
         if (task.id !== null) {
           clearTimeout(task.id);
+          task.generation += 1;
           task.id = null;
           task.delay = Math.max(0, task.delay - (Date.now() - task.startedAt));
         }
@@ -335,6 +346,10 @@
       pauseTimers();
       pending = [];
       completed = true;
+      answerHandler = null;
+      answerQueue = [];
+      send.disabled = true;
+      ta.disabled = true;
       root.querySelector('[data-talk-next]').disabled = true;
       onDone();
     }
@@ -360,58 +375,39 @@
       scrollDown();
     }
 
-    function clearComposer() { composer.innerHTML = ''; }
-
-    /* --- 自由输入 --- */
-    function askFree(node, onAnswered) {
-      var cfg = node.input || {};
-      var wrap = el('div', 'composer-row');
-      var ta = document.createElement('textarea');
-      ta.className = 'field';
-      ta.rows = 2;
-      ta.maxLength = cfg.maxLen || 200;
-      ta.placeholder = cfg.placeholder || '';
-      ta.setAttribute('aria-label', '发给小悦悦的消息');
-
-      var send = el('button', 'btn btn-primary', '发送');
-      wrap.appendChild(ta);
-      wrap.appendChild(send);
-      composer.appendChild(wrap);
-
-      function submit() {
-        var v = ta.value;
-        if (!v.trim()) { return; }
-        onAnswered({ skipped: false, text: v });
-      }
-
-      send.addEventListener('click', submit);
-      ta.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' && (e.ctrlKey || e.metaKey) && !e.isComposing) { e.preventDefault(); submit(); }
+    /* The composer is mounted once. Accepted messages are echoed/recorded now,
+       while scripted answer handlers consume them in order when ready. */
+    function drainAnswers() {
+      if (!active || completed || !answerHandler || !answerQueue.length) { return; }
+      var handler = answerHandler;
+      answerHandler = null;
+      handler(answerQueue.shift());
+    }
+    function submit() {
+      if (!active || completed || !ta.value.trim()) { return; }
+      var text = ta.value;
+      global.YTStore.record({
+        stage: 'talk', nodeId: currentNode ? currentNode.id : 'opening',
+        prompt: currentNode ? (currentNode.say || []).join('') : (d.opening || []).join(''),
+        raw: text
       });
-      ta.focus();
+      say(text, 'msg-me');
+      ta.value = '';
+      answerQueue.push({ skipped: false, text: text });
+      drainAnswers();
     }
-
-    /* --- 选项输入 --- */
-    function askChoice(node, onAnswered) {
-      var cfg = node.input || {};
-      var chips = el('div', 'chips');
-      var opts = cfg.options || [];
-
-      for (var i = 0; i < opts.length; i++) {
-        (function (opt) {
-          var c = el('button', 'chip', esc(opt.label));
-          c.addEventListener('click', function () {
-            onAnswered({ skipped: false, text: opt.label, reply: opt.reply, optionId: opt.id });
-          });
-          chips.appendChild(c);
-        })(opts[i]);
+    send.addEventListener('click', submit);
+    ta.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' && (e.ctrlKey || e.metaKey) && !e.isComposing) {
+        e.preventDefault(); submit();
       }
-      composer.appendChild(chips);
-    }
+    });
 
     function runNode() {
+      if (!active || completed || finishing) { return; }
       if (nodeIdx >= nodes.length) { finish(); return; }
       var node = nodes[nodeIdx];
+      currentNode = node;
       nodeIdx += 1;
 
       var lines = node.say || [];
@@ -425,24 +421,26 @@
     }
 
     function presentInput(node) {
+      if (!active || completed || finishing) { return; }
       var cfg = node.input;
 
       /* catch 之类不需要输入的节点：直接往下走 */
       if (!cfg) { runNode(); return; }
 
-      clearComposer();
-
       function answered(res) {
         if (!active || completed || answered.used) { return; }
         answered.used = true;
-        clearComposer();
-
-        /* 记录原话或跳过 */
-        if (res.skipped) {
-          global.YTStore.recordSkip({ stage: 'talk', nodeId: node.id, prompt: (node.say || []).join('') });
-        } else if (res.text) {
-          global.YTStore.record({ stage: 'talk', nodeId: node.id, prompt: (node.say || []).join(''), raw: res.text });
-          say(res.text, 'msg-me');
+        /* A choice reply is used only for an exact, normalized label match.
+           Other free text follows the existing scripted dialogue fallback. */
+        if (cfg.type === 'choice') {
+          var normalize = function (text) { return String(text || '').normalize('NFKC').trim().toLowerCase(); };
+          var options = cfg.options || [];
+          for (var i = 0; i < options.length; i++) {
+            if (normalize(res.text) === normalize(options[i].label)) {
+              res.reply = options[i].reply;
+              break;
+            }
+          }
         }
 
         /* 选项节点：回复直接来自课程包里的 option.reply */
@@ -464,15 +462,14 @@
         later(runNode, 900);
       }
 
-      if (cfg.type === 'choice') {
-        askChoice(node, answered);
-      } else {
-        askFree(node, answered);
-      }
+      answerHandler = answered;
+      drainAnswers();
     }
 
     function finish() {
-      clearComposer();
+      if (finishing || completed) { return; }
+      finishing = true;
+      answerHandler = null;
       var closing = d.closing || [];
       for (var i = 0; i < closing.length; i++) {
         (function (line, k) {
@@ -488,6 +485,7 @@
         if (completed || active) { return; }
         active = true;
         pending.forEach(arm);
+        drainAnswers();
         if (!started) {
           started = true;
           var opening = d.opening || [];
@@ -508,96 +506,143 @@
      ====================================================================== */
 
   function buildEnergy(course, onDone) {
-    var d = course.stages.energy || {};
-    var track = d.track || {};
+    var d = course.stages.energy || {}, track = d.track || {};
     var root = el('section', 'stage');
     root.setAttribute('data-stage', 'energy');
     var src = track.src || '';
-    if (src && !/^(https?:|data:|\/)/.test(src)) {
-      src = ((course.audio && course.audio.basePath) || '') + src;
+    if (src && !/^(https?:|data:|\/)/.test(src)) src = ((course.audio && course.audio.basePath) || '') + src;
+    var demoAllowed = app.teacherPreview && app.review;
+    var companion = d.companionVideo || {};
+    var videoMarkup = companion.src ? '<video class="energy-companion-video" data-companion-video src="' + esc(companion.src) + '" poster="' + esc(companion.poster || '') + '" muted playsinline loop preload="metadata" disablepictureinpicture aria-label="云朵陪伴听音乐"></video>' + (companion.poster ? '<img class="energy-video-fallback" data-video-fallback src="' + esc(companion.poster) + '" alt="云朵陪伴画面" hidden>' : '') : '';
+    root.innerHTML = '<div class="scene-energy">' +
+      (demoAllowed ? '<button type="button" class="btn btn-ghost energy-demo-next" data-energy-demo-next aria-label="下一步（仅老师演示）">下一步</button>' : '') +
+      '<p class="energy-positive-copy">让音乐陪你放松片刻，也记得温柔地照顾自己。<span class="energy-phrase">慢慢来</span>，每一次小小的调整，都在积蓄成长的力量。</p>' +
+      '<div class="energy-visual" aria-label="云朵陪伴画面">' + videoMarkup + '</div>' +
+      '<section class="energy-player" aria-label="音乐播放器"><div class="energy-player-main">' +
+      '<div class="energy-track-info"><h2 class="t-title" data-audio-title>' + esc(track.title || '心理能量成长训练') + '</h2><p class="energy-status" data-status role="status" aria-live="polite"></p></div>' +
+      '<div class="energy-transport"><div class="energy-control-row"><button type="button" class="energy-play" data-play ' + (src ? '' : 'disabled') + '>' + (src ? '▶ 播放音乐' : '音频待配置') + '</button></div>' +
+      '<div class="energy-timeline"><span data-current>00:00</span><div class="energy-progress" role="progressbar" aria-label="音频播放进度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" data-progressbar><i data-progress></i></div><span data-duration>' + esc(src ? (track.durationLabel || '--:--') : '--:--') + '</span></div></div>' +
+      '<div class="energy-side-controls"><label class="energy-volume"><span class="energy-volume-label">音量</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5Z"/><path d="M15 8a6 6 0 0 1 0 8M18 5a10 10 0 0 1 0 14"/></svg><input type="range" min="0" max="1" step="0.05" value="0.8" data-volume aria-label="音量" style="--volume-fill:80%" ' + (src ? '' : 'disabled') + '></label></div></div>' +
+      '<div class="energy-actions"><button type="button" class="btn btn-primary" data-finish disabled>听完了，继续</button></div>' +
+      '</section>' + (src ? '<audio preload="metadata" src="' + esc(src) + '" data-audio></audio>' : '') + '</div>';
+    var audio = root.querySelector('[data-audio]'), play = root.querySelector('[data-play]');
+    var finish = root.querySelector('[data-finish]'), demoNext = root.querySelector('[data-energy-demo-next]');
+    var volume = root.querySelector('[data-volume]'), bar = root.querySelector('[data-progress]');
+    var current = root.querySelector('[data-current]'), duration = root.querySelector('[data-duration]');
+    var status = root.querySelector('[data-status]'), progressbar = root.querySelector('[data-progressbar]');
+    var active = false, classPaused = false, failed = false, completed = false, listenedToEnd = false, hadPlayback = false, playEpoch = 0;
+    var companionVideo = root.querySelector('[data-companion-video]'), videoFallback = root.querySelector('[data-video-fallback]');
+    var videoUnavailable = false, videoPending = false, videoEpoch = 0;
+    if (companionVideo) { companionVideo.muted = true; companionVideo.defaultMuted = true; companionVideo.loop = true; }
+    function syncCompanion() {
+      if (!companionVideo) return;
+      if (videoUnavailable) {
+        if (videoFallback) { var runFallback = active && !classPaused && !completed && !document.hidden && audio && !audio.paused && !audio.ended && !failed; var fallbackSrc = runFallback && companion.animatedFallback ? companion.animatedFallback : companion.poster; if (fallbackSrc && videoFallback.getAttribute('src') !== fallbackSrc) videoFallback.src = fallbackSrc; }
+        return;
+      }
+      companionVideo.muted = true;
+      if (!active || classPaused || completed || document.hidden || !audio || audio.paused || audio.ended || failed) {
+        videoEpoch++; videoPending = false; companionVideo.pause(); return;
+      }
+      if (!companionVideo.paused || videoPending) return;
+      var token = ++videoEpoch; videoPending = true;
+      var promise = companionVideo.play();
+      if (promise && promise.then) promise.then(function(){
+        if (token !== videoEpoch) { if (!active || classPaused || !audio || audio.paused) companionVideo.pause(); return; }
+        videoPending = false;
+        if (!active || classPaused || completed || document.hidden || audio.paused || audio.ended) companionVideo.pause();
+      }).catch(function(){ if (token === videoEpoch) videoPending = false; });
     }
-    root.innerHTML =
-      '<div class="scene-energy">' +
-        '<section class="energy-player">' +
-          '<div class="energy-cover"><span></span><i>♪</i></div>' +
-          '<div class="energy-copy">' +
-            '<p class="t-eyebrow">心理能量补给</p>' +
-            '<h2 class="t-title">' + esc(d.title || '听一段音乐，把时间留给自己') + '</h2>' +
-            '<p class="t-body">' + esc(d.intro || '不需要回答问题，只需要听。') + '</p>' +
-            '<div class="energy-track">' +
-              '<div><b>' + esc(track.title || '本课心理能量音频') + '</b><span>' + esc(track.subtitle || '音乐素材接入后显示正式名称') + '</span></div>' +
-              '<em>' + esc(track.durationLabel || '待配置') + '</em>' +
-            '</div>' +
-            '<div class="energy-progress"><i data-progress></i></div>' +
-            '<div class="energy-time"><span data-current>00:00</span><span data-duration>' + esc(track.durationLabel || '--:--') + '</span></div>' +
-            '<div class="energy-controls">' +
-              '<button class="energy-play" data-play ' + (src ? '' : 'disabled') + '>' + (src ? '▶ 播放音乐' : '音乐文件待接入') + '</button>' +
-              '<label>音量 <input type="range" min="0" max="1" step="0.05" value="0.8" data-volume ' + (src ? '' : 'disabled') + '></label>' +
-            '</div>' +
-            '<p class="energy-status" data-status>' + (src ? '准备好后，点击播放。' : '当前只展示播放器结构，尚未使用语音或其他素材代替音乐。') + '</p>' +
-            '<div class="energy-actions">' +
-              '<button class="btn btn-primary" data-finish ' + (src ? 'disabled' : '') + '>' + (src ? '听完了，继续' : '当前预览先跳过') + '</button>' +
-              (src ? '<button class="btn btn-ghost" data-skip>这次先听到这里</button>' : '') +
-            '</div>' +
-          '</div>' +
-          (src ? '<audio preload="metadata" src="' + esc(src) + '" data-audio></audio>' : '') +
-        '</section>' +
-      '</div>';
-
-    var audio = root.querySelector('[data-audio]');
-    var play = root.querySelector('[data-play]');
-    var finish = root.querySelector('[data-finish]');
-    var skip = root.querySelector('[data-skip]');
-    var volume = root.querySelector('[data-volume]');
-    var bar = root.querySelector('[data-progress]');
-    var current = root.querySelector('[data-current]');
-    var duration = root.querySelector('[data-duration]');
-    var status = root.querySelector('[data-status]');
 
     function clock(sec) {
-      if (!isFinite(sec)) { return '--:--'; }
+      if (!isFinite(sec)) return '--:--';
       var n = Math.max(0, Math.floor(sec));
       return String(Math.floor(n / 60)).padStart(2, '0') + ':' + String(n % 60).padStart(2, '0');
     }
-    function complete(skipped) {
-      if (audio) { audio.pause(); }
-      global.YTStore.record({ stage:'energy', nodeId:track.id || 'music', prompt:'心理能量补给音乐聆听', raw:skipped ? '学生选择提前结束聆听' : '音乐播放完成' });
-      onDone();
+    // Reconcile from the real media state on every relevant event and re-entry.
+    // Do not depend on one delivery of "ended" or on the rounded on-screen clock.
+    function sync() {
+      if (audio) {
+        var finite = Number.isFinite(audio.duration) && audio.duration > 0;
+        if (audio.ended || (hadPlayback && finite && !audio.seeking && audio.currentTime >= audio.duration)) listenedToEnd = true;
+        current.textContent = clock(audio.currentTime);
+        if (finite) duration.textContent = clock(audio.duration);
+        var percent = finite ? Math.min(100, audio.currentTime / audio.duration * 100) : 0;
+        bar.style.width = percent + '%';
+        progressbar.setAttribute('aria-valuenow', String(Math.round(percent)));
+        play.disabled = classPaused || completed;
+        if (failed) { play.textContent = '重新加载'; status.textContent = '音频暂时无法播放，请重试。'; }
+        else if (!audio.paused && !audio.ended) { play.textContent = 'Ⅱ 暂停'; status.textContent = '正在播放'; }
+        else if (listenedToEnd && (audio.ended || (finite && audio.currentTime >= audio.duration))) { play.textContent = '↻ 再听一遍'; status.textContent = '播放完成'; }
+        else if (audio.currentTime > 0) { play.textContent = '▶ 继续播放'; status.textContent = '已暂停'; }
+        else { play.textContent = '▶ 播放音乐'; status.textContent = ''; }
+      } else status.textContent = '音频待配置';
+      finish.disabled = !audio || !listenedToEnd || classPaused || completed;
+      if (demoNext) demoNext.disabled = classPaused || completed;
+      play.dataset.playState = failed ? 'retry' : (audio && !audio.paused && !audio.ended ? 'playing' : (audio && audio.ended ? 'replay' : 'paused'));
+      play.setAttribute('aria-label', play.textContent.replace(/^[▶Ⅱ↻\s]+/, ''));
+      play.title = play.getAttribute('aria-label');
+      syncCompanion();
+    }
+    function complete(demo) {
+      sync();
+      if (!active || classPaused || completed || (!demo && !listenedToEnd)) return;
+      completed = true; playEpoch++;
+      if (audio) audio.pause();
+      global.YTStore.record({ stage:'energy', nodeId:track.id || 'music', prompt:'心理能量成长训练', raw:demo ? '老师演示：通过下一步进入下一环节，未计为音频听完' : '音乐播放完成' });
+      sync(); onDone();
     }
     if (audio) {
       audio.volume = 0.8;
-      audio.addEventListener('loadedmetadata', function () { duration.textContent = clock(audio.duration); });
-      audio.addEventListener('timeupdate', function () {
-        current.textContent = clock(audio.currentTime);
-        bar.style.width = audio.duration ? Math.min(100, audio.currentTime / audio.duration * 100) + '%' : '0%';
-      });
-      audio.addEventListener('ended', function () {
-        play.textContent = '↻ 再听一遍';
-        finish.disabled = false;
-        status.textContent = '音乐已经播放结束。你可以继续，也可以再听一遍。';
-      });
-      audio.addEventListener('error', function () {
-        play.disabled = true;
-        finish.disabled = false;
-        status.textContent = '音乐暂时无法加载，可以先继续课堂。';
-      });
-      play.addEventListener('click', function () {
+      ['loadedmetadata','durationchange','timeupdate','pause','seeked','canplay'].forEach(function(name){ audio.addEventListener(name, sync); });
+      audio.addEventListener('playing', function(){ hadPlayback = true; failed = false; sync(); });
+      audio.addEventListener('ended', function(){ listenedToEnd = true; sync(); });
+      audio.addEventListener('error', function(){ failed = true; sync(); });
+      play.addEventListener('click', function(){
+        if (!active || classPaused || completed) return;
+        var token = ++playEpoch;
         global.YTAudio.stopAll();
-        if (audio.ended) { audio.currentTime = 0; }
-        if (audio.paused) {
-          audio.play().then(function () { play.textContent = 'Ⅱ 暂停'; status.textContent = '正在播放，只需要安静地听。'; }).catch(function () { status.textContent = '浏览器没有允许自动播放，请再点击一次。'; });
-        } else { audio.pause(); play.textContent = '▶ 继续播放'; status.textContent = '已经暂停，准备好时可以继续。'; }
+        if (!audio.paused && !failed) { audio.pause(); sync(); return; }
+        if (failed) { failed = false; audio.load(); }
+        if (audio.ended) { audio.currentTime = 0; if (companionVideo && !videoUnavailable) companionVideo.currentTime = 0; }
+        var promise = audio.play();
+        if (promise && promise.then) promise.then(function(){
+          if (!active || classPaused || token !== playEpoch) { if (!active || classPaused) audio.pause(); return; }
+          sync();
+        }).catch(function(error){
+          if (token !== playEpoch || !active || classPaused) return;
+          sync(); if (error && error.name !== 'AbortError' && !failed) status.textContent = '请再次点击播放';
+        });
       });
-      volume.addEventListener('input', function () { audio.volume = Number(volume.value); });
-      finish.addEventListener('click', function () { complete(false); });
-      if (skip) { skip.addEventListener('click', function () { complete(true); }); }
-    } else {
-      finish.addEventListener('click', function () { complete(true); });
+      volume.addEventListener('input', function(){ audio.volume = Number(volume.value); volume.style.setProperty('--volume-fill', Math.round(Number(volume.value) * 100) + '%'); });
     }
+    if (companionVideo) {
+      companionVideo.addEventListener('loadeddata', function(){
+        if (companion.transparent) {
+          try {
+            var probeCanvas = document.createElement('canvas'); probeCanvas.width = probeCanvas.height = 8;
+            var ctx = probeCanvas.getContext('2d', {willReadFrequently:true}); ctx.drawImage(companionVideo,0,0,8,8);
+            if (ctx.getImageData(0,0,1,1).data[3] > 10) { videoUnavailable = true; companionVideo.pause(); companionVideo.hidden = true; if (videoFallback) videoFallback.hidden = false; syncCompanion(); return; }
+          } catch(ignore) {}
+        }
+        syncCompanion();
+      });
+      companionVideo.addEventListener('error', function(){ videoUnavailable = true; companionVideo.pause(); companionVideo.hidden = true; if (videoFallback) videoFallback.hidden = false; syncCompanion(); });
+    }
+    finish.addEventListener('click', function(){ complete(false); });
+    if (demoNext) demoNext.addEventListener('click', function(){ complete(true); });
+    document.addEventListener('visibilitychange', function(){ if (active) { if (document.hidden) syncCompanion(); else sync(); } });
+    var energyDock = root.querySelector('.energy-player'), energyCanvas = root.querySelector('.scene-energy'), positiveCopy = root.querySelector('.energy-positive-copy');
+    function measureDock(){ var h = energyDock.getBoundingClientRect().height; if (h > 0) energyCanvas.style.setProperty('--energy-dock-height', Math.ceil(h) + 'px'); var copyHeight = positiveCopy ? positiveCopy.getBoundingClientRect().height : 0; energyCanvas.style.setProperty('--energy-copy-height', Math.ceil(copyHeight) + 'px'); }
+    if (global.ResizeObserver) { var energyObserver = new global.ResizeObserver(measureDock); energyObserver.observe(energyDock); if (positiveCopy) energyObserver.observe(positiveCopy); }
+    global.addEventListener('resize', measureDock);
+    measureDock();
+    sync();
     return {
       root: root,
-      activate: function () {},
-      deactivate: function () { if (audio) { audio.pause(); } }
+      activate: function(){ active = true; completed = false; measureDock(); sync(); },
+      deactivate: function(){ active = false; playEpoch++; if (audio) audio.pause(); sync(); },
+      setPaused: function(value){ classPaused = !!value; if (classPaused) { playEpoch++; if (audio) audio.pause(); } sync(); }
     };
   }
 
@@ -612,9 +657,7 @@
     root.innerHTML =
       '<div class="scene-playground">' +
         '<header class="playground-title">' +
-          '<p class="t-eyebrow">成长训练场</p>' +
-          '<h2 class="t-title">' + esc(d.title || '选择一项大脑训练') + '</h2>' +
-          '<p class="t-body">' + esc(d.intro || '从注意力、视觉观察和记忆等训练中选择一项。') + '</p>' +
+          '<h2 class="t-title">成长训练</h2><p class="r109-growth-intro">每一次小练习，都在积累成长的力量。</p>' +
         '</header>' +
         '<div class="playground-board" data-games></div>' +
       '</div>';
@@ -681,6 +724,7 @@
             '<h2 class="t-title">' + esc(d.colorsPrompt || '') + '</h2>' +
             '<div class="spectrum">' + swatches + '</div>' +
             '<div class="spectrum-labels">' + labels + '</div>' +
+            '<p class="r112-color-purpose"><span>选一个贴近此刻心情的颜色，</span><span>给今天的自己留个记录。</span><br>颜色没有好坏，也没有标准答案。</p>' +
             '<p class="picked-meaning" data-meaning></p>' +
             '<button class="btn btn-ghost" data-act="skip-color">这次先不选</button>' +
           '</div>' +
@@ -1105,7 +1149,7 @@
           } else { global.location.replace('student.html?classroomCompleted=1'); }
           return;
         }
-        if (!session || !session.active || session.courseId !== course.id) { if (story.setPaused) story.setPaused(true); return; }
+        if (!session || !session.active || session.courseId !== course.id) { if (story.setPaused) story.setPaused(true); if (energy.setPaused) energy.setPaused(true); return; }
         var followedStage = app.teacherPreview
           ? (session.progressMode === 'student' ? (session.teacherPreviewStage || session.stage) : session.stage)
           : (session.progressMode === 'student' ? (session.studentStage || session.stage) : session.stage);
@@ -1116,6 +1160,7 @@
           setClassroomGate(null);
         }
         if (story.setPaused) story.setPaused(!!session.paused || session.status === 'waiting');
+        if (energy.setPaused) energy.setPaused(!!session.paused || session.status === 'waiting');
         document.body.className = session.paused ? 'classroom-is-paused' : (session.status === 'waiting' ? 'classroom-is-waiting' : '');
         if (session.status === 'waiting') {
           setClassroomGate('waiting', '课堂即将开始', '请留在这里，老师准备好后会带大家一起进入。');

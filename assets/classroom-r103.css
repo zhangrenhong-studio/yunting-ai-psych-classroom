@@ -1,0 +1,61 @@
+/* r103: one cool-clear palette for the complete classroom, floating expression. */
+html[data-classroom-stage]{--class-canvas:radial-gradient(circle at 20% 20%,rgba(196,240,223,.9),transparent 36%),radial-gradient(circle at 78% 26%,rgba(197,226,255,.88),transparent 38%),linear-gradient(150deg,#f8fffc,#f3f8ff);--class-ink:#304e58;--class-text:#526d74;--class-muted:#70878b;--class-line:#dbe9e7;--class-surface:#fff;--class-soft:#f3faf9;--class-mint:#e6f5ef;--class-action:linear-gradient(115deg,#d3f2df,#cdebf5);--class-action-hover:linear-gradient(115deg,#c4ecd4,#bce3f1);--class-accent:#4c8078;--u-ink:var(--class-ink);--u-text:var(--class-text);--u-muted:var(--class-muted);--u-line:var(--class-line);--u-green:var(--class-accent);--u-green-dark:#396e67;--ink:var(--class-ink);--ink-mid:var(--class-text);--ink-soft:var(--class-muted);--muted:var(--class-muted);--teal:var(--class-accent);--r101-ink:var(--class-ink);--r102-paper:#fff;--r102-action:var(--class-action);--r102-action-hover:var(--class-action-hover);--r102-button-ink:#285958}
+html[data-classroom-stage] body{background:var(--class-canvas);color:var(--class-ink)}
+html[data-classroom-stage] .stage:is([data-stage="enter"],[data-stage="story"],[data-stage="talk"],[data-stage="playground"],[data-stage="closing"]),html[data-classroom-stage] :is(.scene-enter,.scene-playground,.scene-closing){background:var(--class-canvas)!important}
+html[data-classroom-stage] .u-classroom-header{background:transparent;border-color:transparent}
+html[data-classroom-stage] :is(.u-brand,.u-course-identity strong){color:var(--class-accent)}
+html[data-classroom-stage] .stage :is(.btn-primary,.r99-button:not(.quiet)){background:var(--class-action);border:1px solid #bedfd5;color:#285958;box-shadow:0 4px 12px #5a998d0d;text-shadow:none}
+html[data-classroom-stage] .stage :is(.btn-primary,.r99-button:not(.quiet)):hover{background:var(--class-action-hover);border-color:#a6d2c7;color:#234f4e;box-shadow:0 6px 15px #5a998d15}
+html[data-classroom-stage] .stage :is(.btn-ghost,.btn-quiet){background:#f6fbfa;border:1px solid var(--class-line);color:#567971;box-shadow:none;border-radius:13px}
+html[data-classroom-stage] .stage .btn:disabled{background:#edf5f2;color:#82978f;border-color:#e0ece6;box-shadow:none}
+html[data-classroom-stage] .stage :is(.t-title,.t-small){color:var(--class-ink)}
+html[data-classroom-stage] .stage :is(.t-body,.t-lead){color:var(--class-text)}
+html[data-classroom-stage] .stage .t-eyebrow{color:#60877e}
+html[data-classroom-stage] .stage button:focus-visible{outline:3px solid #a8cfbf;outline-offset:3px}
+/* Story: white paper, distinctly tinted rounded composer hovering above it. */
+.r102-letter-surface{position:relative;display:block;background:var(--class-surface)}
+.r99-story-content,.r99-story-stage[data-view="read"] .r99-story-content,.r99-story-stage[data-view="learn"] .r99-story-content{height:100%;flex:none;background:#fff;padding:0}
+.r99-story-stage[data-view="learn"] .r99-story-content{padding-bottom:calc(var(--r103-compose-height,160px) + 42px);scroll-padding-bottom:calc(var(--r103-compose-height,160px) + 42px)}
+.r101-paper{background-image:linear-gradient(90deg,transparent 31px,#dcebe53d 31px,#dcebe53d 32px,transparent 32px)}
+.r99-story-stage .r99-story-footer{position:absolute;z-index:5;left:24px;right:24px;bottom:20px;background:transparent;border:0;border-radius:21px;box-shadow:0 9px 28px #335d6817,0 1px 4px #335d6808;margin:0;padding:0}
+.r99-story-stage .r99-story-footer .r101-composer{background:#eef9f6;border:1px solid #d0e7de;border-radius:21px;padding:16px 21px 13px;margin:0;gap:10px;box-shadow:inset 0 1px 0 #ffffffc9;background-image:none;position:relative}
+.r101-composer-question{color:#3d625e}.r101-compose-row textarea{border-color:#d9e9e2;background:#fff}
+.r101-compose-row textarea:focus{border-color:#accfbd;outline-color:#d9eee3}
+.r99-core{background:#edf8f4;border-left-color:#acd5c5;color:#466e62}
+.r99-concept span{background:#edf7f2;color:#53766b}.r99-concept strong{color:#58736e}
+/* Conversation: no cream/yellow or grey slab, only barely-tinted white. */
+html.classroom-ui-enabled[data-classroom-stage="talk"] .scene-talk{background:#fff;border-color:#ffffffed}
+html.classroom-ui-enabled[data-classroom-stage="talk"] .talk-head,html.classroom-ui-enabled[data-classroom-stage="talk"] .talk-composer{background:#fff;border-color:var(--class-line)}
+html.classroom-ui-enabled[data-classroom-stage="talk"] .talk-log{background:#f4faf9}
+html.classroom-ui-enabled[data-classroom-stage="talk"] .talk-head .t-small{color:var(--class-ink)}
+html.classroom-ui-enabled[data-classroom-stage="talk"] .msg-yue{background:#fff;border-color:#e4eeea;color:#405c60}
+html.classroom-ui-enabled[data-classroom-stage="talk"] .msg-me{background:#e4f5ec;border-color:#d5eadd;color:#3d6257}
+html.classroom-ui-enabled[data-classroom-stage="talk"] .composer-row textarea{background:#fff;border-color:#dfece7;color:#3b5955}
+html.classroom-ui-enabled[data-classroom-stage="talk"] .r99-talk-next{background:#f0f8f5!important;border:1px solid #dcebe4!important;color:#618176!important}
+html.classroom-ui-enabled[data-classroom-stage="talk"] :is(.chips button,.chip){background:#f1f9f5;border-color:#dfede6;color:#5e7b6f}
+/* Growth hub, exercise shell and results use the same colour roles. */
+html.classroom-ui-enabled[data-classroom-stage="playground"] .scene-playground{background:var(--class-canvas)!important}
+html.classroom-ui-enabled[data-classroom-stage="playground"] .playground-title .t-title{color:var(--class-ink)}
+.scene-playground .game-card{background:#ffffffeb;border-color:#dcebe7;color:var(--class-ink);box-shadow:0 4px 6px #335d6803,0 10px 24px -18px #335d6840}
+.scene-playground .game-card:hover{background:#fff;border-color:#abd1c3;box-shadow:0 12px 26px -16px #335d6838}
+.scene-playground .game-card .game-card-heading,.scene-playground .game-card b{color:var(--class-ink)}
+.scene-playground :is(.game-card p,.game-ability,.game-prompt,.game-hint,.playground-actions p,.game-boundary,.game-replay-note){color:var(--class-text)}
+.scene-playground :is(.game-card em,.game-back,[data-progress]){color:#568579}
+.scene-playground .training-icon{background:linear-gradient(135deg,#e0f4e9,#e4f2f9);border-color:#d5e9df;color:#5b8a7f}
+.scene-playground :is(.game-play,.game-result){background:#ffffffef;border-color:#dcebe7;color:var(--class-ink);box-shadow:0 12px 30px -22px #335d6840}
+.scene-playground :is(.game-play,.game-result) h3{color:var(--class-ink)}
+.scene-playground [data-board]{background:#f4faf8;border-color:#e1ede7}
+.scene-playground .game-result .game-result-summary{background:#eff8f5;border-color:#dcebe5;color:#526f65}
+.scene-playground .game-result>.training-icon{background:linear-gradient(135deg,#e0f4e9,#e4f2f9)}
+.scene-playground .playground-actions{background:transparent!important;border-color:#dcebe5!important}
+.scene-playground .digit-answer .field{background:#fff;border-color:#d6e7df;color:var(--class-ink)}
+/* Stimulus colours remain untouched: Stroop words, lit path cells, pattern tiles and mood swatches carry task meaning. */
+html[data-classroom-stage="energy"] .energy-player{border-color:#dcebe7;box-shadow:0 14px 38px #335d680b}
+html[data-classroom-stage="energy"] .energy-play:not(:disabled){background:var(--class-action);border:1px solid #bedfd5;color:#285958;box-shadow:0 4px 12px #5a998d0d;border-radius:14px}
+html[data-classroom-stage="energy"] .energy-controls input{accent-color:#78b39d}
+html[data-classroom-stage="energy"] .energy-copy :is(h2,h3){color:var(--class-ink)}
+html[data-classroom-stage="closing"] .note{background:#fff;border-color:#dcebe5;border-radius:20px;box-shadow:0 8px 28px #335d680a}
+html[data-classroom-stage="closing"] .field{background:#fff;border-color:#dcebe5;color:var(--class-ink);border-radius:14px}
+html[data-classroom-stage="closing"] .scene-closing{isolation:isolate}
+@media(max-width:900px){.r99-story-stage .r99-story-footer{left:18px;right:18px;bottom:17px}.r99-story-stage .r99-story-footer .r101-composer{padding:14px 17px 12px}.r101-paper{background-image:linear-gradient(90deg,transparent 19px,#dcebe53d 19px,#dcebe53d 20px,transparent 20px)}}
+@media(max-width:560px){.r99-story-stage .r99-story-footer{left:10px;right:10px;bottom:12px;border-radius:18px}.r99-story-stage .r99-story-footer .r101-composer{padding:12px 13px 12px;border-radius:18px;gap:8px}.r101-composer .r99-answer-meta{left:13px;bottom:22px}.r101-composer-question{font-size:16px}.r101-paper{background-image:linear-gradient(90deg,transparent 12px,#dcebe52d 12px,#dcebe52d 13px,transparent 13px)}.r99-story-stage[data-view="learn"] .r99-story-content{padding-bottom:calc(var(--r103-compose-height,200px) + 32px);scroll-padding-bottom:calc(var(--r103-compose-height,200px) + 32px)}}

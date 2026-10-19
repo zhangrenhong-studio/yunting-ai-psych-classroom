@@ -33,21 +33,32 @@
   function esc(v){return String(v==null?'':v).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
   function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t}return a}
   function byId(ids){return (ids&&ids.length?ids:CATALOG.map(function(x){return x.id})).map(function(id){return CATALOG.find(function(x){return x.id===id})}).filter(Boolean)}
+  function cardArt(id){
+    var body={
+      schulte:'<rect x="25" y="14" width="78" height="78" rx="18" fill="white"/><path d="M51 17v72M77 17v72M28 40h72M28 66h72"/><g fill="currentColor" stroke="none" font-family="Arial,sans-serif" font-size="16" font-weight="600" text-anchor="middle"><text x="38" y="33">2</text><text x="64" y="33">7</text><text x="90" y="33">4</text><text x="38" y="59">9</text><text x="64" y="59">1</text><text x="90" y="59">6</text><text x="38" y="85">3</text><text x="64" y="85">8</text><text x="90" y="85">5</text></g>',
+      kaleidoscope:'<g transform="translate(64 54)"><ellipse rx="17" ry="32" fill="white" transform="rotate(0)"/><ellipse rx="17" ry="32" fill="white" transform="rotate(60)"/><ellipse rx="17" ry="32" fill="white" transform="rotate(120)"/><circle r="13" fill="var(--art-soft)"/><circle r="5" fill="currentColor" stroke="none"/></g>',
+      stroop:'<rect x="24" y="22" width="45" height="45" rx="15" fill="white" transform="rotate(-12 46 44)"/><rect x="55" y="36" width="47" height="47" rx="16" fill="var(--art-soft)" transform="rotate(12 78 60)"/><path d="M34 43h22M45 32v22M70 55h20M70 66h20"/>',
+      digit:'<rect x="15" y="24" width="98" height="60" rx="19" fill="white"/><path d="M40 40l-6 5h6v24M56 42c15-9 23 7 9 15l-9 10h20M88 40v27"/><path d="M46 12v5M81 91v5" opacity=".5"/>',
+      path:'<path d="M29 80V40a15 15 0 0 1 30 0v25a15 15 0 0 0 30 0V28" stroke-width="4" stroke-dasharray="5 7"/><circle cx="29" cy="80" r="11" fill="white"/><circle cx="59" cy="42" r="8" fill="white"/><circle cx="89" cy="28" r="14" fill="white"/><path d="m89 20 2.3 5.4 5.7 2.6-5.7 2.4L89 36l-2.4-5.6L81 28l5.6-2.6Z" fill="var(--art-soft)"/>',
+      target:'<circle cx="64" cy="54" r="37" fill="white"/><circle cx="64" cy="54" r="25"/><circle cx="64" cy="54" r="11" fill="var(--art-soft)"/><path d="M64 8v14M110 54H96M64 100V86M18 54h14" stroke-width="4"/>'
+    };
+    return '<svg class="r108-card-art" viewBox="0 0 128 108" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">'+body[id]+'</svg>';
+  }
   function mount(root,config){
     var apps=byId(config.appIds),playCounts={};
     function hub(){
       root.innerHTML='<div class="game-hub">'+apps.map(function(a){
         var count=playCounts[a.id]||0;
-        return '<button class="game-card" data-game="'+a.id+'"><span class="game-card-top"><i class="training-icon">'+a.icon+'</i><span class="game-card-heading"><span class="game-ability">'+a.ability+'</span><b>'+a.title+'</b></span></span><p>'+a.summary+'</p><em><span>'+(count?'已训练 '+count+' 次 · 继续训练':'开始训练')+'</span>'+ARROW+'</em></button>';
-      }).join('')+'</div><div class="playground-actions"><p>可以自由选择，也可以重复进行同一项训练。</p><button class="btn btn-primary" data-finish-stage>结束本次训练</button></div><p class="game-boundary">训练结果只用于本次体验，不生成认知能力评分、班级排名或心理判断。</p>';
+        return '<button class="game-card" data-game="'+a.id+'"><span class="game-card-top"><i class="training-icon r108-training-art">'+cardArt(a.id)+'</i><span class="game-card-heading"><b>'+a.title+'</b></span></span><em><span>'+(count?'已训练 '+count+' 次 · 继续训练':'开始训练')+'</span>'+ARROW+'</em></button>';
+      }).join('')+'</div><div class="playground-actions"><button class="btn btn-primary" data-finish-stage>结束本次训练</button></div>';
       root.querySelectorAll('[data-game]').forEach(function(b){b.onclick=function(){open(apps.find(function(a){return a.id===b.dataset.game}))}});
       root.querySelector('[data-finish-stage]').onclick=function(){if(config.onStageComplete)config.onStageComplete(Object.keys(playCounts))};
     }
-    function shell(app,html){root.innerHTML='<section class="game-play"><button class="game-back" data-back>← 返回训练场</button><header class="training-heading"><i class="training-icon">'+app.icon+'</i><div><p class="t-eyebrow">'+app.ability+'</p><h3>'+app.title+'</h3></div></header><p class="game-prompt">'+app.summary+'</p><div data-board>'+html+'</div></section>';root.querySelector('[data-back]').onclick=hub;return root.querySelector('[data-board]')}
+    function shell(app,html){root.innerHTML='<section class="game-play"><button class="game-back" data-back>← 返回训练场</button><header class="training-heading"><i class="training-icon">'+app.icon+'</i><div><p class="t-eyebrow">'+app.ability+'</p><h3>'+app.title+'</h3></div></header><div data-board>'+html+'</div></section>';root.querySelector('[data-back]').onclick=hub;return root.querySelector('[data-board]')}
     function result(app,text){
       playCounts[app.id]=(playCounts[app.id]||0)+1;
       if(config.onGameComplete)config.onGameComplete(app,playCounts[app.id]);
-      root.innerHTML='<section class="game-result"><i class="training-icon">'+app.icon+'</i><p class="t-eyebrow">'+app.ability+' · 本轮完成</p><h3>'+app.title+'</h3><p class="game-result-summary" role="status">'+esc(text)+'</p><p class="game-replay-note">可以反复训练，按自己的节奏继续。</p><div class="row"><button class="btn btn-primary" data-replay>再训练一次</button><button class="btn btn-ghost" data-more>返回训练场</button></div></section>';
+      root.innerHTML='<section class="game-result"><i class="training-icon">'+app.icon+'</i><p class="t-eyebrow">'+app.ability+' · 本轮完成</p><h3>'+app.title+'</h3><p class="game-result-summary" role="status">'+esc(text)+'</p><div class="row"><button class="btn btn-primary" data-replay>再训练一次</button><button class="btn btn-ghost" data-more>返回训练场</button></div></section>';
       root.querySelector('[data-replay]').onclick=function(){open(app)};
       root.querySelector('[data-more]').onclick=hub;
     }
