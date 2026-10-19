@@ -506,6 +506,7 @@
      ====================================================================== */
 
   function buildEnergy(course, onDone) {
+    if (global.YTCourseMedia) { global.YTCourseMedia.apply(course); }
     var d = course.stages.energy || {}, track = d.track || {};
     var root = el('section', 'stage');
     root.setAttribute('data-stage', 'energy');
