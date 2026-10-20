@@ -97,6 +97,7 @@
      ====================================================================== */
 
   function buildEnter(course) {
+    if (global.YTBreathingEnter) { return global.YTBreathingEnter.build(course); }
     var d = course.stages.enter;
     var root = el('section', 'stage');
     root.setAttribute('data-stage', 'enter');
@@ -918,6 +919,7 @@
   /* 课堂模式下记录学生当前环节的个人任务。统一控制模式完成后等待老师推进；
      自主探索模式完成后自行进入下一环节，完成整课后自动退出课堂。 */
   function completeCurrentStage() {
+    if (app.demoNavigationActive) { app.previewCompletedStage = null; setClassroomGate(null); if (app.index < app.stages.length - 1) { goTo(app.index + 1); } return; }
     if (STAGE_ORDER[app.index] === 'closing') {
       app.courseCompleted = true;
       setClassroomGate(null);
@@ -1034,7 +1036,7 @@
     app.review = param('mode') !== 'classroom';
     app.teacherPreview = param('preview') === 'teacher';
 
-    if (app.teacherPreview && global.YTStore.setPersistence) { global.YTStore.setPersistence(false); }
+    if ((app.teacherPreview || param('demoFlow') === '1') && global.YTStore.setPersistence) { global.YTStore.setPersistence(false); }
     global.YTStore.start(course);
     global.YTAudio.configure(course.audio ? course.audio.basePath : '', course.audio ? course.audio.manifest : {});
 
@@ -1130,6 +1132,18 @@
         var i = STAGE_ORDER.indexOf(name);
         if (i >= 0) { goTo(i); }
       },
+      demoGoto: function (name) {
+        if (!app.teacherPreview && param('demoFlow') !== '1') { return false; }
+        var i = STAGE_ORDER.indexOf(name);
+        if (i < 0) { return false; }
+        app.demoNavigationActive = true;
+        setClassroomGate(null);
+        if (enter.setPaused) { enter.setPaused(false); }
+        if (story.setPaused) { story.setPaused(false); }
+        if (energy.setPaused) { energy.setPaused(false); }
+        if (i !== app.index) { goTo(i); }
+        return true;
+      },
       next: next,
       prev: function () { goTo(app.index - 1); },
       store: global.YTStore
@@ -1139,6 +1153,7 @@
        真实产品须由已鉴权的实时课堂服务替代此浏览器本地状态。 */
     if (!app.review && global.YTClassroomDemo) {
       function followTeacher(session) {
+        if (app.demoNavigationActive) { setClassroomGate(null); return; }
         if (app.courseCompleted) { setClassroomGate(null); return; }
         if (session && session.courseId === course.id && (session.status === 'ended' || (!app.teacherPreview && session.studentCourseCompleted))) {
           if (app.teacherPreview) {
@@ -1150,7 +1165,7 @@
           } else { global.location.replace('student.html?classroomCompleted=1'); }
           return;
         }
-        if (!session || !session.active || session.courseId !== course.id) { if (story.setPaused) story.setPaused(true); if (energy.setPaused) energy.setPaused(true); return; }
+        if (!session || !session.active || session.courseId !== course.id) { if (enter.setPaused) enter.setPaused(true); if (story.setPaused) story.setPaused(true); if (energy.setPaused) energy.setPaused(true); return; }
         var followedStage = app.teacherPreview
           ? (session.progressMode === 'student' ? (session.teacherPreviewStage || session.stage) : session.stage)
           : (session.progressMode === 'student' ? (session.studentStage || session.stage) : session.stage);
@@ -1160,6 +1175,7 @@
           goTo(target, true);
           setClassroomGate(null);
         }
+        if (enter.setPaused) enter.setPaused(!!session.paused || session.status === 'waiting');
         if (story.setPaused) story.setPaused(!!session.paused || session.status === 'waiting');
         if (energy.setPaused) energy.setPaused(!!session.paused || session.status === 'waiting');
         document.body.className = session.paused ? 'classroom-is-paused' : (session.status === 'waiting' ? 'classroom-is-waiting' : '');

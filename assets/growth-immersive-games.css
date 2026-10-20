@@ -1,0 +1,81 @@
+/* Fullscreen adaptations for the ten original training apps only.
+   Loaded after their component styles. No game state, timing or input changes. */
+.scene-playground .growth-app-content:has(:is(.monster-board,.river-game,.stack-game,.starry-game,.hunt-game,.rot-game,.schulte-level,[data-schulte-next],.stroop-word,.digit-flash,.path-grid)) {
+  display:flex; min-height:0; overflow:hidden!important; padding:16px; box-sizing:border-box;
+}
+.scene-playground .growth-app-dialog .game-play:has(:is(.monster-board,.river-game,.stack-game,.starry-game,.hunt-game,.rot-game,.schulte-level,[data-schulte-next],.stroop-word,.digit-flash,.path-grid)) {
+  display:flex; flex-direction:column; flex:1; width:100%; height:100%; min-width:0; min-height:0; max-width:none; margin:0; padding:0;
+}
+.scene-playground .growth-app-dialog .game-play:has(:is(.monster-board,.river-game,.stack-game,.starry-game,.hunt-game,.rot-game,.schulte-level,[data-schulte-next],.stroop-word,.digit-flash,.path-grid)) > .training-heading { display:none; }
+.scene-playground .growth-app-dialog [data-board]:is(.monster-board,:has(.river-game,.stack-game,.starry-game,.hunt-game,.rot-game,.schulte-level,[data-schulte-next],.stroop-word,.digit-flash,.path-grid)) {
+  flex:1; min-width:0; min-height:0; height:100%; width:100%; padding:0!important; border:0!important; background:transparent!important; box-sizing:border-box; container-type:size;
+}
+/* Canvas scenes follow their ResizeObserver-sized viewport, not a scaled bitmap. */
+.scene-playground .growth-app-dialog :is(.river-game,.stack-game,.starry-game,.hunt-game) {
+  width:100%; height:100%; min-height:0; max-height:none; border-radius:20px; box-sizing:border-box;
+}
+.scene-playground .growth-app-dialog :is(.river-hud,.stack-hud,.starry-hud,.gh-hud,.river-controls,.stack-controls,.starry-footer,.gh-goal) { flex-shrink:0; }
+.scene-playground .growth-app-dialog :is(.river-sheet,.stack-sheet,.starry-sheet,.gh-sheet,.mg-win) { max-height:100%; overflow:auto; overscroll-behavior:contain; box-sizing:border-box; }
+/* Monster room keeps the same percentage-based character positions and drag area. */
+.scene-playground .growth-app-dialog .mg-shell { display:flex; flex-direction:column; height:100%; min-height:0; }
+.scene-playground .growth-app-dialog .mg-top { flex:none; min-height:36px; padding:0; }
+.scene-playground .growth-app-dialog .mg-top .mg-sound { position:static; margin-left:auto; }
+.scene-playground .growth-app-dialog .mg-sub { flex:none; min-height:30px; margin:-33px 112px 9px 0; padding:0; border:0; justify-content:space-between; }
+.scene-playground .growth-app-dialog .mg-hint { flex:none; margin:2px 0 12px; min-height:24px; }
+.scene-playground .growth-app-dialog .mg-room { flex:1; height:auto!important; min-height:0; max-height:none; }
+.scene-playground .growth-app-dialog .mg-bottom { flex:none; margin-top:12px; }
+/* Rotation: a large but bounded piece of artwork, alongside reachable controls. */
+.scene-playground .growth-app-dialog .rot-game { display:flex; flex-direction:column; width:100%; max-width:1240px; height:100%; min-height:0; margin:auto; padding:12px 20px; text-align:left; }
+.scene-playground .growth-app-dialog .rot-top,.scene-playground .growth-app-dialog .rot-steps { flex:none; }
+.scene-playground .growth-app-dialog .rot-layout { flex:1; min-height:0; grid-template-columns:minmax(0,1.4fr) minmax(290px,.8fr); gap:clamp(24px,4vw,64px); align-items:center; }
+.scene-playground .growth-app-dialog .rot-scene { padding:16px; }
+.scene-playground .growth-app-dialog .rot-game svg.rot-flower { width:min(100%,560px,calc(100cqh - 170px))!important; max-width:560px; max-height:none!important; height:auto!important; }
+.scene-playground .growth-app-dialog .rot-controls { min-width:0; max-height:100%; overflow:auto; padding:6px 4px 10px; }
+.scene-playground .growth-app-dialog .rot-row button { min-height:44px; flex:none; }
+/* Legacy focus tasks use a calm centered stage rather than filling every pixel. */
+.scene-playground .growth-app-dialog [data-board]:has(.schulte-level,[data-schulte-next],.stroop-word,.digit-flash,.path-grid) { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:18px; overflow:auto; padding:20px!important; }
+.scene-playground .growth-app-dialog .schulte-level { width:100%; max-width:720px!important; margin:0!important; padding:0!important; }
+.scene-playground .growth-app-dialog .schulte-level .game-hint { margin:0; }
+.scene-playground .growth-app-dialog .schulte-grid { width:min(100%,520px,calc(100cqh - 150px))!important; margin:22px auto!important; gap:12px; }
+.scene-playground .growth-app-dialog .schulte-grid button { min-height:0!important; padding:0; font-size:clamp(24px,3.2vw,36px)!important; }
+.scene-playground .growth-app-dialog .path-grid { width:min(100%,480px,calc(100cqh - 190px)); margin:0; gap:12px; }
+.scene-playground .growth-app-dialog .path-grid button { min-height:0; padding:0; }
+.scene-playground .growth-app-dialog .path-grid svg { width:36%; height:36%; max-width:48px; max-height:48px; }
+.scene-playground .growth-app-dialog [data-board]:has(.stroop-word,.digit-flash,.path-grid) > .game-hint { margin:0; max-width:620px; }
+.scene-playground .growth-app-dialog .stroop-word { display:grid; place-items:center; min-height:0; height:clamp(140px,30cqh,250px); margin:0; font-size:clamp(80px,12cqh,120px); }
+.scene-playground .growth-app-dialog .stroop-options { width:min(100%,580px); margin:0; gap:14px; }
+.scene-playground .growth-app-dialog .stroop-options button { min-height:56px; font-size:16px; }
+.scene-playground .growth-app-dialog .digit-flash { display:grid; place-items:center; min-height:0; height:clamp(130px,30cqh,240px); font-size:clamp(42px,8vw,88px); }
+.scene-playground .growth-app-dialog .digit-answer { width:min(100%,460px); margin:0; gap:12px; }
+/* Short/landscape screens may scroll instructions, never the toolbar or canvas. */
+@media(max-width:700px) {
+  .scene-playground .growth-app-content:has(:is(.monster-board,.river-game,.stack-game,.starry-game,.hunt-game,.rot-game,.schulte-level,[data-schulte-next],.stroop-word,.digit-flash,.path-grid)) { padding:10px; }
+  .scene-playground .growth-app-dialog :is(.river-game,.stack-game,.starry-game,.hunt-game) { border-radius:15px; }
+  .scene-playground .growth-app-dialog .mg-sub { margin-right:88px; font-size:11px; gap:6px; }
+  .scene-playground .growth-app-dialog .mg-sub>span { padding:3px 6px; }
+  .scene-playground .growth-app-dialog .mg-hint { margin:2px 0 10px; font-size:13px; }
+  .scene-playground .growth-app-dialog .mg-bottom { margin-top:10px; gap:8px; }
+  .scene-playground .growth-app-dialog .mg-bottom>span { max-width:66%; }
+  .scene-playground .growth-app-dialog .rot-game { padding:4px; }
+  .scene-playground .growth-app-dialog .rot-layout { grid-template-columns:1fr; grid-template-rows:minmax(0,1fr) auto; gap:10px; align-items:stretch; }
+  .scene-playground .growth-app-dialog .rot-scene { display:flex; flex-direction:column; justify-content:center; align-items:center; min-height:0; padding:8px; }
+  .scene-playground .growth-app-dialog .rot-game svg.rot-flower { width:min(100%,310px,calc(100cqh - 390px))!important; max-width:310px; min-width:0; }
+  .scene-playground .growth-app-dialog .rot-caption { flex:none; margin:5px 0 0; font-size:11px; }
+  .scene-playground .growth-app-dialog .rot-controls { overflow:visible; padding:0 3px 3px; }
+  .scene-playground .growth-app-dialog .rot-controls h3 { font-size:20px; margin:0; }
+  .scene-playground .growth-app-dialog .rot-controls>p { font-size:12px; margin:5px 0; line-height:1.6; }
+  .scene-playground .growth-app-dialog .rot-row { padding:4px 0; gap:10px; }
+  .scene-playground .growth-app-dialog .rot-row>span { font-size:15px; }
+  .scene-playground .growth-app-dialog .rot-row button { width:64px; height:44px; }
+  .scene-playground .growth-app-dialog .rot-steps span { font-size:10px; padding:8px 2px; }
+  .scene-playground .growth-app-dialog [data-board]:has(.schulte-level,[data-schulte-next],.stroop-word,.digit-flash,.path-grid) { padding:16px 8px!important; gap:20px; }
+  .scene-playground .growth-app-dialog .schulte-grid { gap:9px; }
+  .scene-playground .growth-app-dialog .schulte-grid button { border-radius:13px; }
+  .scene-playground .growth-app-dialog .digit-answer { flex-direction:column; align-items:stretch; }
+}
+@media(max-height:600px) and (max-width:700px) {
+  .scene-playground .growth-app-dialog [data-board]:has(.rot-game) { overflow:auto; }
+  .scene-playground .growth-app-dialog .rot-game { height:auto; min-height:100%; }
+  .scene-playground .growth-app-dialog .rot-layout { flex:none; grid-template-rows:auto auto; }
+  .scene-playground .growth-app-dialog .rot-game svg.rot-flower { width:min(100%,180px)!important; }
+}

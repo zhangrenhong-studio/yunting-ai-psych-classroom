@@ -1,0 +1,26 @@
+/* Compact persistent progress above the unchanged classroom canvas. */
+html.has-classroom-flow{--classroom-flow-height:52px}
+html.has-classroom-flow body{height:100dvh;overflow:hidden}
+html.has-classroom-flow #app{display:flex!important;flex-direction:column!important;height:100dvh!important;padding-top:0!important;overflow:hidden}
+html.has-classroom-flow .stage-host,html.has-classroom-flow body.has-review-nav .stage-host{flex:1!important;height:0!important;min-height:0!important;margin:0!important;position:relative;overflow:hidden}
+html.has-classroom-flow .stage-host>.stage{height:100%!important;min-height:0!important}
+html.has-classroom-flow .stage-host>.stage>section,html.has-classroom-flow .scene-energy,html.has-classroom-flow .scene-closing{height:100%!important;min-height:0!important}
+html.has-classroom-flow .classroom-flow{display:flex!important;flex:0 0 var(--classroom-flow-height);height:var(--classroom-flow-height);align-items:center;padding:6px 24px;background:linear-gradient(105deg,#f6fbf9,#f4f8fc);border-bottom:1px solid #dbe6e5;z-index:25;color:#697d86;box-sizing:border-box}
+.classroom-flow ol{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));align-items:center;gap:18px;max-width:960px;width:100%;padding:0;margin:0 auto;list-style:none}
+.classroom-flow li{position:relative;display:flex;align-items:center;justify-content:center;gap:7px;min-width:0;padding:5px 7px;border:1px solid transparent;border-radius:10px;font:600 13px/1.4 "PingFang SC","Microsoft YaHei",sans-serif;white-space:nowrap}
+.classroom-flow li:not(:last-child):after{content:'';position:absolute;width:18px;height:2px;background:#d8e3e4;left:calc(100% + 4px);top:50%;border-radius:2px}
+.classroom-flow .flow-number{display:grid;place-items:center;flex:none;width:22px;height:22px;border-radius:50%;background:#e9eff0;color:#72858c;font-size:11px;font-weight:750}
+.classroom-flow li.is-current{background:#fff;border-color:#cbdcde;color:#304f62;box-shadow:0 4px 10px #385e7010}
+.classroom-flow .is-current .flow-number{color:white;background:#496b80;box-shadow:0 2px 6px #36577020}
+.classroom-flow .is-completed{color:#54776c}.classroom-flow .is-completed .flow-number{background:#e0efe8;color:#497762}.classroom-flow li.is-completed:after{background:#b8d4c8}
+/* Existing demo controls remain available, below the progress strip. */
+html.has-classroom-flow .review-nav{top:var(--classroom-flow-height)}
+html.has-classroom-flow:has(body.has-review-nav) #app{padding-top:58px!important}
+html.has-classroom-flow:has(body.has-review-nav) .classroom-flow{position:fixed;top:0;left:0;right:0}
+html.has-classroom-flow .scene-energy .energy-visual{width:min(320px,calc((100dvh - var(--classroom-flow-height) - var(--energy-dock-height,180px) - var(--energy-page-top,72px) - var(--energy-page-bottom,20px) - var(--energy-copy-height,62px) - var(--energy-page-gap,18px)*2)*700/632),calc(100vw - 64px))}
+@media(max-width:1000px){html.has-classroom-flow{--classroom-flow-height:50px}html.has-classroom-flow .classroom-flow{padding:5px 16px}.classroom-flow ol{gap:13px}.classroom-flow li{gap:7px;font-size:12px;padding:5px 3px}.classroom-flow li:not(:last-child):after{width:9px;left:calc(100% + 2px)}.classroom-flow .flow-number{width:21px;height:21px;font-size:11px}}
+@media(max-width:600px){html.has-classroom-flow{--classroom-flow-height:62px}html.has-classroom-flow .classroom-flow{padding:4px 6px}.classroom-flow ol{gap:3px}.classroom-flow li{flex-direction:column;gap:4px;padding:4px 0;border-radius:11px;font-size:10px;letter-spacing:0}.classroom-flow .flow-number{width:19px;height:19px;font-size:11px}.classroom-flow li:not(:last-child):after{width:8px;left:calc(100% - 3px);top:14px}.classroom-flow .flow-label{line-height:1.5}.classroom-flow li.is-current{box-shadow:0 2px 5px #385e700c}html.has-classroom-flow .scene-energy .energy-visual{width:min(240px,calc((100dvh - var(--classroom-flow-height) - var(--energy-dock-height,180px) - var(--energy-page-top,68px) - var(--energy-page-bottom,16px) - var(--energy-copy-height,87px) - var(--energy-page-gap,18px)*2)*700/632),calc(100vw - 48px))}}
+
+.classroom-flow li>button{display:flex;flex-direction:inherit;align-items:center;justify-content:center;gap:inherit;width:100%;min-width:0;border:0;border-radius:7px;padding:0;margin:0;background:transparent;color:inherit;font:inherit;line-height:inherit;white-space:inherit;cursor:pointer;touch-action:manipulation}.classroom-flow li:has(>button:hover){background:#eaf4ef;color:#365e51}.classroom-flow li>button:focus-visible{outline:2px solid #6a9e88;outline-offset:4px}.classroom-flow li>button:active{opacity:.75}
+
+html.has-classroom-flow.classroom-legacy-stage .u-classroom-header{top:calc(var(--classroom-flow-height) + 12px)}
