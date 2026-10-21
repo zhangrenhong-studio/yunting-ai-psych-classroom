@@ -513,11 +513,12 @@
     root.setAttribute('data-stage', 'energy');
     var src = track.src || '';
     if (src && !/^(https?:|data:|\/)/.test(src)) src = ((course.audio && course.audio.basePath) || '') + src;
-    var demoAllowed = app.teacherPreview && app.review;
+    // Temporary classroom shortcut approved by the owner; restore demo-only scope when removed.
+    var demoAllowed = true;
     var companion = d.companionVideo || {};
     var videoMarkup = companion.src ? '<video class="energy-companion-video" data-companion-video src="' + esc(companion.src) + '" poster="' + esc(companion.poster || '') + '" muted playsinline loop preload="metadata" disablepictureinpicture aria-label="云朵陪伴听音乐"></video>' + (companion.poster ? '<img class="energy-video-fallback" data-video-fallback src="' + esc(companion.poster) + '" alt="云朵陪伴画面" hidden>' : '') : '';
     root.innerHTML = '<div class="scene-energy">' +
-      (demoAllowed ? '<button type="button" class="btn btn-ghost energy-demo-next" data-energy-demo-next aria-label="下一步（仅老师演示）">下一步</button>' : '') +
+      (demoAllowed ? '<button type="button" class="btn btn-ghost energy-demo-next" data-energy-demo-next aria-label="下一步（临时快捷入口）">下一步</button>' : '') +
       '<p class="energy-positive-copy">让音乐陪你放松片刻，也记得温柔地照顾自己。<span class="energy-phrase">慢慢来</span>，每一次小小的调整，都在积蓄成长的力量。</p>' +
       '<div class="energy-visual" aria-label="云朵陪伴画面">' + videoMarkup + '</div>' +
       '<section class="energy-player" aria-label="音乐播放器"><div class="energy-player-main">' +
@@ -591,7 +592,7 @@
       if (!active || classPaused || completed || (!demo && !listenedToEnd)) return;
       completed = true; playEpoch++;
       if (audio) audio.pause();
-      global.YTStore.record({ stage:'energy', nodeId:track.id || 'music', prompt:'心理能量成长训练', raw:demo ? '老师演示：通过下一步进入下一环节，未计为音频听完' : '音乐播放完成' });
+      global.YTStore.record({ stage:'energy', nodeId:track.id || 'music', prompt:'心理能量成长训练', raw:demo ? '临时快捷入口：通过下一步进入下一环节，未计为音频听完' : '音乐播放完成' });
       sync(); onDone();
     }
     if (audio) {
