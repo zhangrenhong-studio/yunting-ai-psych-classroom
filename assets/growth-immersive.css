@@ -13,3 +13,15 @@ html.classroom-ui-enabled[data-classroom-stage="playground"] .scene-playground{b
 @media(max-width:350px){.scene-playground .game-hub{grid-template-columns:1fr!important}.scene-playground .game-card{min-height:190px!important}}
 .focus-game-head{text-align:center;flex:none;color:#2d5145}.focus-game-head>span{display:inline-block;font-size:12px;color:#5b806b;letter-spacing:2px;background:#e8f2e5;padding:5px 12px;border-radius:20px}.focus-game-head h3{font-size:30px;margin:12px 0 6px;line-height:1.35;font-weight:750}.focus-game-head p{margin:0;font-size:15px;color:#657c70;line-height:1.65}@media(max-width:700px){.focus-game-head h3{font-size:23px}.focus-game-head p{font-size:13px}.focus-game-head>span{font-size:11px}}
 @media(prefers-reduced-motion:reduce){.scene-playground .game-card{transition:none!important}.scene-playground .game-card:hover{transform:none!important}}
+
+/* Smaller selection cards only; immersive training screens are unchanged. */
+.scene-playground .playground-board{max-width:1200px!important;margin-inline:auto!important}
+.scene-playground .game-hub{gap:14px!important}
+.scene-playground .game-card{min-height:174px!important;padding:14px 16px 12px!important;border-radius:19px!important}
+.scene-playground .game-card .game-card-top{margin-bottom:8px!important;gap:4px!important}
+.scene-playground .game-card .r108-training-art,.scene-playground .game-card .r108-training-art svg{width:60px!important;height:60px!important}
+.scene-playground .game-card .ng-card-summary{margin-top:3px!important;min-height:0!important}
+.scene-playground .game-card em{padding-top:7px!important}
+@media(max-width:1100px){.scene-playground .game-card{padding:12px 14px!important}}
+@media(max-width:700px){.scene-playground .game-hub{gap:10px!important}.scene-playground .game-card{min-height:184px!important;padding:11px!important;border-radius:17px!important}.scene-playground .game-card .r108-training-art,.scene-playground .game-card .r108-training-art svg{width:52px!important;height:52px!important}.scene-playground .game-card .ng-card-summary{min-height:0!important}}
+@media(max-width:350px){.scene-playground .game-card{min-height:160px!important}}
