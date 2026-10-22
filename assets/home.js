@@ -229,9 +229,9 @@
           '<nav class="home-actions" aria-label="学生首页导航">' +
             '<a class="top-link desktop-secondary" data-top-entry="exhibition" data-exhibition-entry href="exhibition.html">音频放松体验</a>' +
             '<a class="top-link desktop-secondary" data-top-entry="training" href="training.html">成长训练场</a>' +
-            '<a class="top-link desktop-secondary" data-top-entry="wall" href="student-space.html?view=wall">留言墙</a>' +
-            '<a class="top-link desktop-secondary" data-top-entry="records" href="student-space.html?view=records">课堂记录</a>' +
-            '<div class="more-wrap"><button class="more-trigger" type="button" data-more-trigger aria-expanded="false" aria-haspopup="menu">更多</button><div class="more-menu" data-more-menu role="menu" hidden><a href="exhibition.html" data-exhibition-menu role="menuitem">音频放松体验</a><a href="training.html" role="menuitem">成长训练场</a><a href="student-space.html?view=wall" role="menuitem">留言墙</a><a href="student-space.html?view=records" role="menuitem">课堂记录</a></div></div>' +
+            '<a class="top-link desktop-secondary" data-top-entry="book" href="student-space.html?view=book">心语之书</a>' +
+            '<a class="top-link desktop-secondary" data-top-entry="teacher" href="student-space.html?view=teacher">留言给老师</a>' +
+            '<div class="more-wrap"><button class="more-trigger" type="button" data-more-trigger aria-expanded="false" aria-haspopup="menu">更多</button><div class="more-menu" data-more-menu role="menu" hidden><a href="exhibition.html" data-exhibition-menu role="menuitem">音频放松体验</a><a href="training.html" role="menuitem">成长训练场</a><a href="student-space.html?view=book" role="menuitem">心语之书</a><a href="student-space.html?view=teacher" role="menuitem">留言给老师</a></div></div>' +
             '<button class="wearable-trigger" type="button" data-wearable-open><span>连接手环</span></button>' +
             '<div data-account-host></div>' +
           '</nav>' +

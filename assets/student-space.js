@@ -83,14 +83,8 @@
     audio.addEventListener('play',function(){write(AUDIO_KEY,{trackId:(app.querySelector('[data-track].is-active')||{}).getAttribute ? app.querySelector('[data-track].is-active').getAttribute('data-track') : current.id,updatedAt:new Date().toISOString()});});
   }
 
-  function renderRecords() {
-    document.body.className = 'student-records';
-    setLabel('课堂记录'); app.className='space-workspace records-page';
-    var rows=classRecords();
-    var html=rows.map(function(r){return '<article class="class-record"><time>'+new Date(r.at).toLocaleDateString('zh-CN')+'</time><div><b>'+esc(r.title)+'</b><p>'+esc(r.className)+' · '+esc(r.status)+'</p></div><span>课堂记录</span></article>';}).join('');
-    app.innerHTML=header('课堂足迹','课堂记录','这里只保存课堂名称、班级、时间与完成状态，不展示私密对话内容。',rows.length+' 条')+'<div class="record-list">'+(html||'<div class="empty-state"><b>还没有课堂记录</b><p>老师开启第一堂课后，课堂足迹会出现在这里。</p></div>')+'</div>';
-  }
   function followClassroom(){if(!global.YTClassroomDemo)return;var state=global.YTClassroomDemo.read();if(state&&state.active&&state.courseId){global.location.href='course.html?id='+encodeURIComponent(state.courseId)+'&mode=classroom&session='+encodeURIComponent(state.sessionId);}}
-  if(view==='audio')renderAudio(); else if(view==='records')renderRecords(); else if(view!=='wall')renderChat();
+  if(view==='records'){global.location.replace('student.html?preview=home');return;}
+  if(view==='audio')renderAudio(); else if(['wall','book','teacher'].indexOf(view)<0)renderChat();
   followClassroom();
 }(window));
