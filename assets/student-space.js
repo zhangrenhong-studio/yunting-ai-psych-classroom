@@ -83,7 +83,7 @@
     audio.addEventListener('play',function(){write(AUDIO_KEY,{trackId:(app.querySelector('[data-track].is-active')||{}).getAttribute ? app.querySelector('[data-track].is-active').getAttribute('data-track') : current.id,updatedAt:new Date().toISOString()});});
   }
 
-  function followClassroom(){if(!global.YTClassroomDemo)return;var state=global.YTClassroomDemo.read();if(state&&state.active&&state.courseId){global.location.href='course.html?id='+encodeURIComponent(state.courseId)+'&mode=classroom&session='+encodeURIComponent(state.sessionId);}}
+  function followClassroom(){/* Standalone heart-book and teacher-letter entries must remain reachable even when an old classroom is active. */if(['book','wall','teacher'].indexOf(view)>=0)return;if(!global.YTClassroomDemo)return;var state=global.YTClassroomDemo.read();if(state&&state.active&&state.courseId){global.location.href='course.html?id='+encodeURIComponent(state.courseId)+'&mode=classroom&session='+encodeURIComponent(state.sessionId);}}
   if(view==='records'){global.location.replace('student.html?preview=home');return;}
   if(view==='audio')renderAudio(); else if(['wall','book','teacher'].indexOf(view)<0)renderChat();
   followClassroom();
