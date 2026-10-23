@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>心情日历｜云听</title>
+<script src="assets/auth-demo.js?v=mood-1"></script>
+<link rel="stylesheet" href="assets/mood-calendar.css?v=1">
+</head>
+<body>
+<div class="mood-app" id="mood-app">
+<header class="mood-top"><a class="mood-brand" href="student.html?preview=home">云听<span>心情日历</span></a><div class="mood-top-tools header-right"><button class="demo-badge" data-privacy>本机体验 <span aria-hidden="true">↗</span></button><a class="back-home" href="student.html?preview=home">← 返回首页</a></div></header>
+<div class="mood-title"><div><span class="eyebrow">每一种心情，都值得被看见</span><h1>把今天的心情，轻轻记下来<span aria-hidden="true"> ☁</span></h1><p>不必每天都开心，也不必每次都写很多。</p></div><div class="identity-pill"><span class="identity-dot"></span><span id="mood-owner">我的心情日历</span></div></div>
+<div class="mood-layout">
+<div class="sidebar-home" id="sidebar-home"><aside class="mood-sidebar" id="mood-sidebar">
+<section class="calendar-panel" aria-label="心情月历"><div class="calendar-top"><div><span class="section-kicker">我的心情足迹</span><h2 id="month-title"></h2></div><div class="month-controls"><button type="button" id="month-prev" aria-label="上个月">‹</button><button type="button" id="month-next" aria-label="下个月">›</button></div></div><div class="weekdays" aria-hidden="true"><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span><span>日</span></div><div class="calendar-grid" id="calendar-grid"></div><div class="calendar-bottom"><span><i></i> 点开日期，看看那时的自己</span><button type="button" id="back-today">回到今天</button></div></section>
+<section class="month-recap" aria-labelledby="recap-title"><div class="recap-heading"><span class="section-kicker">慢慢看见自己</span><h2 id="recap-title">这个月，留下的心情</h2></div><div id="recap-content"></div></section>
+<div class="sidebar-note"><span aria-hidden="true">✧</span><p>空白的日子，也是在认真生活。<br>这里没有打卡任务，也没有心情排名。</p></div>
+</aside></div>
+<main class="record-panel" id="record-panel"><div class="record-top"><div><span class="section-kicker" id="date-kicker"></span><h2 id="date-title"></h2></div><div class="record-tools"><button type="button" class="calendar-mobile-trigger" id="open-calendar">查看日历</button><button type="button" class="quiet-button" id="add-entry">＋ 再记一次</button></div></div><div class="record-body" id="record-body"></div><p class="global-feedback" id="global-feedback" role="status" aria-live="polite"></p></main>
+</div>
+<footer class="mood-footer"><span>本机体验 · 记录不自动发送给老师；共用设备请勿填写真实敏感信息。</span><button type="button" data-privacy>谁能看到？</button></footer>
+</div>
+<dialog id="calendar-dialog" class="calendar-dialog" aria-label="查看心情日历"><header><strong>我的心情日历</strong><button type="button" id="close-calendar" aria-label="关闭日历">×</button></header><div id="mobile-sidebar-home"></div></dialog>
+<dialog id="privacy-dialog" class="plain-dialog" aria-labelledby="privacy-title"><span class="dialog-kicker">先了解，再放心记录</span><h2 id="privacy-title">这份心情，保存在哪里？</h2><p>当前是本机体验，记录保存在此浏览器中，不会自动交给老师，也不能跨设备同步。</p><p>页面按当前体验账号和学生身份区分记录，但这不是正式的服务端隐私保护。共用设备上请勿填写真实敏感信息，使用后请退出账号。</p><p>你可以查看、修改或删除自己的体验记录。正式学校使用需要另行接入账户权限、保存规则及相应授权。</p><p class="safety-note">若此刻有危险或需要及时帮助，请直接找现场老师或可信任的大人，不要等待页面回复。</p><button type="button" class="primary-button" id="close-privacy">我知道了</button></dialog>
+<dialog id="delete-dialog" class="plain-dialog" aria-labelledby="delete-title"><span class="dialog-kicker">由你决定，留下什么</span><h2 id="delete-title">删除这一次心情记录？</h2><p>只删除选中的这一条，不影响当天其他记录。删除后无法恢复。</p><div class="dialog-actions"><button type="button" class="quiet-button" id="delete-cancel">先保留</button><button type="button" class="danger-button" id="delete-confirm">确认删除</button></div></dialog>
+<div class="privacy-shield" id="privacy-shield" hidden><div><span aria-hidden="true">☁</span><h2>先把心事轻轻收好</h2><p id="shield-message">身份已变化，请返回首页重新进入。</p><a href="student.html?preview=home" class="primary-button">返回首页</a></div></div>
+<script src="assets/mood-calendar.js?v=1"></script>
+</body></html>

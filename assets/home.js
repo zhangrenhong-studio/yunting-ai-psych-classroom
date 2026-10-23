@@ -227,11 +227,11 @@
         '<header class="home-top">' +
           '<a href="student.html" class="brand">云听 <span>AI 智慧心理教室</span></a>' +
           '<nav class="home-actions" aria-label="学生首页导航">' +
-            '<a class="top-link desktop-secondary" data-top-entry="exhibition" data-exhibition-entry href="exhibition.html">音频放松体验</a>' +
+            '<a class="top-link desktop-secondary" data-top-entry="mood" href="mood-calendar.html">心情日历</a>' +
             '<a class="top-link desktop-secondary" data-top-entry="training" href="training.html">成长训练场</a>' +
             '<a class="top-link desktop-secondary" data-top-entry="book" href="student-space.html?view=book">心语之书</a>' +
             '<a class="top-link desktop-secondary" data-top-entry="teacher" href="student-space.html?view=teacher">留言给老师</a>' +
-            '<div class="more-wrap"><button class="more-trigger" type="button" data-more-trigger aria-expanded="false" aria-haspopup="menu">更多</button><div class="more-menu" data-more-menu role="menu" hidden><a href="exhibition.html" data-exhibition-menu role="menuitem">音频放松体验</a><a href="training.html" role="menuitem">成长训练场</a><a href="student-space.html?view=book" role="menuitem">心语之书</a><a href="student-space.html?view=teacher" role="menuitem">留言给老师</a></div></div>' +
+            '<div class="more-wrap"><button class="more-trigger" type="button" data-more-trigger aria-expanded="false" aria-haspopup="menu">更多</button><div class="more-menu" data-more-menu role="menu" hidden><a href="mood-calendar.html" role="menuitem">心情日历</a><a href="training.html" role="menuitem">成长训练场</a><a href="student-space.html?view=book" role="menuitem">心语之书</a><a href="student-space.html?view=teacher" role="menuitem">留言给老师</a></div></div>' +
             '<button class="wearable-trigger" type="button" data-wearable-open><span>连接手环</span></button>' +
             '<div data-account-host></div>' +
           '</nav>' +
