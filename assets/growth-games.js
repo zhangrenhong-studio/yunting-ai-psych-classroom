@@ -52,7 +52,17 @@
     return '<svg class="r108-card-art" viewBox="0 0 128 108" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">'+body[id]+'</svg>';
   }
   function mount(root,config){
-    var apps=byId(config.appIds),playCounts={},cleanups=[],generation=0,currentExtra=null,currentApp=null,dialog=null,surface=null,returnFocus=null,lobbyScroll=0,timers=[],fullscreenOwned=false,fullscreenHandler=null;
+    config=config||{};
+    var pool=byId(config.appIds),boxState=null;
+    function readBoxes(){try{return JSON.parse(localStorage.getItem(config.blindBoxKey)||'null')}catch(e){return null}}
+    function saveBoxes(){if(!boxState||!config.blindBoxKey)return;try{localStorage.setItem(config.blindBoxKey,JSON.stringify(boxState))}catch(e){}}
+    if(config.blindBox){
+      boxState=readBoxes();
+      if(!boxState||!Array.isArray(boxState.ids)||boxState.ids.length!==Math.min(3,pool.length)||new Set(boxState.ids).size!==boxState.ids.length||!boxState.ids.every(function(id){return pool.some(function(a){return a.id===id})})||!Array.isArray(boxState.opened)){
+        boxState={ids:shuffle(pool).slice(0,3).map(function(a){return a.id}),opened:[]};saveBoxes();
+      }
+    }
+    var apps=boxState?boxState.ids.map(function(id){return pool.find(function(a){return a.id===id})}):pool,playCounts={},cleanups=[],generation=0,currentExtra=null,currentApp=null,dialog=null,surface=null,returnFocus=null,lobbyScroll=0,timers=[],fullscreenOwned=false,fullscreenHandler=null;
     function setTimeout(fn,ms){var token=generation;var id=global.setTimeout(function(){if(token===generation&&dialog&&dialog.open)fn()},ms);timers.push(id);return id;}
     function cleanup(){generation++;timers.splice(0).forEach(global.clearTimeout);cleanups.splice(0).forEach(function(fn){try{fn()}catch(e){console.warn('Training cleanup',e)}});currentExtra=null;}
     function ensureDialog(app){
@@ -79,13 +89,26 @@
       cleanup();currentApp=null;
       if(dialog){var previous=returnFocus;if(fullscreenHandler){document.removeEventListener('fullscreenchange',fullscreenHandler);fullscreenHandler=null}if(fullscreenOwned&&document.fullscreenElement){document.exitFullscreen().catch(function(){})}fullscreenOwned=false;dialog.close();dialog.remove();dialog=null;surface=null;root.closest('.playground-board').scrollTop=lobbyScroll;root.querySelectorAll('[data-game]').forEach(function(card){var n=playCounts[card.dataset.game]||0;card.querySelector('em span').textContent=n?'已训练 '+n+' 次 · 继续训练':'开始训练';});if(previous&&previous.isConnected)previous.focus({preventScroll:true});return;}
 
-      root.innerHTML='<div class="game-hub">'+apps.map(function(a){
+      function card(a){
         var count=playCounts[a.id]||0;
-        return '<button class="game-card" data-game="'+a.id+'"><span class="game-card-top"><i class="training-icon r108-training-art">'+cardArt(a.id)+'</i><span class="game-card-heading"><b>'+a.title+'</b>'+(a.summary?'<small class="ng-card-summary">'+esc(a.summary)+'</small>':'')+'</span></span><em><span>'+(count?'已训练 '+count+' 次 · 继续训练':'开始训练')+'</span>'+ARROW+'</em></button>';
-      }).join('')+'</div><div class="playground-actions"><button class="btn btn-primary" data-finish-stage>结束本次训练</button></div>';
-      root.querySelectorAll('[data-game]').forEach(function(b){b.onclick=function(){open(apps.find(function(a){return a.id===b.dataset.game}))}});
-      root.querySelector('[data-finish-stage]').onclick=function(){if(config.onStageComplete)config.onStageComplete(Object.keys(playCounts))};
+        return '<button type="button" class="game-card" data-game="'+a.id+'"><span class="game-card-top"><i class="training-icon r108-training-art">'+cardArt(a.id)+'</i><span class="game-card-heading"><b>'+a.title+'</b>'+(a.summary?'<small class="ng-card-summary">'+esc(a.summary)+'</small>':'')+'</span></span><em><span>'+(count?'已训练 '+count+' 次 · 继续训练':'开始训练')+'</span>'+ARROW+'</em></button>';
+      }
+      var boxArt='<svg viewBox="0 0 160 148" fill="none" aria-hidden="true"><ellipse cx="80" cy="131" rx="49" ry="8" fill="currentColor" opacity=".10"/><g class="box-body"><path d="M32 61h96v62a9 9 0 0 1-9 9H41a9 9 0 0 1-9-9Z" fill="var(--box-fill)" stroke="currentColor" stroke-width="3"/><path d="M70 65h20v66H70Z" fill="white" opacity=".8"/><circle cx="80" cy="95" r="16" fill="white"/><path d="M75 90c0-8 15-8 12 0-1 4-7 3-7 8m0 6v1" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></g><g class="box-lid"><rect x="25" y="49" width="110" height="21" rx="6" fill="var(--box-fill)" stroke="currentColor" stroke-width="3"/><path d="M70 49h20v21H70Z" fill="white"/><path d="M80 48C42 46 48 12 68 29Zm0 0c38-2 32-36 12-19Z" fill="white" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></g><path d="m26 27 2-6 2 6 6 2-6 2-2 6-2-6-6-2Zm109 6 2-5 2 5 5 2-5 2-2 5-2-5-5-2Z" fill="currentColor" opacity=".6"/></svg>';
+      root.innerHTML=(boxState?'<div class="growth-box-intro"><span>本次成长盲盒</span><h3>打开一份小惊喜</h3><p>点开盲盒，发现今天的成长训练。选一个开始吧。</p></div>':'')+'<div class="game-hub'+(boxState?' blindbox-hub':'')+'">'+apps.map(function(a,i){
+        if(!boxState)return card(a);
+        var revealed=boxState.opened.indexOf(a.id)>=0;
+        return '<div class="growth-box-slot" data-box-slot="'+i+'">'+(revealed?card(a):'<button type="button" class="growth-blindbox" data-box="'+i+'" aria-label="打开第 '+(i+1)+' 个成长盲盒"><span class="box-number">成长盲盒 0'+(i+1)+'</span><span class="box-art">'+boxArt+'</span><strong>里面藏着什么？</strong><span class="box-open-label">点击开启 <span aria-hidden="true">✦</span></span></button>')+'</div>';
+      }).join('')+'</div>'+(config.standalone?'':'<div class="playground-actions"><button class="btn btn-primary" data-finish-stage>结束本次训练</button></div>')+(boxState?'<p class="growth-box-note" role="status">本节课的盲盒会为你保留，返回后可以继续训练。</p>':'');
+      function bindCards(){root.querySelectorAll('[data-game]').forEach(function(b){b.onclick=function(){open(apps.find(function(a){return a.id===b.dataset.game}))}})}
+      bindCards();
+      root.querySelectorAll('[data-box]').forEach(function(b){b.onclick=function(){
+        if(b.disabled)return;b.disabled=true;b.classList.add('is-opening');
+        var i=Number(b.dataset.box),a=apps[i];boxState.opened.push(a.id);saveBoxes();
+        global.setTimeout(function(){if(!b.isConnected)return;var slot=b.parentNode;slot.innerHTML=card(a);slot.classList.add('is-revealed');bindCards();var next=slot.querySelector('button');next.focus({preventScroll:true});var status=root.querySelector('[role="status"]');if(status)status.textContent='已开启：'+a.title+'。可以开始训练，也可以继续开启其他盲盒。'},global.matchMedia('(prefers-reduced-motion: reduce)').matches?0:620);
+      }});
+      var finish=root.querySelector('[data-finish-stage]');if(finish)finish.onclick=function(){if(config.onStageComplete)config.onStageComplete(Object.keys(playCounts))};
     }
+
     function shell(app,html){ensureDialog(app);surface.innerHTML='<section class="game-play"><header class="training-heading"><i class="training-icon">'+app.icon+'</i><div><p class="t-eyebrow">'+app.ability+'</p></div></header><div data-board>'+html+'</div></section>';return surface.querySelector('[data-board]')}
     function result(app,text){
       cleanup();

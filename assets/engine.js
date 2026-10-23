@@ -660,7 +660,7 @@
     root.innerHTML =
       '<div class="scene-playground">' +
         '<header class="playground-title">' +
-          '<h2 class="t-title">成长训练</h2><p class="r109-growth-intro">每一次小练习，都在积累成长的力量。</p>' +
+          '<h2 class="t-title">成长训练</h2><p class="r109-growth-intro">开启今天的成长盲盒，发现属于你的小练习。</p>' +
         '</header>' +
         '<div class="playground-board" data-games></div>' +
       '</div>';
@@ -677,6 +677,13 @@
         }
         global.YTGrowthGames.mount(mount, {
           appIds: d.appIds,
+          blindBox: true,
+          blindBoxKey: (function(){
+            var session=global.YTClassroomDemo&&global.YTClassroomDemo.read(),auth=global.YTAuthDemo&&global.YTAuthDemo.read();
+            var person=(auth&&auth.role||'student')+':'+(localStorage.getItem('yunting-current-student-v1')||(auth&&auth.account)||'guest');
+            var lesson=session&&session.courseId===course.id&&session.sessionId?session.sessionId:'preview:'+course.id;
+            return 'yunting-growth-box-v1:'+person+':'+lesson;
+          })(),
           onGameComplete: function (app) {
             global.YTStore.record({ stage:'playground', nodeId:app.id, prompt:'选择的训练项目', raw:app.title });
           },
