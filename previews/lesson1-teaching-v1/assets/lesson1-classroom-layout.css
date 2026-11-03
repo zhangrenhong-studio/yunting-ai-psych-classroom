@@ -1,0 +1,40 @@
+/* First-lesson reminders are a separate workspace, never an implicit control-grid cell. */
+.lesson1-teaching-pane[hidden]{display:none!important}
+.lesson1-teaching-pane{min-width:0;min-height:0;overflow:hidden;border:1px solid #c7e2d9;border-radius:16px;background:#f7fcfa}
+.lesson1-teaching-pane>.yt-teaching-guide{display:flex;flex-direction:column;margin:0;border:0;border-radius:0;height:100%;max-height:100%}
+.lesson1-teaching-pane .yt-teaching-guide-summary{flex:none;min-height:58px;padding:10px 18px}
+.lesson1-teaching-pane .yt-teaching-guide-content{flex:1;min-height:0;max-height:none;padding:0 18px 16px;overflow-y:auto;overscroll-behavior:contain}
+.lesson1-teaching-pane .yt-teaching-item{font-size:14px;line-height:1.8;margin-bottom:9px}
+.lesson1-teaching-pane .yt-teaching-activity-title{font-size:14px}
+.lesson1-teaching-pane .yt-teaching-progress-note{font-size:12px;margin:10px 0}
+.lesson1-teaching-pane .yt-teaching-summary-text{font-size:13px}
+@media(min-width:961px){
+.lesson1-teaching-live .shell,.lesson1-teaching-live .shell.preview-collapsed{grid-template-columns:minmax(0,1fr) minmax(340px,430px)!important;grid-template-rows:auto minmax(0,1fr) minmax(150px,.62fr)!important}
+.lesson1-teaching-live .control-panel{grid-column:1/-1!important;grid-row:1!important}
+.lesson1-teaching-live .control-inner{grid-template-columns:minmax(130px,.7fr) minmax(250px,1fr) minmax(0,1.6fr)!important}
+.lesson1-teaching-live .lesson1-teaching-pane{grid-column:1;grid-row:2}
+.lesson1-teaching-live .students-panel{grid-column:1!important;grid-row:3!important;min-height:0!important}
+.lesson1-teaching-live .classroom-side{grid-column:2!important;grid-row:2/4!important;min-height:0!important}
+.lesson1-teaching-live .shell.preview-collapsed{grid-template-columns:1fr!important}
+.lesson1-teaching-live .shell.preview-collapsed .classroom-side{display:none!important}
+.lesson1-teaching-live .students-panel .section{padding:12px 16px!important;gap:9px!important}
+.lesson1-teaching-live .student-class-context{padding-bottom:8px}
+.lesson1-teaching-live .student-class-context h1{font-size:18px}
+.lesson1-teaching-live .student-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+.lesson1-teaching-live .action-dock{position:static!important;width:100%!important;max-width:none!important;transform:none!important;margin:7px 0 0!important;padding:6px!important;grid-template-columns:66px minmax(0,1fr) 76px!important;gap:6px!important;box-shadow:none!important}
+.lesson1-teaching-live .action-dock button{min-width:0;min-height:34px!important;padding:6px!important;font-size:12px!important}
+.lesson1-teaching-live .classroom-side .preview-panel{height:100%!important;margin:0!important}
+.lesson1-teaching-live .control-panel .flow button b{white-space:normal!important;font-size:11px!important}
+}
+@media(max-width:960px){
+.lesson1-teaching-live .shell,.lesson1-teaching-live .shell.preview-collapsed{grid-template-rows:auto auto auto auto!important}
+.lesson1-teaching-live .control-panel{grid-column:1!important;grid-row:1!important}
+.lesson1-teaching-live .lesson1-teaching-pane{grid-column:1;grid-row:2}
+.lesson1-teaching-live .preview-panel{grid-column:1!important;grid-row:3!important}
+.lesson1-teaching-live .students-panel{grid-column:1!important;grid-row:4!important}
+.lesson1-teaching-live .lesson1-teaching-pane>.yt-teaching-guide{height:auto;max-height:none}
+.lesson1-teaching-live .yt-teaching-guide-content{max-height:none;overflow:visible}
+.lesson1-teaching-live .shell.preview-collapsed .students-panel{grid-row:3!important}
+.lesson1-teaching-live .yt-teaching-activities{grid-template-columns:1fr}
+}
+@media(max-height:750px) and (min-width:961px){.lesson1-teaching-live .shell{grid-template-rows:auto minmax(0,1fr) minmax(110px,.5fr)!important}.lesson1-teaching-live .control-inner{padding:7px 12px!important}.lesson1-teaching-live .control-panel .flow button{min-height:50px!important}}
