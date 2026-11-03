@@ -1,0 +1,500 @@
+{
+  "voice": "zh-CN-XiaoxiaoNeural",
+  "rate": "+15%",
+  "textSha256": "d118a461d8c8acca01a8ce6cd4379bc122321f12a017cfa6649c5b89466503ce",
+  "narratedText": "每天放学回家，小航都会说：\n「先玩十分钟手机，再写作业。」\n结果十分钟变成半小时，半小时变成一小时。\n等他终于坐到书桌前，天都快黑了。\n作业写到十点还没写完，他又开始后悔：\n我今天怎么又浪费了一整天？我是不是特别懒？\n小航不知道的是：\n拖延不是因为懒，是因为大脑在逃避「开始」的压力。",
+  "titleNarrated": false,
+  "timingMethod": "Edge WordBoundary monotonic normalized text alignment",
+  "boundaries": [
+    {
+      "type": "WordBoundary",
+      "offset": 934580,
+      "duration": 3587080,
+      "text": "每天"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 4739160,
+      "duration": 2608750,
+      "text": "放学"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 7456660,
+      "duration": 4130410,
+      "text": "回家"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 13869580,
+      "duration": 3478330,
+      "text": "小航"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 17456660,
+      "duration": 1304160,
+      "text": "都"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 18760830,
+      "duration": 1412910,
+      "text": "会"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 20173750,
+      "duration": 2826250,
+      "text": "说"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 27826250,
+      "duration": 2282500,
+      "text": "先"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 30108750,
+      "duration": 1739160,
+      "text": "玩"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 32065410,
+      "duration": 1738750,
+      "text": "十"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 33804160,
+      "duration": 2826250,
+      "text": "分钟"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 36739160,
+      "duration": 4565410,
+      "text": "手机"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 43152080,
+      "duration": 1630410,
+      "text": "再"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 44782500,
+      "duration": 1739160,
+      "text": "写"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 46630410,
+      "duration": 4239160,
+      "text": "作业"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 55869580,
+      "duration": 3260830,
+      "text": "结果"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 59347910,
+      "duration": 5326250,
+      "text": "十分钟"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 64891250,
+      "duration": 2826250,
+      "text": "变成"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 67934580,
+      "duration": 1521660,
+      "text": "半"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 69456660,
+      "duration": 4782500,
+      "text": "小时"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 76412910,
+      "duration": 1739160,
+      "text": "半"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 78152080,
+      "duration": 4565410,
+      "text": "小时"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 82934580,
+      "duration": 2717500,
+      "text": "变成"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 85869580,
+      "duration": 6304160,
+      "text": "一小时"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 97173750,
+      "duration": 1521660,
+      "text": "等"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 98695830,
+      "duration": 1195830,
+      "text": "他"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 100000000,
+      "duration": 3043330,
+      "text": "终于"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 103152080,
+      "duration": 2608750,
+      "text": "坐到"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 105869580,
+      "duration": 2934580,
+      "text": "书桌"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 108804160,
+      "duration": 3369580,
+      "text": "前"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 113804160,
+      "duration": 3152080,
+      "text": "天都"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 117065410,
+      "duration": 4456250,
+      "text": "快黑"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 121521660,
+      "duration": 1847910,
+      "text": "了"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 128260830,
+      "duration": 3043330,
+      "text": "作业"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 131412910,
+      "duration": 2826250,
+      "text": "写到"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 134347910,
+      "duration": 3369580,
+      "text": "十点"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 137934580,
+      "duration": 1087080,
+      "text": "还"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 139021660,
+      "duration": 1087080,
+      "text": "没"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 140217500,
+      "duration": 4673750,
+      "text": "写完"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 146956660,
+      "duration": 1304160,
+      "text": "他"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 148260830,
+      "duration": 978330,
+      "text": "又"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 149347910,
+      "duration": 2608750,
+      "text": "开始"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 152065410,
+      "duration": 4782500,
+      "text": "后悔"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 161847910,
+      "duration": 1087080,
+      "text": "我"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 163043330,
+      "duration": 3587080,
+      "text": "今天"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 166847910,
+      "duration": 1630410,
+      "text": "怎么"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 168587080,
+      "duration": 1630410,
+      "text": "又"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 170217500,
+      "duration": 3260830,
+      "text": "浪费"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 173478330,
+      "duration": 652080,
+      "text": "了"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 174347910,
+      "duration": 978330,
+      "text": "一"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 175326250,
+      "duration": 5000000,
+      "text": "整天"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 185217500,
+      "duration": 1304160,
+      "text": "我"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 186521660,
+      "duration": 3695830,
+      "text": "是不是"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 190434580,
+      "duration": 3478330,
+      "text": "特别"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 193912910,
+      "duration": 2717500,
+      "text": "懒"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 201521660,
+      "duration": 4021660,
+      "text": "小航"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 205543330,
+      "duration": 869580,
+      "text": "不"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 206521660,
+      "duration": 2934580,
+      "text": "知道"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 209456660,
+      "duration": 977910,
+      "text": "的"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 210434580,
+      "duration": 2934580,
+      "text": "是"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 218260830,
+      "duration": 4456660,
+      "text": "拖延"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 222934580,
+      "duration": 2173750,
+      "text": "不是"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 225217500,
+      "duration": 3043330,
+      "text": "因为"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 228260830,
+      "duration": 2391250,
+      "text": "懒"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 233152080,
+      "duration": 1304160,
+      "text": "是"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 234456660,
+      "duration": 2717500,
+      "text": "因为"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 237391250,
+      "duration": 2934580,
+      "text": "大脑"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 240434580,
+      "duration": 1304160,
+      "text": "在"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 241847910,
+      "duration": 3587080,
+      "text": "逃避"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 245652080,
+      "duration": 3043330,
+      "text": "开始"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 248695830,
+      "duration": 652080,
+      "text": "的"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 249456660,
+      "duration": 4021660,
+      "text": "压力"
+    }
+  ],
+  "cues": [
+    {
+      "start": 0.0,
+      "end": 2.782625,
+      "index": 0
+    },
+    {
+      "start": 2.782625,
+      "end": 5.586958,
+      "index": 1
+    },
+    {
+      "start": 5.586958,
+      "end": 9.717375,
+      "index": 2
+    },
+    {
+      "start": 9.717375,
+      "end": 12.826083,
+      "index": 3
+    },
+    {
+      "start": 12.826083,
+      "end": 16.184791,
+      "index": 4
+    },
+    {
+      "start": 16.184791,
+      "end": 20.152166,
+      "index": 5
+    },
+    {
+      "start": 20.152166,
+      "end": 21.826083,
+      "index": 6
+    },
+    {
+      "start": 21.826083,
+      "end": 25.848,
+      "index": 7
+    }
+  ],
+  "duration": 25.848,
+  "probe": {
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "codec_name": "mp3",
+        "sample_rate": "24000",
+        "channels": 1
+      }
+    ],
+    "format": {
+      "duration": "25.848000",
+      "size": "155088"
+    }
+  }
+}

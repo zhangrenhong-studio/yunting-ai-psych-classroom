@@ -1,0 +1,11 @@
+/* r110: inward opening composition; small knowledge-only scholar companion. */
+html.classroom-ui-enabled[data-classroom-stage="enter"] .enter-body{padding-left:clamp(32px,5.5vw,84px)}
+.r99-story-stage .r99-explanation-head{position:relative;min-height:76px;padding-right:103px;align-items:center}
+.r99-story-stage .r110-scholar{position:absolute;right:-1px;top:-9px;width:92px;height:94px;margin:0;pointer-events:none;display:flex;align-items:center;justify-content:center}
+.r99-story-stage .r110-scholar img{display:block;width:100%;height:100%;object-fit:contain;filter:none}
+.r99-story-stage .r99-explanation-head>.r110-scholar{flex:none}
+@media(max-width:1100px) and (min-width:561px){html.classroom-ui-enabled[data-classroom-stage="enter"] .enter-body{padding-left:clamp(22px,3.5vw,38px)}}
+@media(max-height:780px) and (min-width:901px){.r99-story-stage .r99-explanation-head{min-height:64px;padding-right:91px}.r99-story-stage .r110-scholar{width:78px;height:80px;top:-7px}}
+@media(max-height:780px) and (min-width:1200px){.r99-story-stage .r99-explanation-head{padding-right:395px}.r99-story-stage .r99-concept{right:116px;max-width:285px;top:32px}}
+@media(max-width:900px){.r99-story-stage .r99-explanation-head{min-height:74px;padding-right:93px}.r99-story-stage .r110-scholar{width:83px;height:87px;top:-6px}}
+@media(max-width:560px){html.classroom-ui-enabled[data-classroom-stage="enter"] .enter-body{padding-left:0;max-width:360px;margin-left:auto;margin-right:auto}.r99-story-stage .r99-explanation-head{min-height:76px;padding-right:76px;gap:8px}.r99-story-stage .r110-scholar{width:70px;height:76px;top:0;right:-3px}.r99-story-stage .r99-explanation-head>.r104-knowledge-icon{width:25px;height:25px}.r99-story-stage .r99-explanation h2{font-size:20px}}

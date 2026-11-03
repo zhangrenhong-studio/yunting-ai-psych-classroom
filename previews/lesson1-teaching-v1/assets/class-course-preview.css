@@ -1,0 +1,30 @@
+/* Preview-only class teaching state; loaded after the existing card themes. */
+body #content .class-scoped-course{height:auto!important;min-height:236px!important;padding:17px!important}
+body #content .class-scoped-course[hidden],body #content .curriculum-grade-group[hidden],body #content .class-course-filter-empty[hidden]{display:none!important}
+body #content .class-course-status{display:flex;align-items:center;flex-wrap:wrap;gap:7px;margin:12px 0 14px;position:relative;z-index:1;min-height:26px}
+body #content .completion-badge{display:inline-flex;padding:4px 8px;border-radius:6px;background:#edf4fc;color:#476e9d;font-size:11px;font-weight:600;line-height:1.4}
+body #content .completion-badge.is-completed{background:#e8eef4;color:#587086}
+body #content .class-course-status small{font-size:11px;color:#7c8a95;line-height:1.5}
+body #content .class-course-scheduled{color:#577899;text-decoration:none;font-size:11px;white-space:nowrap}
+body #content .class-scoped-course .modern-course-footer{gap:10px!important;flex-wrap:wrap!important;margin-top:auto!important;position:relative;z-index:1}
+body #content .class-scoped-course .modern-course-footer a.course-choose{background:#367ac5!important;color:#fff!important;box-shadow:none!important;border:0!important;border-radius:8px!important;flex:1!important;min-height:34px!important}
+body #content .class-scoped-course .modern-course-footer a.course-choose span,body #content .class-scoped-course .modern-course-footer a.course-choose b{color:#fff!important}
+body #content .class-scoped-course .modern-course-footer a.course-choose.course-taught:not(.course-live){background:transparent!important;color:#7c8a95!important;padding:6px 0!important;flex:none!important;font-weight:400!important}
+body #content .class-scoped-course .modern-course-footer a.course-taught:not(.course-live) span{color:#7c8a95!important}
+body #content .class-scoped-course .modern-course-footer a.course-taught:not(.course-live) b{display:none!important}
+body #content .class-scoped-course .modern-course-footer button.course-history-primary{background:#edf3fa!important;color:#3b648d!important;border:1px solid #cfdcea!important;border-radius:8px!important;padding:7px 11px!important;min-height:34px!important;flex:1!important;font-weight:600!important}
+body #content .class-scoped-course .course-view-schedule{padding:7px 12px!important;background:#edf3fa;border:1px solid #cfdeed;border-radius:8px;min-height:34px;font-size:13px;text-align:center;flex:1}
+body #content .class-course-filter{display:flex;gap:6px;margin:0 0 17px;flex-wrap:wrap}
+body #content .class-course-filter button{border:1px solid #dce5e9;background:transparent;border-radius:8px;padding:7px 15px;color:#73858b;font-size:12px;cursor:pointer;min-height:34px}
+body #content .class-course-filter button[aria-pressed="true"]{background:#e8f1fb;border-color:#cadbef;color:#396eab;font-weight:600}
+body #content .class-course-filter-empty{padding:14px;color:#73858b;font-size:13px}
+body #content .scheduled-card.schedule-highlight{outline:3px solid #9fc3ea;outline-offset:4px;animation:schedule-focus 1.3s ease-out}
+body #content .class-preview-demo-note{margin:0 0 10px!important;padding:0!important;font-size:12px;color:#8b754d}
+body #content .teaching-arrangement-refined .teaching-planned{margin-bottom:16px!important}
+body #content .teaching-arrangement-refined .teaching-content-heading{margin-top:0!important;margin-bottom:10px!important}
+body #content .teaching-arrangement-refined>.arrangement-toolbar{padding-bottom:10px!important}
+body #content .teaching-arrangement-refined .scheduled-actions .start-scheduled{background:#367ac5!important;border-color:#367ac5!important;color:#fff!important;box-shadow:none!important}
+body #content .teaching-arrangement-refined .arrangement-live-actions a{background:#367ac5!important;border-color:#367ac5!important;color:#fff!important}
+body #content .class-course-filter{margin-bottom:10px!important}
+@keyframes schedule-focus{from{outline-color:#3e82cd}to{outline-color:#9fc3ea}}
+@media(max-width:720px){body #content .class-scoped-course{min-height:242px!important}body #content .class-course-status{gap:6px}}

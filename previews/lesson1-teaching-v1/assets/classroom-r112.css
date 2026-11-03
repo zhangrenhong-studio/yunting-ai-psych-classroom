@@ -1,0 +1,14 @@
+/* r112: slightly smaller welcome cloud; centred, consistent classroom closing. */
+html.classroom-ui-enabled[data-classroom-stage="enter"] .u-welcome-portrait{width:35vw;height:60vh;max-height:600px}
+html[data-classroom-stage="closing"] .closing-step>.t-title,html[data-classroom-stage="closing"] .ending>.t-title{width:100%;max-width:none;margin-left:auto;margin-right:auto;text-align:center;text-wrap:balance}
+html[data-classroom-stage="closing"] .ending{width:100%;max-width:none;margin-left:auto;margin-right:auto;text-align:center}
+html[data-classroom-stage="closing"] .closing-step[data-step="end"]:not(.is-hidden){display:flex;flex-direction:column;align-items:center;justify-content:center}
+html[data-classroom-stage="closing"] .r112-color-purpose{max-width:40em;margin:0 auto;font-size:16px;line-height:1.85;color:#5c7775;text-align:center}
+html[data-classroom-stage="closing"] .r112-color-purpose>span{display:inline-block;white-space:nowrap}
+html[data-classroom-stage="closing"] .r99-closing-choices{justify-content:center;align-items:center;gap:16px}
+html[data-classroom-stage="closing"] .r99-closing-choices>.btn{box-sizing:border-box;display:inline-flex;align-items:center;justify-content:center;flex:0 0 188px;width:188px;min-width:188px;max-width:188px;height:56px;min-height:56px;max-height:56px;padding:12px 24px;border:1px solid #bedbd2;border-radius:16px;font-size:17px;font-weight:600;line-height:1.4;box-shadow:0 4px 12px #5a998d0d;white-space:nowrap}
+html[data-classroom-stage="closing"] .r99-closing-choices>[data-act="exit-now"]{background:#f8fcfb;color:#567971}
+html[data-classroom-stage="closing"] [data-step="end"]>[data-act="close-preview"]{margin-left:auto;margin-right:auto}
+.classroom-gate :is([data-gate-title],[data-gate-copy]){text-align:center;margin-left:auto;margin-right:auto}
+@media(max-width:1100px) and (min-width:561px){html.classroom-ui-enabled[data-classroom-stage="enter"] .u-welcome-portrait{width:36vw;height:47vh}}
+@media(max-width:560px){html.classroom-ui-enabled[data-classroom-stage="enter"] .u-welcome-portrait{width:53vw;height:28vh;max-height:none}html[data-classroom-stage="closing"] .r112-color-purpose{font-size:14px;line-height:1.85}html[data-classroom-stage="closing"] .r99-closing-choices{gap:12px}html[data-classroom-stage="closing"] .r99-closing-choices>.btn{flex:0 0 148px;width:148px;min-width:148px;max-width:148px;height:52px;min-height:52px;max-height:52px;padding:11px 16px;border-radius:15px;font-size:15px}}

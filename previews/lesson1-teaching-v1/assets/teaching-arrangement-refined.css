@@ -1,0 +1,21 @@
+/* Preview-only information hierarchy. Original sidebar, course cards,
+   theme preparation, classroom console and record pages are unchanged. */
+body #content .teaching-arrangement-refined{background:transparent;border:0;box-shadow:none;padding:0}
+body #content .teaching-section-heading{display:flex;align-items:center;justify-content:space-between;margin:0 0 15px;gap:12px}
+body #content .teaching-section-heading h3{font-size:20px;font-weight:750;color:#284b43;margin:0;line-height:1.5}
+body #content .teaching-section-heading h3>span{font-size:12px;font-weight:400;color:#71877c;margin-left:9px}
+body #content .teaching-planned{margin:0 0 30px;padding:0;border:0;background:transparent;box-shadow:none}
+body #content .teaching-planned-empty{margin:0;padding:0;font-size:13px;line-height:1.7;color:#71877c}
+body #content .teaching-content-heading{margin-bottom:15px}
+body #content .teaching-arrangement-refined>.arrangement-toolbar{padding:0 0 18px;margin-bottom:0;background:transparent;border:0;box-shadow:none}
+body #content .teaching-arrangement-refined .arrangement-tabs{gap:6px}
+body #content .teaching-quick-launch{display:inline-flex;font-size:12px;font-weight:400;background:none;border:0;box-shadow:none;color:#638275;text-decoration:none;padding:6px 0}
+body #content .teaching-arrangement-refined .scheduled-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+body #content .teaching-arrangement-refined .scheduled-card{margin:0;min-width:0;padding:18px;border-radius:14px}
+body #content .teaching-arrangement-refined .scheduled-card h4{font-size:17px;line-height:1.5;margin:10px 0 7px}
+body #content .teaching-arrangement-refined .scheduled-time{font-size:12px;flex-wrap:wrap;gap:8px}
+body #content .teaching-arrangement-refined .scheduled-actions{gap:8px;flex-wrap:wrap;margin-top:14px}
+body #content .teaching-arrangement-refined .scheduled-actions button{font-size:12px;padding:8px 11px;min-height:34px}
+body #content .teaching-arrangement-refined .arrangement-live{margin-bottom:23px}
+@media(max-width:1200px){body #content .teaching-arrangement-refined .scheduled-list{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:720px){body #content .teaching-arrangement-refined .scheduled-list{grid-template-columns:1fr}body #content .teaching-arrangement-refined>.arrangement-toolbar{flex-wrap:wrap;gap:12px}body #content .teaching-section-heading h3{font-size:18px}body #content .teaching-arrangement-refined .arrangement-toolbar-actions{margin-left:auto}}

@@ -1,0 +1,35 @@
+/* r104: distinguish story and explanation within the same reading flow. */
+.r99-story-stage .r101-paper:before{display:none}
+.r99-story-stage .r99-reader{position:relative;padding-top:2px}
+.r99-story-stage .r104-story-label{display:flex;align-items:center;gap:9px;margin:0 0 19px;color:#72948b;font-size:13px;line-height:1.6;font-weight:550;letter-spacing:1.2px}
+.r99-story-stage .r104-story-label svg{width:21px;height:21px;flex:none;color:#709e91}
+.r99-story-stage .r104-quote{position:absolute;right:4px;top:27px;pointer-events:none;font:86px/1 Georgia,"Times New Roman",serif;color:#dcece6;opacity:.8}
+.r99-story-stage .r99-reader h2{position:relative;max-width:95%;padding-right:40px;margin-bottom:28px;color:#314e56;line-height:1.5}
+.r99-story-stage .r99-reader h2:after{content:"";display:block;width:42px;height:2px;margin-top:23px;background:#c5ded5;border-radius:3px}
+.r99-story-stage .r99-prose{color:#425e63;line-height:2.02}
+.r99-story-stage .r99-prose p{margin-bottom:23px}
+.r99-story-stage .r99-prose p.is-current{color:#314f56}
+.r99-story-stage[data-view="learn"] .r99-reader{padding-bottom:18px}
+.r99-story-stage .r99-explanation{border:0;margin:0;padding:0;display:block}
+.r99-story-stage .r104-transition{display:flex;align-items:center;justify-content:center;gap:17px;padding:12px 0;margin:12px auto 25px;max-width:650px}
+.r99-story-stage .r104-transition-line{display:block;flex:1;height:1px;background:linear-gradient(90deg,transparent,#d5e5e3)}
+.r99-story-stage .r104-transition-line:last-child{background:linear-gradient(90deg,#d5e5e3,transparent)}
+.r99-story-stage .r104-transition-title{display:flex;align-items:center;gap:7px;flex:none;color:#78999a;font-size:13px;font-weight:500;letter-spacing:1px;white-space:nowrap}
+.r99-story-stage .r104-transition-title svg{width:17px;height:17px}
+.r99-story-stage .r104-knowledge-panel{background:#eef8fb;border:1px solid #daebef;border-radius:24px;padding:30px 34px 29px;position:relative;box-shadow:inset 0 1px 0 #ffffffc4}
+.r99-story-stage .r99-explanation-head{display:flex;align-items:flex-start;gap:16px;margin-bottom:24px}
+.r99-story-stage .r99-explanation-head>div{min-width:0;flex:1}
+.r99-story-stage .r104-knowledge-icon{display:grid;place-items:center;width:44px;height:44px;flex:none;border-radius:14px;background:#ffffffb8;border:1px solid #d7eaec;color:#65999b;margin-top:3px}
+.r99-story-stage .r104-knowledge-icon svg{width:25px;height:25px}
+.r99-story-stage .r99-eyebrow{color:#6d9699;letter-spacing:1.5px;font-size:12px;margin:0 0 8px;line-height:1.6}
+.r99-story-stage .r99-explanation h2{color:#355d67;font-size:27px;line-height:1.55;letter-spacing:0;margin:0;text-wrap:pretty}
+.r99-story-stage .r99-concept{border:0;padding:0;margin:0 0 24px;gap:11px;align-items:center}
+.r99-story-stage .r99-concept span{background:#ffffffb8;border:1px solid #dcebee;border-radius:8px;color:#6e9297;padding:4px 9px;font-size:12px}
+.r99-story-stage .r99-concept strong{font-size:17px;font-weight:550;line-height:1.7;color:#5d858d}
+.r99-story-stage .r99-knowledge-text p{font-size:20px;line-height:1.95;margin:0 0 19px;color:#48666e}
+.r99-story-stage .r99-knowledge-text p:last-child{margin-bottom:0}
+.r99-story-stage .r99-core{background:transparent;border:0;border-top:1px solid #d2e6e9;border-radius:0;padding:19px 0 0;margin:25px 0 0;color:#477c7c;font-size:21px;line-height:1.8;font-weight:650;box-shadow:none}
+@media(min-width:1600px){.r99-story-stage .r104-knowledge-panel{padding:35px 39px 34px}.r99-story-stage .r99-knowledge-text p{font-size:21px}}
+@media(max-width:900px){.r99-story-stage .r104-knowledge-panel{padding:25px 25px 26px;border-radius:21px}.r99-story-stage .r99-explanation h2{font-size:25px}.r99-story-stage .r99-explanation-head{gap:13px}.r99-story-stage .r104-knowledge-icon{width:39px;height:39px;border-radius:12px}.r99-story-stage .r99-knowledge-text p{font-size:19px}.r99-story-stage .r99-core{font-size:20px}}
+@media(max-width:560px){.r99-story-stage .r104-story-label{font-size:11px;gap:7px;margin-bottom:17px;letter-spacing:1px}.r99-story-stage .r104-story-label svg{width:18px;height:18px}.r99-story-stage .r104-quote{font-size:64px;top:27px;right:-3px}.r99-story-stage .r99-reader h2{font-size:25px;max-width:100%;padding-right:23px;margin-bottom:24px}.r99-story-stage .r99-reader h2:after{margin-top:19px;width:34px}.r99-story-stage .r99-prose{font-size:19px;line-height:1.95}.r99-story-stage .r99-prose p{margin-bottom:20px}.r99-story-stage .r104-transition{gap:10px;margin:10px -3px 22px;padding:10px 0}.r99-story-stage .r104-transition-title{font-size:11px;gap:5px;letter-spacing:.5px}.r99-story-stage .r104-transition-title svg{width:15px;height:15px}.r99-story-stage .r104-knowledge-panel{margin-left:-7px;margin-right:-7px;border-radius:18px;padding:20px 18px 22px}.r99-story-stage .r99-explanation-head{gap:10px;margin-bottom:20px}.r99-story-stage .r104-knowledge-icon{width:32px;height:32px;border-radius:10px;margin-top:3px}.r99-story-stage .r104-knowledge-icon svg{width:21px;height:21px}.r99-story-stage .r99-eyebrow{font-size:10px;margin-bottom:7px;letter-spacing:1.1px}.r99-story-stage .r99-explanation h2{font-size:22px;line-height:1.6}.r99-story-stage .r99-concept{gap:8px;margin-bottom:21px;align-items:flex-start}.r99-story-stage .r99-concept span{font-size:10px;padding:4px 7px}.r99-story-stage .r99-concept strong{font-size:15px;line-height:1.8}.r99-story-stage .r99-knowledge-text p{font-size:18px;line-height:1.95;margin-bottom:17px}.r99-story-stage .r99-core{font-size:19px;line-height:1.8;margin-top:23px;padding-top:17px}}
+@media(max-height:740px) and (min-width:901px){.r99-story-stage .r104-knowledge-panel{padding:25px 29px}.r99-story-stage .r99-explanation h2{font-size:25px}.r99-story-stage .r99-knowledge-text p{font-size:19px}.r99-story-stage .r99-core{font-size:20px}}

@@ -1,0 +1,18 @@
+/* r107: immediate blank conversation field; training content-first. */
+html[data-classroom-stage="playground"]{--ui-header:0px}
+html[data-classroom-stage="playground"] .u-classroom-header{display:none}
+html.classroom-ui-enabled[data-classroom-stage="talk"] .talk-composer{flex-shrink:0}
+html.classroom-ui-enabled[data-classroom-stage="talk"] [data-composer]{min-height:50px}
+html.classroom-ui-enabled[data-classroom-stage="playground"] .scene-playground{padding:24px 32px 20px;gap:18px}
+html.classroom-ui-enabled[data-classroom-stage="playground"] .playground-title{margin:0 auto;max-width:1200px;width:100%;text-align:left}
+html.classroom-ui-enabled[data-classroom-stage="playground"] .playground-title .t-title{font-size:27px;line-height:1.4;margin:0;letter-spacing:0}
+.scene-playground .game-hub{gap:17px}
+.scene-playground .game-card{min-height:158px;padding:22px;display:flex;flex-direction:column;align-items:stretch}
+.scene-playground .game-card .game-card-top{margin-bottom:20px}
+.scene-playground .game-card .game-card-heading{gap:0}
+.scene-playground .playground-actions{margin:18px 0 0;padding:0;border:0!important;display:flex;justify-content:flex-end;background:transparent;border-radius:0}
+.scene-playground .game-play .training-heading{margin-bottom:19px}
+.scene-playground .game-play{padding-top:20px}
+.scene-playground .game-result .row{margin-top:24px}
+@media(max-width:900px){html.classroom-ui-enabled[data-classroom-stage="playground"] .scene-playground{padding:20px 24px 18px;gap:16px}.scene-playground .game-card{min-height:150px;padding:20px}}
+@media(max-width:560px){html.classroom-ui-enabled[data-classroom-stage="talk"] [data-composer]{min-height:46px}html.classroom-ui-enabled[data-classroom-stage="playground"] .scene-playground{padding:18px 16px 16px;gap:15px}html.classroom-ui-enabled[data-classroom-stage="playground"] .playground-title .t-title{font-size:23px}.scene-playground .game-hub{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.scene-playground .game-card{min-height:158px;padding:16px 14px;border-radius:17px}.scene-playground .game-card .game-card-top{flex-direction:column;align-items:flex-start;gap:10px;margin-bottom:16px}.scene-playground .game-card b{font-size:16px;line-height:1.5}.scene-playground .game-card .training-icon{width:36px;height:36px;border-radius:11px}.scene-playground .game-card .training-icon svg{width:24px;height:24px}.scene-playground .game-card em{font-size:11px}.scene-playground .game-card em svg{width:17px;height:17px}.scene-playground .playground-actions{margin-top:16px}.scene-playground .playground-actions .btn{width:auto;min-width:132px}}

@@ -1,0 +1,506 @@
+{
+  "voice": "zh-CN-XiaoxiaoNeural",
+  "rate": "+15%",
+  "textSha256": "b63da688ada37a9a6526bf634fb280be5ece020a0372a942588b6c113eac235b",
+  "narratedText": "小悦这两天有点不对劲。\n明明没发生什么大事，可就是心里烦烦的，\n上课坐不住，回家也不想写作业，\n妈妈多说两句，她就忍不住想顶嘴。\n事后她又特别后悔：我怎么变成这个样子了？\n我是不是很不懂事？是不是我性格有问题？\n小悦不知道的是：\n烦躁不是她的错，它只是身体发来的「我累了」信号。",
+  "titleNarrated": false,
+  "timingMethod": "Edge WordBoundary monotonic normalized text alignment",
+  "boundaries": [
+    {
+      "type": "WordBoundary",
+      "offset": 934580,
+      "duration": 3804160,
+      "text": "小悦"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 4956660,
+      "duration": 977910,
+      "text": "这"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 5934580,
+      "duration": 1739160,
+      "text": "两"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 7673750,
+      "duration": 2608750,
+      "text": "天"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 10500000,
+      "duration": 2608750,
+      "text": "有点"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 13217500,
+      "duration": 5217500,
+      "text": "不对劲"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 23369580,
+      "duration": 2934580,
+      "text": "明明"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 26412910,
+      "duration": 1630410,
+      "text": "没"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 28152080,
+      "duration": 2934580,
+      "text": "发生"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 31195830,
+      "duration": 2065410,
+      "text": "什么"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 33369580,
+      "duration": 4673750,
+      "text": "大事"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 40108750,
+      "duration": 1412910,
+      "text": "可"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 41521660,
+      "duration": 1195830,
+      "text": "就"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 42717500,
+      "duration": 869580,
+      "text": "是"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 43695830,
+      "duration": 2608750,
+      "text": "心里"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 46412910,
+      "duration": 4347910,
+      "text": "烦烦"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 50760830,
+      "duration": 1739160,
+      "text": "的"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 57391250,
+      "duration": 4021660,
+      "text": "上课"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 61521660,
+      "duration": 1521660,
+      "text": "坐"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 63043330,
+      "duration": 978330,
+      "text": "不"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 64021660,
+      "duration": 2608750,
+      "text": "住"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 69239160,
+      "duration": 3804160,
+      "text": "回家"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 73152080,
+      "duration": 1195830,
+      "text": "也"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 74456660,
+      "duration": 9021660,
+      "text": "不想写作业"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 88478330,
+      "duration": 2282500,
+      "text": "妈妈"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 90978330,
+      "duration": 1412910,
+      "text": "多"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 92391250,
+      "duration": 1412910,
+      "text": "说"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 93912910,
+      "duration": 2391250,
+      "text": "两"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 96304160,
+      "duration": 2500000,
+      "text": "句"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 100543330,
+      "duration": 1304160,
+      "text": "她"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 101847910,
+      "duration": 1087080,
+      "text": "就"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 103043330,
+      "duration": 3804160,
+      "text": "忍不住"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 107065410,
+      "duration": 1847500,
+      "text": "想"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 108912910,
+      "duration": 4673750,
+      "text": "顶嘴"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 118478330,
+      "duration": 3587080,
+      "text": "事后"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 122282500,
+      "duration": 1087080,
+      "text": "她"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 123369580,
+      "duration": 1087080,
+      "text": "又"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 124565410,
+      "duration": 3260830,
+      "text": "特别"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 127934580,
+      "duration": 4565410,
+      "text": "后悔"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 135217500,
+      "duration": 1304160,
+      "text": "我"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 136630410,
+      "duration": 1739160,
+      "text": "怎么"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 138478330,
+      "duration": 2934580,
+      "text": "变成"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 141630410,
+      "duration": 1739160,
+      "text": "这个"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 143478330,
+      "duration": 3043330,
+      "text": "样子"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 146521660,
+      "duration": 1739160,
+      "text": "了"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 153152080,
+      "duration": 1412910,
+      "text": "我"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 154673750,
+      "duration": 3478330,
+      "text": "是不是"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 158369580,
+      "duration": 1739160,
+      "text": "很"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 160108750,
+      "duration": 760830,
+      "text": "不"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 160978330,
+      "duration": 4782500,
+      "text": "懂事"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 170760830,
+      "duration": 5108750,
+      "text": "是不是我"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 175978330,
+      "duration": 3260830,
+      "text": "性格"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 179347910,
+      "duration": 1304160,
+      "text": "有"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 180652080,
+      "duration": 4891250,
+      "text": "问题"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 190434580,
+      "duration": 3912910,
+      "text": "小悦"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 194347910,
+      "duration": 1087080,
+      "text": "不"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 195543330,
+      "duration": 2934580,
+      "text": "知道"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 198478330,
+      "duration": 978330,
+      "text": "的"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 199456660,
+      "duration": 3152080,
+      "text": "是"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 207500000,
+      "duration": 3804160,
+      "text": "烦躁"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 211521660,
+      "duration": 2065410,
+      "text": "不是"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 213695830,
+      "duration": 1304160,
+      "text": "她"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 215000000,
+      "duration": 760830,
+      "text": "的"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 215869580,
+      "duration": 2934580,
+      "text": "错"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 221739160,
+      "duration": 1195830,
+      "text": "它"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 223043330,
+      "duration": 2065410,
+      "text": "只是"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 225217500,
+      "duration": 3260830,
+      "text": "身体"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 228587080,
+      "duration": 3586660,
+      "text": "发来"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 232173750,
+      "duration": 2500000,
+      "text": "的"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 235652080,
+      "duration": 1412910,
+      "text": "我"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 237065410,
+      "duration": 1630410,
+      "text": "累"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 238695830,
+      "duration": 652080,
+      "text": "了"
+    },
+    {
+      "type": "WordBoundary",
+      "offset": 239456660,
+      "duration": 4673750,
+      "text": "信号"
+    }
+  ],
+  "cues": [
+    {
+      "start": 0.0,
+      "end": 2.336958,
+      "index": 0
+    },
+    {
+      "start": 2.336958,
+      "end": 5.739125,
+      "index": 1
+    },
+    {
+      "start": 5.739125,
+      "end": 8.847833,
+      "index": 2
+    },
+    {
+      "start": 8.847833,
+      "end": 11.847833,
+      "index": 3
+    },
+    {
+      "start": 11.847833,
+      "end": 15.315208,
+      "index": 4
+    },
+    {
+      "start": 15.315208,
+      "end": 19.043458,
+      "index": 5
+    },
+    {
+      "start": 19.043458,
+      "end": 20.75,
+      "index": 6
+    },
+    {
+      "start": 20.75,
+      "end": 24.936,
+      "index": 7
+    }
+  ],
+  "duration": 24.936,
+  "probe": {
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "codec_name": "mp3",
+        "sample_rate": "24000",
+        "channels": 1
+      }
+    ],
+    "format": {
+      "duration": "24.936000",
+      "size": "149616"
+    }
+  }
+}

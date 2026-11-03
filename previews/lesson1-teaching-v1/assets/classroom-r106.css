@@ -1,0 +1,28 @@
+/* r106: lighter typography, floating continuous composer, compact conversation. */
+html.classroom-ui-enabled[data-classroom-stage="enter"] .u-welcome-portrait img{object-fit:contain;filter:none;mix-blend-mode:normal;max-height:min(62vh,530px);width:auto;max-width:100%;height:auto}
+.r99-story-stage .r99-knowledge-text p{font-size:18px;line-height:1.8}
+.r99-story-stage .r99-explanation h2{font-size:22px}
+.r99-story-stage .r99-core{font-size:17px;line-height:1.75}
+.r99-story-stage .r99-story-footer{box-shadow:0 16px 40px -8px #335d6842,0 3px 9px #335d6814;border-radius:23px;isolation:isolate}
+.r99-story-stage .r99-story-footer:before{content:"";position:absolute;z-index:-1;left:-12px;right:-12px;top:-28px;bottom:-10px;pointer-events:none;background:linear-gradient(0deg,#ffffffeb 70%,#ffffff00);border-radius:28px}
+.r99-story-stage .r99-story-footer .r101-composer{background:linear-gradient(120deg,#e9f8f2f5,#edf7fcf5);border:1px solid #c3ded7;border-radius:23px;box-shadow:inset 0 1px 0 #fff,0 1px 0 #ffffffb3;backdrop-filter:blur(14px)}
+.r99-story-stage .r101-compose-row textarea{font-size:16px;line-height:24px;padding:12px 14px;min-height:50px;box-sizing:border-box}
+html.classroom-ui-enabled[data-classroom-stage="talk"] .talk-head{gap:10px;padding:12px 24px}
+html.classroom-ui-enabled[data-classroom-stage="talk"] .talk-head .t-small{font-size:17px}
+html.classroom-ui-enabled[data-classroom-stage="talk"] .talk-head>.r99-talk-next{margin-left:auto;flex:none;align-self:center}
+html.classroom-ui-enabled[data-classroom-stage="talk"] .talk-private{margin-left:8px;font-size:11px}
+html.classroom-ui-enabled[data-classroom-stage="talk"] .talk-log{gap:20px;padding:26px 28px}
+html.classroom-ui-enabled[data-classroom-stage="talk"] .msg{font-size:16px;line-height:1.85;padding:12px 17px;max-width:78%;border-radius:6px 16px 16px}
+html.classroom-ui-enabled[data-classroom-stage="talk"] .msg-me{border-radius:16px 6px 16px 16px}
+html.classroom-ui-enabled[data-classroom-stage="talk"] .talk-avatar{width:38px;height:38px;border-radius:12px}
+html.classroom-ui-enabled[data-classroom-stage="talk"] .talk-composer{min-height:0;padding:16px 24px 18px;gap:10px;background:linear-gradient(115deg,#f3fbf7,#f5fafe);border-radius:20px 20px 0 0}
+html.classroom-ui-enabled[data-classroom-stage="talk"] .composer-row{min-height:50px;align-items:flex-end;gap:12px}
+html.classroom-ui-enabled[data-classroom-stage="talk"] .composer-row textarea{box-sizing:border-box;height:50px;min-height:50px;max-height:50px;border:1px solid #d9e9e2;border-radius:14px;padding:12px 14px;font-size:16px;line-height:24px;overflow-y:auto;resize:none}
+html.classroom-ui-enabled[data-classroom-stage="talk"] .composer-row textarea:focus{border-color:#accfbd;box-shadow:0 0 0 3px #d9eee366}
+html.classroom-ui-enabled[data-classroom-stage="talk"] .r99-talk-actions{min-width:80px;gap:0}
+html.classroom-ui-enabled[data-classroom-stage="talk"] .composer-row .btn-primary{min-height:50px;font-size:15px;min-width:80px;padding:10px 17px;border-radius:14px}
+html.classroom-ui-enabled[data-classroom-stage="talk"] .chips{padding-right:0}
+html.classroom-ui-enabled[data-classroom-stage="talk"] :is(.chips button,.chip){font-size:13px}
+@media(max-height:780px) and (min-width:901px){.r99-story-stage .r99-knowledge-text p{font-size:17px;line-height:1.75}.r99-story-stage .r99-core{font-size:16px}.r99-story-stage .r99-explanation h2{font-size:21px}}
+@media(min-width:1600px){.r99-story-stage .r99-knowledge-text p{font-size:19px}}
+@media(max-width:560px){html.classroom-ui-enabled[data-classroom-stage="enter"] .u-welcome-portrait img{height:125px;max-height:none;width:auto}.r99-story-stage .r99-knowledge-text p{font-size:17px;line-height:1.85}.r99-story-stage .r99-core{font-size:16px}.r99-story-stage .r99-explanation h2{font-size:20px}.r99-story-stage .r101-compose-row textarea{font-size:15px;line-height:22px;padding:11px 12px;min-height:46px}.r99-story-stage .r99-story-footer,.r99-story-stage .r99-story-footer .r101-composer{border-radius:19px}html.classroom-ui-enabled[data-classroom-stage="talk"] .talk-head{padding:10px 12px;gap:7px}html.classroom-ui-enabled[data-classroom-stage="talk"] .talk-head .t-small{font-size:15px}html.classroom-ui-enabled[data-classroom-stage="talk"] .talk-private{display:none}html.classroom-ui-enabled[data-classroom-stage="talk"] .talk-log{padding:18px 13px;gap:17px}html.classroom-ui-enabled[data-classroom-stage="talk"] .talk-message{gap:9px}html.classroom-ui-enabled[data-classroom-stage="talk"] .msg{font-size:15px;line-height:1.8;padding:10px 13px;max-width:83%}html.classroom-ui-enabled[data-classroom-stage="talk"] .talk-avatar{width:31px;height:31px}html.classroom-ui-enabled[data-classroom-stage="talk"] .talk-composer{padding:12px;gap:8px}html.classroom-ui-enabled[data-classroom-stage="talk"] .composer-row{min-height:46px;gap:8px}html.classroom-ui-enabled[data-classroom-stage="talk"] .composer-row textarea{height:46px;min-height:46px;max-height:46px;font-size:15px;line-height:22px;padding:11px 12px}html.classroom-ui-enabled[data-classroom-stage="talk"] .composer-row .btn-primary{min-height:46px;min-width:64px;padding:9px 12px}html.classroom-ui-enabled[data-classroom-stage="talk"] .r99-talk-actions{min-width:64px}}

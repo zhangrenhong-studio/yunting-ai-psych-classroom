@@ -1,0 +1,13 @@
+/* r111: stronger opening headline and large, partly-outside knowledge mascot. */
+html.classroom-ui-enabled[data-classroom-stage="enter"] .enter-title{font-size:clamp(72px,6vw,96px);line-height:1.27;letter-spacing:-1px;font-weight:800}
+.r99-story-stage{--r111-knowledge-headroom:104px}
+.r99-story-stage[data-view="learn"] .r99-story-shell{width:min(1240px,100%);max-width:1240px}
+.r99-story-stage .r104-knowledge-panel{max-width:1080px;overflow:visible}
+.r99-story-stage .r99-explanation-head{padding-right:205px;min-height:76px}
+.r99-story-stage .r110-scholar{width:210px;height:200px;top:-100px;right:-15px;z-index:2}
+@media(max-width:1100px) and (min-width:561px){html.classroom-ui-enabled[data-classroom-stage="enter"] .enter-title{font-size:58px;line-height:1.3}}
+@media(max-height:780px) and (min-width:901px){html.classroom-ui-enabled[data-classroom-stage="enter"] .enter-title{font-size:74px;line-height:1.25}.r99-story-stage{--r111-knowledge-headroom:86px}.r99-story-stage .r104-knowledge-panel{padding:15px 24px 14px}.r99-story-stage .r99-explanation-head{min-height:61px;padding-right:180px;margin-bottom:11px}.r99-story-stage .r110-scholar{width:174px;height:170px;top:-98px;right:-14px}.r99-story-stage .r99-knowledge-text p{margin-bottom:7px}.r99-story-stage .r99-core{margin-top:9px;padding-top:8px}}
+@media(max-height:780px) and (min-width:1200px){.r99-story-stage .r99-explanation-head{padding-right:495px}.r99-story-stage .r99-concept{right:212px;max-width:285px;top:32px}}
+@media(max-width:900px){.r99-story-stage{--r111-knowledge-headroom:82px}.r99-story-stage .r99-explanation-head{min-height:74px;padding-right:174px}.r99-story-stage .r110-scholar{width:182px;height:180px;top:-86px;right:-13px}}
+@media(max-width:560px){html.classroom-ui-enabled[data-classroom-stage="enter"] .enter-title{font-size:43px;line-height:1.3;letter-spacing:-.5px}.r99-story-stage{--r111-knowledge-headroom:94px}.r99-story-stage .r99-explanation-head{min-height:0;padding-top:50px;padding-right:0}.r99-story-stage .r110-scholar{width:133px;height:134px;top:-100px;right:-15px}.r99-story-stage .r99-explanation h2{font-size:20px}}
+@media(max-width:560px) and (max-height:710px){html.classroom-ui-enabled[data-classroom-stage="enter"] .enter-body{padding-top:26px;gap:16px}html.classroom-ui-enabled[data-classroom-stage="enter"] .enter-title{font-size:41px;line-height:1.25}html.classroom-ui-enabled[data-classroom-stage="enter"] .enter-subtitle{margin-top:8px}}

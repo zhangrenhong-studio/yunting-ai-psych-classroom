@@ -1,0 +1,13 @@
+/* First lesson's PPT action task, separate from optional teacher messages. */
+(function(g){'use strict';
+var q=new URLSearchParams(location.search);if(q.get('id')!=='lesson-01')return;
+var state=g.YTClassroomDemo?g.YTClassroomDemo.read():{},auth=g.YTAuthDemo?g.YTAuthDemo.read():{},owner=localStorage.getItem('yunting-current-student-v1')||((auth||{}).account)||'preview';
+var key='yunting-lesson1-goal:'+encodeURIComponent(owner)+':'+(q.get('session')||state.sessionId||'preview');
+var values={goal:'',first:'',backup:''};try{values=Object.assign(values,JSON.parse(localStorage.getItem(key)||'{}'))}catch(e){}
+function mount(){var host=document.querySelector('[data-stage="closing"] [data-step="color"]');if(!host||host.querySelector('.lesson1-goal'))return;
+var card=document.createElement('section');card.className='lesson1-goal';card.innerHTML='<span class="lesson1-goal-kicker">课堂小活动</span><h2>我的新学期小目标</h2><p>这学期最想做到的一件小事，不用很大。也可以替小泽写，或者先想一想。</p><label>我想做到的一件小事<textarea rows="2" data-goal-field="goal" maxlength="200" placeholder="这学期，我想……"></textarea></label><label>可以先做哪一步<input data-goal-field="first" maxlength="160" placeholder="在什么时候，先试着做什么"></label><label>不顺利时，我可以<input data-goal-field="backup" maxlength="160" placeholder="调整办法，或向谁求助"></label><small class="lesson1-goal-status" role="status">可跳过；此处仅保存在当前浏览器，不会提交给老师。下方给老师的留言由你另行选择。</small>';
+Object.keys(values).forEach(function(k){var input=card.querySelector('[data-goal-field="'+k+'"]');if(input)input.value=values[k]});
+card.addEventListener('input',function(e){var field=e.target.dataset.goalField;if(!field)return;values[field]=e.target.value;var status=card.querySelector('[role="status"]');try{localStorage.setItem(key,JSON.stringify(values));status.textContent='已保存在当前浏览器，不会提交给老师。你可以随时修改或留空。'}catch(ignore){status.textContent='浏览器暂时无法保存，请将需要保留的内容记在纸上。'}});
+host.insertBefore(card,host.firstChild);}
+var observer=new MutationObserver(mount);observer.observe(document.getElementById('app'),{childList:true,subtree:true});mount();
+})(window);
