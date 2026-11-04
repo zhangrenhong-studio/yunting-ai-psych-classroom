@@ -1154,6 +1154,7 @@
         var followedStage = app.teacherPreview
           ? (session.progressMode === 'student' ? (session.teacherPreviewStage || session.stage) : session.stage)
           : (session.progressMode === 'student' ? (session.studentStage || session.stage) : session.stage);
+        if (course.id === 'lesson-01' && param('original') === '1' && STAGE_ORDER.indexOf(param('temporaryStage')) >= 0) { followedStage = param('temporaryStage'); }
         var target = STAGE_ORDER.indexOf(followedStage);
         if (target >= 0 && target !== app.index) {
           if (app.teacherPreview) { app.previewCompletedStage = null; }

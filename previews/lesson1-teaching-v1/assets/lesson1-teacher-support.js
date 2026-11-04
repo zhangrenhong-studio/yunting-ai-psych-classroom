@@ -41,7 +41,7 @@
     function block(title, texts, extra) { return texts && texts.length ? '<section class="yt-teaching-segment-section '+(extra||'')+'"><h4>'+escape(title)+'</h4>'+texts.map(function(t){return '<p>'+escape(t)+'</p>';}).join('')+'</section>' : ''; }
     return '<div class="yt-teaching-segments">'+items.map(function(s,i){return '<article class="yt-teaching-segment"><div class="yt-teaching-segment-head"><h3>'+escape(s.title)+'</h3><small>'+escape(s.time)+'</small></div>'+block('老师怎么组织',s.lead)+block('可以这样问',s.questions,'yt-teaching-questions')+block('讲解与讨论重点',s.discuss)+block('学生怎么做',s.student)+block('小结可以这样说',[s.summary],'yt-teaching-segment-summary')+'</article>';}).join('')+'</div>';
   }
-  function guide(stage) {
+  function guide(stage, segmentIndex) {
     var value = data();
     if (!value || stages.indexOf(stage) < 0 || !value.guides || !value.guides[stage]) return '';
     var item = value.guides[stage];
@@ -53,7 +53,7 @@
       '<summary class="yt-teaching-guide-summary"><span class="yt-teaching-guide-heading"><span class="yt-teaching-eyebrow">课堂教学指引</span><strong class="yt-teaching-stage-label">当前环节 · ' + escape(item.label) + '</strong></span>' +
       '<span class="yt-teaching-guide-meta"><span class="yt-teaching-duration">参考时长 ' + escape(item.time) + '</span><span class="yt-teaching-chevron" aria-hidden="true">⌄</span></span></summary>' +
       '<div class="yt-teaching-guide-content"><p class="yt-teaching-progress-note">自主探索模式下也可查看对应环节的教学指引；查看或折叠指引不影响学生进度。</p>' +
-      (item.segments ? segmentSections(item.segments) : '<div class="yt-teaching-activities"><section class="yt-teaching-activity"><h3 class="yt-teaching-activity-title">教师活动</h3>' + list(item.teacher) + '</section><section class="yt-teaching-activity"><h3 class="yt-teaching-activity-title">学生活动</h3>' + list(item.student) + '</section></div><section class="yt-teaching-summary"><h3 class="yt-teaching-activity-title">教师小结</h3><p class="yt-teaching-summary-text">' + escape(item.summary) + '</p></section>') +
+      (item.segments ? segmentSections(typeof segmentIndex==='number'&&item.segments[segmentIndex]?[item.segments[segmentIndex]]:item.segments) : '<div class="yt-teaching-activities"><section class="yt-teaching-activity"><h3 class="yt-teaching-activity-title">教师活动</h3>' + list(item.teacher) + '</section><section class="yt-teaching-activity"><h3 class="yt-teaching-activity-title">学生活动</h3>' + list(item.student) + '</section></div><section class="yt-teaching-summary"><h3 class="yt-teaching-activity-title">教师小结</h3><p class="yt-teaching-summary-text">' + escape(item.summary) + '</p></section>') +
       '<div class="yt-teaching-guide-footer"><button type="button" class="yt-teaching-text-button" data-yt-teaching-open="lesson-01" data-yt-teaching-source-stage="' + stage + '" aria-haspopup="dialog">查看完整教案 <span aria-hidden="true">→</span></button></div></div></details>';
   }
   function download(path, label, kind) {
