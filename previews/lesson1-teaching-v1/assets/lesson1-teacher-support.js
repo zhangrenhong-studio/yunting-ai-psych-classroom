@@ -41,11 +41,21 @@
     function block(title, texts, extra) { return texts && texts.length ? '<section class="yt-teaching-segment-section '+(extra||'')+'"><h4>'+escape(title)+'</h4>'+texts.map(function(t){return '<p>'+escape(t)+'</p>';}).join('')+'</section>' : ''; }
     return '<div class="yt-teaching-segments">'+items.map(function(s,i){return '<article class="yt-teaching-segment"><div class="yt-teaching-segment-head"><h3>'+escape(s.title)+'</h3><small>'+escape(s.time)+'</small></div>'+block('老师怎么组织',s.lead)+block('可以这样问',s.questions,'yt-teaching-questions')+block('讲解与讨论重点',s.discuss)+block('学生怎么做',s.student)+block('小结可以这样说',[s.summary],'yt-teaching-segment-summary')+'</article>';}).join('')+'</div>';
   }
+  function viewKey(stage, state) {
+    var s=state||{};
+    if(stage==='story')return s.lesson1StoryPhase==='knowledge'?'knowledge':'story';
+    if(stage==='talk')return s.lesson1Presentation&&s.lesson1Presentation.mode==='summary'?'methods':'discussion';
+    if(stage==='closing')return s.lesson1ClosingPhase==='summary'?'summary':'goal';
+    return stage;
+  }
   function guide(stage, segmentIndex) {
     var value = data();
     if (!value || stages.indexOf(stage) < 0 || !value.guides || !value.guides[stage]) return '';
-    var item = value.guides[stage];
-    if(item.brief)return '<details class="yt-teaching-guide" data-yt-teaching-stage="'+stage+'"'+(expanded[stage]===false?'':' open')+'><summary class="yt-teaching-guide-summary"><span class="yt-teaching-stage-label">教学提醒 · '+escape(item.label)+'</span><span>⌄</span></summary><div class="yt-teaching-guide-content">'+item.brief.map(function(x){return '<p class="yt-teaching-brief"><b>'+escape(x[0])+'</b>'+escape(x[1])+'</p>';}).join('')+'<button type="button" class="yt-teaching-text-button" data-yt-teaching-open="lesson-01">查看完整教案 →</button></div></details>';
+    var currentView = typeof segmentIndex==='string'?segmentIndex:viewKey(stage,window.YTClassroomDemo?window.YTClassroomDemo.read():{});
+    var item = value.screenGuides&&value.screenGuides[currentView] || value.guides[stage];
+    var current = document.querySelector('.yt-teaching-guide[data-yt-teaching-stage="'+stage+'"]');
+    if(current)expanded[stage]=current.open;
+    if(item.brief)return '<details class="yt-teaching-guide" data-yt-teaching-stage="'+stage+'" data-yt-teaching-view="'+escape(currentView)+'"'+(expanded[stage]===false?'':' open')+'><summary class="yt-teaching-guide-summary"><span class="yt-teaching-stage-label">教学提醒 · '+escape(item.label)+'</span><span class="yt-teaching-header-actions"><button type="button" class="yt-teaching-header-plan" data-yt-teaching-open="lesson-01" data-yt-teaching-source-stage="'+stage+'" aria-haspopup="dialog">查看教案</button><span class="yt-teaching-chevron" aria-hidden="true">⌄</span></span></summary><div class="yt-teaching-guide-content">'+item.brief.map(function(x){return '<p class="yt-teaching-brief"><b>'+escape(x[0])+'</b>'+escape(x[1])+'</p>';}).join('')+'</div></details>';
     // Sample the live element before a host innerHTML render, including the tiny
     // interval before the asynchronous native toggle event is dispatched.
     var live = document.querySelector('.yt-teaching-guide[data-yt-teaching-stage="' + stage + '"]');
@@ -142,5 +152,5 @@
     var stage = target.getAttribute('data-yt-teaching-stage');
     if (stages.indexOf(stage) >= 0) remember(stage, target.open);
   }, true);
-  window.YTTeacherSupport = { courseButton: courseButton, guide: guide, openPlan: openPlan };
+  window.YTTeacherSupport = { courseButton: courseButton, guide: guide, viewKey: viewKey, openPlan: openPlan };
 })();
