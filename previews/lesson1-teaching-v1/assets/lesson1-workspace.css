@@ -5,3 +5,6 @@
 .lesson1-teaching-live .l1-pages button{white-space:normal;line-height:1.45;max-width:100%;text-align:left}
 .lesson1-teaching-live .l1-page-count{white-space:pre-line}
 @media(min-width:961px){.lesson1-teaching-live .shell:not(.preview-expanded) .classroom-side .preview-panel .stage{height:min(68dvh,800px)!important;aspect-ratio:auto!important}}
+
+.lesson1-teaching-live .classroom-side .preview-panel{grid-template-rows:auto auto!important}
+.yt-teaching-brief{font-size:14px;line-height:1.85;color:#345b49;margin:16px 0}.yt-teaching-brief b{display:block;color:#267256;font-size:12px;margin-bottom:4px}.l1-class-mode{font-size:12px;color:#688375}.lesson1-teaching-live .yt-teaching-guide-content{max-height:none!important;overflow:visible!important;padding:12px 18px!important}

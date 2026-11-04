@@ -279,6 +279,7 @@
   }
 
   function buildTalk(course, onDone) {
+    if(course.id==='lesson-01'&&global.YTLesson1GuidedTalk)return global.YTLesson1GuidedTalk.build(course,onDone,app.teacherPreview);
     if (course.stages.talk.aiConnected === false) return buildThemeReflection(course, onDone);
     var d = course.stages.talk;
     var nodes = d.nodes || [];

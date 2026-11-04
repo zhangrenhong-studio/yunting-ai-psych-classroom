@@ -45,6 +45,7 @@
     var value = data();
     if (!value || stages.indexOf(stage) < 0 || !value.guides || !value.guides[stage]) return '';
     var item = value.guides[stage];
+    if(item.brief)return '<details class="yt-teaching-guide" data-yt-teaching-stage="'+stage+'"'+(expanded[stage]===false?'':' open')+'><summary class="yt-teaching-guide-summary"><span class="yt-teaching-stage-label">教学提醒 · '+escape(item.label)+'</span><span>⌄</span></summary><div class="yt-teaching-guide-content">'+item.brief.map(function(x){return '<p class="yt-teaching-brief"><b>'+escape(x[0])+'</b>'+escape(x[1])+'</p>';}).join('')+'<button type="button" class="yt-teaching-text-button" data-yt-teaching-open="lesson-01">查看完整教案 →</button></div></details>';
     // Sample the live element before a host innerHTML render, including the tiny
     // interval before the asynchronous native toggle event is dispatched.
     var live = document.querySelector('.yt-teaching-guide[data-yt-teaching-stage="' + stage + '"]');
