@@ -867,7 +867,7 @@
       else { global.close(); if (!global.closed) { global.location.replace('teacher.html'); } }
     }); }
 
-    return { root: root, activate: function () {}, deactivate: function () {} };
+    return { root: root, activate: function () { if (course.id === 'lesson-01' && app.teacherPreview) { stepColor.className='closing-step stack-5'; stepLeave.className='closing-step stack-5 is-hidden'; stepEnd.className='closing-step stack-6 is-hidden'; write.hidden=true; root.querySelector('[data-leave-choices]').style.display=''; app.courseCompleted=false; } }, deactivate: function () {} };
   }
 
   /* ======================================================================
@@ -1140,7 +1140,11 @@
        真实产品须由已鉴权的实时课堂服务替代此浏览器本地状态。 */
     if (!app.review && global.YTClassroomDemo) {
       function followTeacher(session) {
-        if (app.courseCompleted) { setClassroomGate(null); return; }
+        if (app.courseCompleted) {
+          var revisitStage = session && (session.progressMode === 'student' ? (session.teacherPreviewStage || session.stage) : session.stage);
+          if (app.teacherPreview && session && session.active && revisitStage !== STAGE_ORDER[app.index]) { app.courseCompleted = false; app.previewCompletedStage = null; }
+          else { setClassroomGate(null); return; }
+        }
         if (session && session.courseId === course.id && (session.status === 'ended' || (!app.teacherPreview && session.studentCourseCompleted))) {
           if (app.teacherPreview) {
             goTo(STAGE_ORDER.indexOf('closing'), true);
