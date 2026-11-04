@@ -99,7 +99,7 @@ g.YTStoryLetter={build:function(course,onDone){
  var touchY=null;scroller.addEventListener('touchstart',function(e){touchY=e.touches.length?e.touches[0].clientY:null},{passive:true});scroller.addEventListener('touchmove',function(e){if(touchY!=null&&e.touches.length){var y=e.touches[0].clientY;if(y>touchY)autoFollow=false;touchY=y}},{passive:true});
  scroller.addEventListener('keydown',function(e){if(['ArrowUp','PageUp','Home'].indexOf(e.key)!==-1)autoFollow=false});
  var lastTop=0;scroller.addEventListener('scroll',function(){if(scroller.scrollTop<lastTop-2)autoFollow=false;lastTop=scroller.scrollTop},{passive:true});
- function resumeIfAllowed(){if(allowed()&&restart){var saved=restart;play(saved)}else if(allowed()&&!started){started=true;readTitle()}}
+ function resumeIfAllowed(){if(course.id==='lesson-01'&&new URLSearchParams(location.search).get('preview')==='teacher'){if(!started){started=true;root.classList.add('l1-fast-story');groups.forEach(function(b,i){var para=document.createElement('p');para.className='is-read';para.textContent=b.text;para.dataset.group=String(i);prose.appendChild(para)});revealed=groups.length;finishStory();next.textContent='看看变化与适应';scroller.scrollTop=0;status('故事已完整展示，可按需朗读')}return}if(allowed()&&restart){var saved=restart;play(saved)}else if(allowed()&&!started){started=true;readTitle()}}
  document.addEventListener('visibilitychange',function(){hidden=!!document.hidden;if(hidden){if(playing)stop(true)}else resumeIfAllowed()});
  // No repeating timers or polling: a paused class cannot advance in the background.
  [audio,knowledgeAudio,titleAudio].filter(Boolean).forEach(function(a){a.preload='metadata'});sync();

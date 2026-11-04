@@ -1,5 +1,6 @@
 /* First-lesson teaching content only. Other courses remain unchanged. */
 (function(g){'use strict';
+if(new URLSearchParams(location.search).get('id')==='lesson-01'&&new URLSearchParams(location.search).get('preview')==='teacher')document.documentElement.classList.add('l1-teacher-preview');
 var c=(g.COURSE_REGISTRY||[]).find(function(x){return x.id==='lesson-01'});if(!c)return;
 c.title='换了新环境，慢一点也没关系';c.subtitle='适应是一个过程，进步比完美更重要';
 c.stages.enter.title=c.title;c.stages.enter.eyebrow='七年级 · 适应与成长 · 第1课';c.stages.enter.subtitle='情绪上，接纳自己的节奏；专注上，温柔拉回注意力；学习上，从小行动开始。';c.stages.enter.opening='今天，我们一起聊聊新环境里的变化。可以表达，也可以先安静想一想。';c.stages.enter.audio=null;
