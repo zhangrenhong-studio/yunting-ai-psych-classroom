@@ -48,8 +48,8 @@
     if(stage==='closing')return s.lesson1ClosingPhase==='summary'?'summary':'goal';
     return stage;
   }
-  function actionContent(item) {
-    return '<div class="yt-action-steps">'+item.steps.map(function(step,i){return '<section class="yt-action-step"><h3><span class="yt-action-number">'+(i+1)+'</span>'+escape(step.title)+'</h3>'+(step.action?'<p class="yt-action-do">'+escape(step.action)+'</p>':'')+(step.say?'<blockquote class="yt-action-say">'+escape(step.say)+'</blockquote>':'')+(step.responses&&step.responses.length?'<dl class="yt-action-responses">'+step.responses.map(function(r){return '<div><dt>'+escape(r[0])+'</dt><dd>'+escape(r[1])+'</dd></div>';}).join('')+'</dl>':'')+'</section>';}).join('')+'</div>'+(item.notes&&item.notes.length?'<details class="yt-action-notes"><summary>授课注意</summary>'+item.notes.map(function(n){return '<p>'+escape(n)+'</p>';}).join('')+'</details>':'');
+  function questionSummaryContent(item) {
+    return '<section class="yt-teacher-copy yt-teacher-questions"><h3>教师提问</h3>'+item.questions.map(function(text){return '<p>'+escape(text)+'</p>';}).join('')+'</section><section class="yt-teacher-copy yt-teacher-conclusion"><h3>教师小结</h3>'+item.summary.map(function(text){return '<p>'+escape(text)+'</p>';}).join('')+'</section>';
   }
   function guide(stage, segmentIndex) {
     var value = data();
@@ -58,7 +58,7 @@
     var item = value.screenGuides&&value.screenGuides[currentView] || value.guides[stage];
     var current = document.querySelector('.yt-teaching-guide[data-yt-teaching-stage="'+stage+'"]');
     if(current)expanded[stage]=current.open;
-    if(item.steps||item.brief)return '<details class="yt-teaching-guide" data-yt-teaching-stage="'+stage+'" data-yt-teaching-view="'+escape(currentView)+'"'+(expanded[stage]===false?'':' open')+'><summary class="yt-teaching-guide-summary"><span class="yt-teaching-stage-label">教学提醒 · '+escape(item.label)+'</span><span class="yt-teaching-header-actions"><button type="button" class="yt-teaching-header-plan" data-yt-teaching-open="lesson-01" data-yt-teaching-source-stage="'+stage+'" aria-haspopup="dialog">查看教案</button><span class="yt-teaching-chevron" aria-hidden="true">⌄</span></span></summary><div class="yt-teaching-guide-content">'+(item.steps?actionContent(item):item.brief.map(function(x){return '<p class="yt-teaching-brief"><b>'+escape(x[0])+'</b>'+escape(x[1])+'</p>';}).join(''))+'</div></details>';
+    if(item.questions||item.brief)return '<details class="yt-teaching-guide" data-yt-teaching-stage="'+stage+'" data-yt-teaching-view="'+escape(currentView)+'"'+(expanded[stage]===false?'':' open')+'><summary class="yt-teaching-guide-summary"><span class="yt-teaching-stage-label">教学提醒 · '+escape(item.label)+'</span><span class="yt-teaching-header-actions"><button type="button" class="yt-teaching-header-plan" data-yt-teaching-open="lesson-01" data-yt-teaching-source-stage="'+stage+'" aria-haspopup="dialog">查看教案</button><span class="yt-teaching-chevron" aria-hidden="true">⌄</span></span></summary><div class="yt-teaching-guide-content">'+(item.questions?questionSummaryContent(item):item.brief.map(function(x){return '<p class="yt-teaching-brief"><b>'+escape(x[0])+'</b>'+escape(x[1])+'</p>';}).join(''))+'</div></details>';
     // Sample the live element before a host innerHTML render, including the tiny
     // interval before the asynchronous native toggle event is dispatched.
     var live = document.querySelector('.yt-teaching-guide[data-yt-teaching-stage="' + stage + '"]');
