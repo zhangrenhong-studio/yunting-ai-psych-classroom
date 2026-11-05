@@ -1,0 +1,9 @@
+/* Course-independent content layouts: data in, stable reading/knowledge/summary compositions out. */
+(function(g){'use strict';function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}function paragraphs(items){return(items||[]).map(function(t){return '<p>'+esc(t)+'</p>'}).join('')}
+g.YTClassroomContentLayouts={
+ story:function(d){return '<header class="ux-story-header"><span class="ux-kicker">读一读 · 故事时间</span><h2>'+esc(d.title)+'</h2></header><article class="l1-story-material classroom-story-text"><div class="ux-story-reading"><div class="r99-prose">'+paragraphs(d.paragraphs)+'</div><figure class="ux-story-illustration" aria-hidden="true"><img src="assets/lesson1-classroom-scene.svg" alt="" width="400" height="410"></figure></div></article>'},
+ question:function(text){return '<section class="l1-story-first-question classroom-story-question"><span>想一想，说一说</span><h3>'+esc(text)+'</h3><p>可以先说，也可以先听。</p></section>'},
+ knowledge:function(d){return '<section class="l1-story-knowledge classroom-knowledge" hidden><span class="ux-kicker">心理学知识</span><article class="classroom-knowledge-box"><h3>'+esc(d.title||d.concept)+'</h3>'+paragraphs(d.paragraphs)+'</article></section>'},
+ methods:function(d){return '<header class="l1-methods-heading"><span>方法总结</span><h2>'+esc(d.title)+'</h2></header><section class="classroom-summary-text">'+(d.items||[]).map(function(x){return '<p><strong>'+esc(x.title)+'：</strong>'+esc(x.text)+'</p>'}).join('')+'</section>'},
+ conclusion:function(d){return '<span>课堂总结</span><h2>'+esc(d.title||'一起带走')+'</h2><p class="classroom-conclusion-paragraph">'+esc(d.text)+'</p>'}
+};})(window);

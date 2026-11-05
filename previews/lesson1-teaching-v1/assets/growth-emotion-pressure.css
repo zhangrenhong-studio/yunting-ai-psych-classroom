@@ -1,0 +1,56 @@
+/* Scoped additions for the two campus state exercises. */
+.ng-emotion,.ng-pressure{color:#183f40;font-size:17px;line-height:1.7;max-width:1060px;margin:0 auto;overflow-wrap:anywhere}
+.ng-emotion *,.ng-pressure *{box-sizing:border-box}
+.ng-emotion h4,.ng-pressure h4{font-size:19px;line-height:1.5;margin:12px 0 10px;color:#163e40}
+.ng-emotion button,.ng-pressure button,.ng-emotion select,.ng-pressure select{font:inherit;min-height:44px;touch-action:manipulation}
+.ng-emotion button,.ng-pressure button{cursor:pointer}
+.ng-emotion button:disabled,.ng-pressure button:disabled{opacity:.46;cursor:default}
+.ng-emotion button:focus-visible,.ng-pressure button:focus-visible,.ng-emotion input:focus-visible,.ng-pressure select:focus-visible{outline:3px solid #13847e;outline-offset:4px}
+.ng-emotion .ng-grid,.ng-pressure .ng-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:14px;margin:18px 0}
+.ng-emotion .ng-row,.ng-pressure .ng-row,.ng-emotion .ng-actions,.ng-pressure .ng-actions{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0}
+.ng-emotion .ng-card,.ng-pressure .ng-card{border:1px solid #c9e5df;border-radius:20px;padding:20px;background:#fff;min-width:0;text-align:left}
+.ng-emotion button.ng-card:hover,.ng-pressure button.ng-card:hover{border-color:#60b6aa;background:#f1fbf7}
+.ng-emotion .ng-scene,.ng-pressure .ng-scene{padding:20px;background:#eaf8f3;border-radius:20px;margin:16px 0;color:#224b46}
+.ng-emotion button.ng-scene,.ng-pressure button.ng-scene{margin:0;display:flex;flex-direction:column;gap:12px;border:1px solid #c4e6dd}
+.ng-emotion button.ng-scene b,.ng-pressure button.ng-scene b{font-size:21px}
+.ng-emotion .ng-progress,.ng-pressure .ng-progress{height:6px;background:#e1efeb;overflow:hidden;border-radius:10px;margin-bottom:24px}
+.ng-emotion .ng-progress span,.ng-pressure .ng-progress span{display:block;height:100%;background:#279b8c;border-radius:10px}
+.ng-emotion .ng-feedback,.ng-pressure .ng-feedback{color:#245b59;background:#edf8f7;border-radius:14px;padding:12px 16px;margin-top:18px;min-height:48px}
+.ng-emotion .ng-feedback:empty,.ng-pressure .ng-feedback:empty{display:none}
+.ng-emotion .ng-ep-sliders{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:20px 0}
+.ng-emotion .ng-ep-sliders label{background:#f2f9f6;padding:14px 18px;border-radius:16px}
+.ng-emotion output{float:right;font-variant-numeric:tabular-nums;font-weight:700;color:#176d62}
+.ng-emotion .ng-range{display:block;width:100%;min-height:40px;accent-color:#188d80;margin:8px 0 0}
+.ng-emotion .ng-ep-rating{display:block;background:#edf8fb;border-radius:18px;padding:18px;margin:20px 0 10px}
+.ng-emotion .ng-ep-rating output{float:none}
+.ng-emotion .ng-ep-sort-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:20px 0}
+.ng-emotion .ng-ep-sort-cards button{display:flex;flex-direction:column;justify-content:space-between;gap:14px;min-height:130px}
+.ng-emotion .ng-ep-sort-cards small{font-size:14px;color:#4f7771}
+.ng-emotion .ng-selected{border:2px solid #188d80!important;background:#e6f8f1!important;box-shadow:0 0 0 3px #d7f1e9}
+.ng-emotion .ng-ep-drop{border:2px dashed #85bcb2;display:flex;flex-direction:column;gap:8px;background:#f1faf8;min-height:125px}
+.ng-emotion .ng-ep-practice{padding:28px;background:linear-gradient(120deg,#e6f8ee,#e4f5fa);border:1px solid #c2e4db;border-radius:24px;margin:22px 0;min-height:195px}
+.ng-emotion .ng-ep-practice h4{font-size:23px;max-width:650px}
+.ng-emotion .ng-ep-practice p{font-size:16px;color:#456967}
+.ng-emotion .ng-ep-takeaway,.ng-pressure .ng-ep-takeaway{background:linear-gradient(125deg,#effaf3,#eaf8fa);border-color:#a9d6cc;margin:20px 0}
+.ng-pressure .ng-ep-task-groups{display:grid;gap:14px;margin:20px 0}
+.ng-pressure .ng-ep-task-groups ul{padding-left:22px;margin:0}
+.ng-pressure .ng-ep-task-groups li{padding:8px 0}
+.ng-pressure .ng-chip,.ng-emotion .ng-chip{display:inline-block;background:#e0f3ec;color:#265d55;border-radius:30px;padding:3px 12px;font-size:14px;white-space:normal}
+.ng-pressure .ng-ep-budget{display:flex;gap:24px;align-items:center;justify-content:space-between;background:#e8f7f5;border-radius:20px;padding:20px;margin:18px 0}
+.ng-pressure select{display:block;width:100%;max-width:100%;border:1px solid #a5cdc3;color:#214e48;background:white;border-radius:12px;padding:8px 34px 8px 12px}
+.ng-pressure .ng-ep-budget p{margin:0;text-align:right}
+.ng-pressure .ng-ep-budget strong{display:block;font-size:26px;color:#17695e;font-variant-numeric:tabular-nums}
+.ng-pressure .ng-ep-budget span{font-size:14px;color:#4e726c}
+.ng-pressure .ng-ep-event{border-left:5px solid #2b9cad;background:#eaf7fb}
+.ng-pressure .ng-ep-event p{margin:6px 0 0}
+.ng-pressure .ng-ep-plan-list{display:grid;gap:14px}
+.ng-pressure .ng-ep-plan-item{padding:18px;cursor:grab}
+.ng-pressure .ng-ep-item-heading{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:start;gap:12px}
+.ng-pressure .ng-ep-item-heading h4{margin:2px 0}
+.ng-pressure .ng-ep-item-heading small{font-size:13px;color:#58796f}
+.ng-pressure .ng-ep-item-heading>b{font-size:15px;white-space:nowrap;padding-top:8px}
+.ng-pressure .ng-ep-item-controls{display:flex;align-items:end;justify-content:space-between;gap:14px;margin-top:10px}
+.ng-pressure .ng-ep-item-controls .ng-row{margin:0}
+.ng-pressure .ng-ep-item-controls label{min-width:180px;font-size:14px}
+@media(max-width:600px){.ng-emotion,.ng-pressure{font-size:16px}.ng-emotion .ng-ep-sliders,.ng-emotion .ng-ep-sort-cards{grid-template-columns:1fr}.ng-emotion .ng-card,.ng-pressure .ng-card{padding:16px}.ng-emotion .ng-ep-practice{padding:20px}.ng-emotion .ng-ep-practice h4{font-size:21px}.ng-pressure .ng-ep-budget{flex-direction:column;align-items:stretch;gap:12px}.ng-pressure .ng-ep-budget p{text-align:left}.ng-pressure .ng-ep-item-controls{align-items:stretch;flex-direction:column}.ng-pressure .ng-ep-item-controls label{min-width:0;width:100%}.ng-pressure .ng-ep-item-heading{gap:8px}.ng-pressure .ng-ep-item-heading h4{font-size:17px}.ng-pressure .ng-ep-item-heading>b{font-size:13px}.ng-emotion .ng-actions>.ng-action,.ng-pressure .ng-actions>.ng-action{flex:1 1 160px}.ng-emotion .ng-ep-sort-cards button{min-height:105px}}
+@media(prefers-reduced-motion:reduce){.ng-emotion *,.ng-pressure *{scroll-behavior:auto!important;transition:none!important}}
