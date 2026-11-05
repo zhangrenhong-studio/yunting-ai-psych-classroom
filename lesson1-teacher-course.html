@@ -160,6 +160,8 @@ body{background:#edf4f3!important}.control-panel{border-color:#c7ded9!important;
 <script src="assets/classroom-state.js?v=platform-7"></script>
 <script src="assets/class-end-completion.js?v=1"></script>
 <script src="assets/wearable-state.js?v=wearable-6"></script>
+<script src="assets/teacher-guidance-content.js"></script>
+<script src="assets/teacher-guidance-framework.js"></script>
 <script>
 window.YTSeedDemo&&window.YTSeedDemo.ensure();
 (function(){'use strict';
@@ -186,7 +188,7 @@ function flowHtml(s,stage){var autonomous=s.progressMode==='student',current=ord
 function bindRosterFilters(){roster.querySelectorAll('[data-filter]').forEach(function(b){b.onclick=function(){rosterFilter=b.dataset.filter;render()}})}
 function placeExpandedPreviewActions(){if(state().courseId!=='lesson-01')return;var aside=document.querySelector('.classroom-side'),panel=aside&&aside.querySelector('.preview-panel'),dock=aside&&aside.querySelector('.action-dock');if(!dock||!panel)return;if(shell.classList.contains('preview-expanded')){if(dock.parentNode!==panel)panel.appendChild(dock)}else if(dock.parentNode!==aside){aside.insertBefore(dock,aside.querySelector('.l1-page-count'))}}
 function relocateLesson1Actions(s){if(s.courseId!=='lesson-01')return;var aside=document.querySelector('.classroom-side'),fresh=side.querySelector('.action-dock'),old=aside.querySelector('.action-dock');if(old)old.remove();if(fresh)aside.insertBefore(fresh,aside.querySelector('.l1-page-count'))}
-function renderTeachingGuide(s,stage){var pane=document.getElementById('lesson1TeachingPane'),active=s.courseId==='lesson-01'&&s.status==='live'&&window.YTTeacherSupport;document.body.classList.toggle('lesson1-teaching-live',!!active);pane.hidden=!active;if(!active){pane.innerHTML='';pane.removeAttribute('data-guide-stage');pane.removeAttribute('data-guide-view');pane.removeAttribute('data-guide-key');return}var view=YTTeacherSupport.viewKey(stage,s),key=String(s.sessionId||'')+'|'+view;if(pane.dataset.guideKey!==key){pane.innerHTML=YTTeacherSupport.guide(stage,view);pane.dataset.guideStage=stage;pane.dataset.guideView=view;pane.dataset.guideKey=key}}
+function renderTeachingGuide(s,stage){if(window.YTTeacherGuideFramework)window.YTTeacherGuideFramework.refresh()}
 function render(){var s=state();if(!s.sessionId||(querySession&&querySession!==s.sessionId)){shell.innerHTML='<section class="empty-session"><h1>没有找到这场课堂</h1><p>课堂场次可能已经失效，或当前页面连接的不是同一场课堂。</p><a href="teacher.html?view=records">返回课堂记录</a></section>';return}if(!s.active){returnToRecords(s);return}
 var target='course.html'+'?id='+encodeURIComponent(s.courseId)+'&mode=classroom&preview=teacher&session='+encodeURIComponent(s.sessionId);if(frame.getAttribute('data-src')!==target){frame.src=target;frame.setAttribute('data-src',target)}
 var autonomous=s.progressMode==='student',live=document.getElementById('live'),hint=document.getElementById('previewModeHint'),controlTitle=document.getElementById('controlTitle'),classroomMeta=document.getElementById('classroomMeta');shell.classList.toggle('self-paced',autonomous);controlTitle.textContent='课堂管理';classroomMeta.textContent=[s.className,s.courseTitle].filter(Boolean).join(' · ');var wl=document.getElementById('wearableLiveLink'),wearableRosterIds=classStudents(s).map(function(st){return String(st.id)}),wa=window.YTWearables?YTWearables.active().filter(function(a){return wearableRosterIds.indexOf(String(a.studentId))>=0}):[];if(wl)wl.textContent='手环 '+wa.length+' 人';hint.textContent=autonomous?'':'同步全班';live.className='live '+(s.status==='waiting'?'waiting':(s.paused?'paused':''));live.textContent=s.status==='waiting'?'● 等待正式开始':(s.paused?'● 课堂已暂停':'● 课堂进行中');
@@ -204,4 +206,5 @@ window.YTTeacherSlideNavigation={read:state,fit:fitPreview,show:function(stage,p
 })();
 </script>
 <link rel="stylesheet" href="assets/lesson1-release-v1/teacher-slide-nav.css"><script src="assets/lesson1-release-v1/teacher-slide-nav.js"></script>
+<link rel="stylesheet" href="assets/teacher-guidance-framework.css">
 </body></html>

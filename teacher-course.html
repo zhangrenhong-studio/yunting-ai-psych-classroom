@@ -155,11 +155,13 @@ body{background:#edf4f3!important}.control-panel{border-color:#c7ded9!important;
 </head>
 <body>
 <header class="top"><div class="brand">云听 <span>课堂管理</span></div><div class="top-actions"><a class="wearable-live-link" id="wearableLiveLink" href="teacher.html?view=wearables&bandTab=live">手环监测</a><button class="preview-toggle" id="previewToggle" type="button">隐藏学生画面</button><a class="workbench" href="teacher.html?view=dashboard">工作台</a><span class="live" id="live">● 课堂准备中</span></div></header>
-<main class="shell" id="shell"><section class="control-panel"><div class="control-panel-head"><div><b id="controlTitle">课堂管理</b><span id="classroomMeta"></span></div></div><div class="control-inner" id="side"></div></section><section class="students-panel"><div class="roster-inner" id="roster"></div></section><aside class="classroom-side"><section class="preview-panel"><div class="preview-head"><div class="preview-title"><b>学生画面</b><small id="previewModeHint">同步全班</small></div><button class="preview-expand" id="previewExpand" type="button">放大</button></div><div class="stage"><iframe class="student-view" id="studentView" title="学生端课堂画面预览"></iframe></div></section></aside></main>
+<main class="shell" id="shell"><section class="control-panel"><div class="control-panel-head"><div><b id="controlTitle">课堂管理</b><span id="classroomMeta"></span></div></div><div class="control-inner" id="side"></div></section><section class="students-panel"><div class="roster-inner" id="roster"></div></section><section id="teacherGuidancePane" class="yt-guide-pane" data-teacher-guidance aria-label="当前画面教学提示"></section><aside class="classroom-side"><section class="preview-panel"><div class="preview-head"><div class="preview-title"><b>学生画面</b><small id="previewModeHint">同步全班</small></div><button class="preview-expand" id="previewExpand" type="button">放大</button></div><div class="stage"><iframe class="student-view" id="studentView" title="学生端课堂画面预览"></iframe></div></section></aside></main>
 <script src="assets/demo-data.js?v=demo-4"></script>
 <script src="assets/classroom-state.js?v=platform-7"></script>
 <script src="assets/class-end-completion.js?v=1"></script>
 <script src="assets/wearable-state.js?v=wearable-6"></script>
+<script src="assets/teacher-guidance-content.js"></script>
+<script src="assets/teacher-guidance-framework.js"></script>
 <script>
 window.YTSeedDemo&&window.YTSeedDemo.ensure();
 (function(){'use strict';
@@ -199,4 +201,5 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape'&&previewExpa
 var last='';YTClassroomDemo.subscribe(function(){var s=state(),sig=[s.sessionId,s.active,s.status,s.stage,s.teacherPreviewStage,s.studentStage,s.paused,s.updatedAt].join('|');if(!s.active){returnToRecords(s);return}if(sig!==last){last=sig;render()}});setInterval(tick,1000);render();if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js?v=59').catch(function(){})}
 })();
 </script>
+<link rel="stylesheet" href="assets/teacher-guidance-framework.css">
 </body></html>

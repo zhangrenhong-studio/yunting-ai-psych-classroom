@@ -1,0 +1,40 @@
+/* Last-loaded override: explicit four-child classroom grid; no changes to student iframe UI. */
+html:has(body.yt-teacher-guide-enabled),body.yt-teacher-guide-enabled{height:auto!important;min-height:100%!important;overflow-x:clip!important;overflow-y:auto!important}
+body.yt-teacher-guide-enabled.preview-open{overflow:hidden!important}
+body.yt-teacher-guide-enabled #shell.shell{--yt-guide-height:clamp(460px,calc(100dvh - 285px),780px);display:grid!important;grid-template-columns:minmax(0,.44fr) minmax(0,.56fr)!important;grid-template-rows:auto var(--yt-guide-height) auto!important;align-items:stretch!important;gap:14px!important;height:auto!important;min-height:0!important;overflow:visible!important;padding-bottom:24px!important}
+body.yt-teacher-guide-enabled #shell>.control-panel{grid-column:1/-1!important;grid-row:1!important;height:auto!important;min-height:0!important;overflow:visible!important}
+body.yt-teacher-guide-enabled #shell>.yt-guide-pane{grid-column:1!important;grid-row:2!important;display:flex!important;flex-direction:column!important;align-self:stretch!important;min-width:0!important;min-height:0!important;height:var(--yt-guide-height)!important;max-height:var(--yt-guide-height)!important;margin:0!important;border:1px solid #cddfd5;border-radius:14px;background:#fff;overflow:hidden!important;box-shadow:0 5px 18px #264b3a08}
+body.yt-teacher-guide-enabled #shell>.classroom-side{grid-column:2!important;grid-row:2!important;display:flex!important;flex-direction:column!important;gap:8px!important;align-self:stretch!important;min-width:0!important;min-height:0!important;height:var(--yt-guide-height)!important;overflow:visible!important}
+body.yt-teacher-guide-enabled #shell>.students-panel{grid-column:1/-1!important;grid-row:3!important;min-height:0!important;height:auto!important;max-height:none!important;overflow:visible!important}
+body.yt-teacher-guide-enabled #shell:not(.preview-expanded) .classroom-side>.preview-panel{display:flex!important;flex-direction:column!important;position:relative!important;inset:auto!important;width:100%!important;flex:1 1 0!important;height:0!important;min-height:0!important;max-height:100%!important;margin:0!important;transform:none!important;overflow:hidden!important}
+body.yt-teacher-guide-enabled #shell .classroom-side>.action-dock,body.yt-teacher-guide-enabled #shell .classroom-side>.l1-page-count{flex:none!important;margin:0!important}
+body.yt-teacher-guide-enabled #shell:not(.preview-expanded) .preview-panel>.preview-head{flex:none!important}
+body.yt-teacher-guide-enabled #shell:not(.preview-expanded) .preview-panel>.stage,
+body.yt-teacher-guide-enabled #shell:not(.preview-expanded) .preview-panel>.ts-workspace{position:relative!important;flex:1 1 0!important;min-height:0!important;height:0!important;max-height:100%!important;aspect-ratio:auto!important;overflow:hidden!important}
+body.yt-teacher-guide-enabled #shell:not(.preview-expanded) .preview-panel .ts-workspace>.stage{height:100%!important;min-height:0!important;aspect-ratio:auto!important}
+body.yt-teacher-guide-enabled #shell.shell.preview-collapsed{grid-template-columns:minmax(0,1fr)!important;grid-template-rows:auto var(--yt-guide-height) auto auto!important}
+body.yt-teacher-guide-enabled #shell.preview-collapsed>.yt-guide-pane{grid-column:1/-1!important}
+body.yt-teacher-guide-enabled #shell.preview-collapsed>.classroom-side{display:flex!important;grid-column:1/-1!important;grid-row:3!important;height:auto!important}
+body.yt-teacher-guide-enabled #shell.preview-collapsed>.classroom-side>.preview-panel{display:none!important}
+body.yt-teacher-guide-enabled #shell.preview-collapsed>.students-panel{grid-row:4!important}
+/* Old lesson-one pane hiding must not override the common per-view collapse. */
+body.yt-teacher-guide-enabled.l1-guide-hidden #shell>#lesson1TeachingPane{display:flex!important}
+.yt-guide-head{display:flex;flex:none;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;padding:13px 15px;border-bottom:1px solid #dce9df;background:#edf6ef}
+.yt-guide-heading{min-width:0;flex:1}.yt-guide-heading h2{font-size:16px;color:#2b5e45;margin:0}.yt-guide-label{font-size:12px;line-height:1.6;color:#66806e;margin:3px 0 0}
+.yt-guide-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.yt-guide-actions button{min-height:34px;padding:6px 10px;border:1px solid #bcd6c5;border-radius:8px;background:#fff;color:#31654c;font:600 12px/1.5 system-ui;cursor:pointer}.yt-guide-actions button:disabled{color:#748177;background:#f5f7f4;border-color:#d7e0d8;cursor:not-allowed}.yt-guide-actions button:focus-visible,.yt-guide-scroll:focus-visible{outline:3px solid #479e86;outline-offset:-3px}
+.yt-guide-scroll{flex:1 1 0;min-height:0;height:0;overflow-y:auto!important;overflow-x:hidden;overscroll-behavior:contain;scrollbar-gutter:stable;scrollbar-width:thin;scrollbar-color:#86a792 #f0f5ef;padding:12px 18px 20px;-webkit-overflow-scrolling:touch}.yt-guide-scroll[hidden]{display:none!important}
+.yt-guide-notice{margin:0 0 5px;color:#748174;font-size:12px;line-height:1.7}.yt-guide-block{padding:15px 0 18px;overflow-wrap:anywhere}.yt-guide-block+.yt-guide-block{border-top:1px solid #e1e9df}.yt-guide-block h3{font-size:15px;line-height:1.6;margin:0 0 11px;color:#2d634a}.yt-guide-block p{font-size:15px;line-height:1.95;color:#354e40;margin:0 0 13px;white-space:pre-wrap}.yt-guide-block p:last-child{margin-bottom:0}.yt-guide-block .yt-guide-mode-note{font-size:13px;color:#5c735f;background:#f0f7f0;padding:10px 12px;border-radius:8px}.yt-guide-close h3{color:#496e80}
+/* Collapse keeps a visible title bar; its content scroll position remains per view. */
+.yt-guide-folded .yt-guide-head{border-bottom:0}
+@media(min-width:961px){
+ body.yt-teacher-guide-enabled:not(.lesson1-teaching-live) #shell .action-dock{position:static!important;inset:auto!important;grid-template-columns:92px minmax(150px,1fr) 92px!important;width:100%!important;margin-top:8px!important;transform:none!important}
+}
+@media(max-width:960px){
+ body.yt-teacher-guide-enabled #shell.shell,body.yt-teacher-guide-enabled #shell.shell.preview-collapsed{--yt-guide-height:min(58dvh,520px);grid-template-columns:minmax(0,1fr)!important;grid-template-rows:auto auto auto auto!important;gap:12px!important}
+ body.yt-teacher-guide-enabled #shell>.control-panel{grid-column:1!important;grid-row:1!important;order:initial!important}
+ body.yt-teacher-guide-enabled #shell>.yt-guide-pane{grid-column:1!important;grid-row:2!important;order:initial!important}
+ body.yt-teacher-guide-enabled #shell>.classroom-side{grid-column:1!important;grid-row:3!important;order:initial!important;height:clamp(330px,75vw,650px)!important}
+ body.yt-teacher-guide-enabled #shell>.students-panel,body.yt-teacher-guide-enabled #shell.preview-collapsed>.students-panel{grid-column:1!important;grid-row:4!important;order:initial!important}
+ body.yt-teacher-guide-enabled #shell>.yt-guide-pane.yt-guide-folded{height:auto!important;min-height:65px!important}
+ .yt-guide-head{padding:12px}.yt-guide-scroll{padding:10px 14px 18px}.yt-guide-block p{font-size:14px}
+}
