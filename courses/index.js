@@ -28,7 +28,7 @@
             name: '七年级',
             core: '适应与成长 · 认识全新自我',
             courses: [
-              { order: 1, title: '走进初中，拥抱新起点',   summary: '初中生活变化与心理适应、新生常见迷茫调适、班级心理融入', courseId: 'lesson-01' },
+              { order: 1, title: '换了新环境，慢一点也没关系',   summary: '初中生活变化与心理适应、新生常见迷茫调适、班级心理融入', courseId: 'lesson-01' },
               { order: 2, title: '独一无二的我',           summary: '我的优缺点盘点、正视不完美、拒绝自我否定、学会接纳自己', courseId: 'lesson-02' },
               { order: 3, title: '情绪小管家',             summary: '喜怒哀乐的情绪分类、读懂自己的情绪信号、情绪无好坏', courseId: 'lesson-03' },
               { order: 4, title: '学会好好说话',           summary: '同学相处之道、初识交往边界、学会倾听与礼貌表达', courseId: 'lesson-04' },

@@ -1,0 +1,467 @@
+/* Lesson 01 live workspace. Loaded after the legacy R17–R45 console rules.
+   Deliberately scoped and specific: those rules include !important at every
+   desktop breakpoint. JS owns state, slide navigation and fitPreview(). */
+html:has(body.lesson1-teaching-live),
+body.lesson1-teaching-live {
+  height: auto !important;
+  min-height: 100% !important;
+  overflow-x: clip !important;
+  overflow-y: auto !important;
+}
+body.lesson1-teaching-live { min-height: 100dvh !important; }
+body.lesson1-teaching-live.preview-open { overflow: hidden !important; }
+.lesson1-teaching-live .top {
+  position: relative !important;
+  height: auto !important;
+  min-height: 48px;
+  padding: 7px 20px;
+  gap: 12px;
+}
+.lesson1-teaching-live .brand { font-size: 18px; }
+.lesson1-teaching-live .top-actions { flex-wrap: wrap; justify-content: flex-end; }
+.lesson1-teaching-live .top-actions > * { min-height: 32px; font-size: 12px; }
+
+/* Main screen first. Guide occupies 25–29% on a normal desktop. */
+.lesson1-teaching-live .shell,
+.lesson1-teaching-live .shell.preview-collapsed {
+  position: relative !important;
+  display: grid !important;
+  grid-template-columns: minmax(300px, .28fr) minmax(0, .72fr) !important;
+  grid-template-rows: auto auto auto !important;
+  align-items: start !important;
+  gap: 16px !important;
+  width: 100%;
+  max-width: 1920px;
+  height: auto !important;
+  min-height: 0 !important;
+  margin: 0 auto;
+  padding: 14px 20px 28px !important;
+  overflow: visible !important;
+  transition: none;
+}
+.lesson1-teaching-live.l1-guide-hidden .shell,
+.lesson1-teaching-live.l1-guide-hidden .shell.preview-collapsed {
+  grid-template-columns: minmax(0, 1fr) !important;
+}
+.lesson1-teaching-live #lesson1TeachingPane[hidden],
+.lesson1-teaching-live.l1-guide-hidden #lesson1TeachingPane { display: none !important; }
+
+/* A shallow control strip: progress, timer, then the original six stages. */
+.lesson1-teaching-live .shell .control-panel {
+  grid-column: 1 / -1 !important;
+  grid-row: 1 !important;
+  display: grid !important;
+  grid-template-rows: auto auto !important;
+  width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  margin: 0;
+  overflow: visible !important;
+}
+.lesson1-teaching-live .control-panel-head {
+  position: static !important;
+  min-height: 39px !important;
+  padding: 6px 14px !important;
+  gap: 12px;
+}
+.lesson1-teaching-live .control-panel-head > div { flex-wrap: wrap; gap: 8px !important; }
+.lesson1-teaching-live .control-panel-head b { font-size: 14px !important; }
+.lesson1-teaching-live .control-panel-head #classroomMeta { font-size: 11px !important; }
+.lesson1-teaching-live .control-panel-head > div:before { height: 17px; }
+.lesson1-teaching-live .l1-top-toggle,
+.lesson1-teaching-live .l1-tools button {
+  flex: 0 0 auto;
+  min-height: 34px;
+  padding: 6px 11px;
+  border: 1px solid #c8dfd8;
+  border-radius: 9px;
+  background: #fff;
+  color: #24685d;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+.lesson1-teaching-live .l1-top-toggle { min-height: 28px; white-space: nowrap; }
+.lesson1-teaching-live .control-inner {
+  display: grid !important;
+  grid-template-columns: minmax(96px, .14fr) minmax(228px, .23fr) minmax(0, .63fr) !important;
+  grid-template-rows: auto !important;
+  align-items: center !important;
+  gap: 12px !important;
+  height: auto !important;
+  padding: 9px 14px 11px !important;
+  overflow: visible !important;
+}
+.lesson1-teaching-live.l1-top-collapsed .control-panel .control-inner { display: none !important; }
+.lesson1-teaching-live.l1-top-collapsed .control-panel { grid-template-rows: auto !important; }
+.lesson1-teaching-live.l1-top-collapsed .control-panel-head { border-bottom: 0 !important; }
+.lesson1-teaching-live .control-inner > .eyebrow { display: none !important; }
+.lesson1-teaching-live .control-inner > .course-head {
+  grid-column: 1 !important;
+  grid-row: 1 !important;
+  min-width: 0;
+  gap: 5px !important;
+}
+.lesson1-teaching-live .control-inner > .course-head h1 {
+  font-size: 16px !important;
+  line-height: 1.4 !important;
+  overflow-wrap: anywhere;
+}
+.lesson1-teaching-live .mode-badge { padding: 3px 6px !important; font-size: 10px !important; white-space: normal; }
+.lesson1-teaching-live .control-inner > .timers {
+  grid-column: 2 !important;
+  grid-row: 1 !important;
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) auto !important;
+  align-items: stretch !important;
+  gap: 5px !important;
+  min-width: 0;
+  margin: 0 !important;
+}
+.lesson1-teaching-live .timer { padding: 7px !important; min-width: 0; }
+.lesson1-teaching-live .timer b { font-size: 12px !important; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.lesson1-teaching-live .timer span { font-size: 10px !important; }
+.lesson1-teaching-live .timer-actions {
+  grid-column: 3 !important;
+  grid-row: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 4px !important;
+}
+.lesson1-teaching-live .timer-actions button {
+  flex: 1;
+  min-width: 0 !important;
+  min-height: 25px !important;
+  padding: 3px 6px !important;
+  border: 1px solid #d6e5e1;
+  border-radius: 7px;
+  font-size: 10px !important;
+  cursor: pointer;
+}
+.lesson1-teaching-live .control-inner > .section {
+  grid-column: 3 !important;
+  grid-row: 1 !important;
+  min-width: 0;
+  margin: 0 !important;
+  padding: 6px 10px !important;
+  border: 0 !important;
+}
+.lesson1-teaching-live .control-inner > .section > .section-head { margin: 0 0 3px !important; }
+.lesson1-teaching-live .control-inner > .section > .section-head h2 { font-size: 11px !important; }
+.lesson1-teaching-live .control-panel .flow {
+  display: grid !important;
+  grid-template-columns: repeat(6, minmax(0, 1fr)) !important;
+  gap: 4px !important;
+  margin: 3px 0 0 !important;
+  padding: 0 !important;
+}
+.lesson1-teaching-live .control-panel .flow:before { display: block !important; top: 13px !important; height: 3px !important; }
+.lesson1-teaching-live .control-panel .flow button { min-width: 0; min-height: 59px !important; padding: 0 2px !important; }
+.lesson1-teaching-live .control-panel .flow button:before,
+.lesson1-teaching-live .control-panel .flow button.on:before {
+  width: 27px !important;
+  height: 27px !important;
+  margin-bottom: 4px !important;
+  border-width: 2px !important;
+}
+.lesson1-teaching-live .control-panel .flow button b,
+.lesson1-teaching-live .control-panel .flow button.on b {
+  max-width: 100% !important;
+  min-height: 0 !important;
+  font-size: 11px !important;
+  line-height: 1.35;
+  white-space: normal !important;
+}
+.lesson1-teaching-live .control-panel .flow button span { font-size: 9px !important; }
+
+/* The frame is always 1024 × 768; only fitPreview's scale may resize it. */
+.lesson1-teaching-live .shell .classroom-side,
+.lesson1-teaching-live .shell.preview-collapsed .classroom-side {
+  grid-column: 2 !important;
+  grid-row: 2 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+  width: 100%;
+  max-width: 1400px;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  height: auto !important;
+  justify-self: center;
+  align-self: start !important;
+  overflow: visible !important;
+}
+.lesson1-teaching-live.l1-guide-hidden .shell .classroom-side,
+.lesson1-teaching-live.l1-guide-hidden .shell.preview-collapsed .classroom-side { grid-column: 1 !important; }
+.lesson1-teaching-live .shell .classroom-side .preview-panel {
+  position: relative !important;
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto auto auto !important;
+  grid-auto-rows: auto;
+  grid-column: auto !important;
+  grid-row: auto !important;
+  width: 100% !important;
+  max-width: none !important;
+  height: auto !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+}
+.lesson1-teaching-live .preview-head { min-height: 39px !important; padding: 7px 12px !important; gap: 8px; }
+.lesson1-teaching-live .preview-title { min-width: 0; flex-wrap: wrap; gap: 6px; }
+.lesson1-teaching-live .preview-title b { font-size: 14px; }
+.lesson1-teaching-live .shell .classroom-side .preview-panel .stage {
+  position: relative !important;
+  display: block !important;
+  width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  aspect-ratio: 4 / 3 !important;
+  padding: 10px !important;
+  overflow: hidden !important;
+}
+.lesson1-teaching-live .preview-panel .student-view {
+  position: absolute !important;
+  left: 50% !important;
+  top: 50% !important;
+  width: 1024px !important;
+  height: 768px !important;
+  min-width: 0 !important;
+  max-width: none !important;
+  aspect-ratio: auto !important;
+  transform: translate(-50%, -50%) scale(var(--preview-scale, .5)) !important;
+  transform-origin: center !important;
+  border: 0;
+  border-radius: 8px;
+}
+/* Current-stage slide tabs are distinct from the six-stage journey. */
+.lesson1-teaching-live .l1-pages {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  padding: 8px 12px;
+  border-top: 1px solid #e7efec;
+  border-bottom: 1px solid #dfeae6;
+  background: #f8fbfa;
+}
+.lesson1-teaching-live .l1-pages button {
+  min-height: 29px;
+  max-width: 100%;
+  padding: 4px 9px;
+  border: 1px solid #d8e6e1;
+  border-radius: 7px;
+  background: #fff;
+  color: #5b7772;
+  font: inherit;
+  font-size: 11px;
+  overflow-wrap: anywhere;
+  cursor: pointer;
+}
+.lesson1-teaching-live .l1-pages button:is(.on, .active, [aria-selected="true"], [aria-current="page"]) {
+  border-color: #6bb6a2;
+  background: #e7f5ef;
+  color: #106b5c;
+  font-weight: 700;
+}
+.lesson1-teaching-live .l1-tools { display: flex; flex-wrap: wrap; justify-content: flex-end; align-items: center; gap: 7px; min-width: 0; }
+.lesson1-teaching-live .l1-interaction-tools { display: flex; flex-wrap: wrap; gap: 7px; min-width: 0; }
+.lesson1-teaching-live .l1-tools .l1-guide-toggle { border-color: #81bba9; background: #eff8f4; margin-left: auto; }
+.lesson1-teaching-live .l1-tools button:hover,
+.lesson1-teaching-live .l1-top-toggle:hover { background: #e9f6f0; border-color: #80baa8; }
+.lesson1-teaching-live .shell .classroom-side > .action-dock {
+  position: static !important;
+  display: flex !important;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px !important;
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 10px !important;
+  border-radius: 12px !important;
+  transform: none !important;
+  backdrop-filter: none;
+  box-shadow: 0 3px 10px #224b3a08 !important;
+}
+.lesson1-teaching-live .action-dock button {
+  min-width: 0;
+  min-height: 40px !important;
+  padding: 8px 15px !important;
+  border: 1px solid #d6e3e0;
+  border-radius: 9px;
+  font: inherit;
+  font-size: 13px !important;
+  white-space: normal !important;
+  cursor: pointer;
+}
+.lesson1-teaching-live .action-dock #next { min-width: 130px; font-weight: 700; }
+.lesson1-teaching-live .l1-page-count { margin-right: auto; padding: 3px 5px; color: #658079; font-size: 12px; font-variant-numeric: tabular-nums; }
+.lesson1-teaching-live button:focus-visible { outline: 3px solid #68b79f; outline-offset: 3px; }
+
+/* Optional long-form guide: page scroll, never a nested scrolling pane. */
+.lesson1-teaching-live .shell #lesson1TeachingPane {
+  grid-column: 1 !important;
+  grid-row: 2 !important;
+  min-width: 0;
+  height: auto;
+  max-height: none;
+  border: 1px solid #d1e3db;
+  border-radius: 14px;
+  background: #fff;
+  overflow: visible;
+  overflow-wrap: anywhere;
+}
+.lesson1-teaching-live .lesson1-teaching-pane > .yt-teaching-guide { margin: 0; border: 0; border-radius: 14px; height: auto; max-height: none; background: #fff; }
+.lesson1-teaching-live .lesson1-teaching-pane .yt-teaching-guide-summary { min-height: 62px; padding: 14px 16px; border-radius: 14px 14px 0 0; background: #edf7f2; }
+.lesson1-teaching-live .lesson1-teaching-pane .yt-teaching-stage-label { font-size: 16px; line-height: 1.5; }
+.lesson1-teaching-live .lesson1-teaching-pane .yt-teaching-guide-content { height: auto !important; max-height: none !important; padding: 5px 16px 18px; overflow: visible !important; }
+.lesson1-teaching-live .lesson1-teaching-pane .yt-teaching-activities { grid-template-columns: 1fr; }
+.lesson1-teaching-live .yt-teaching-segment { padding: 18px 0; border-bottom: 1px solid #e7eeeb; }
+.lesson1-teaching-live .yt-teaching-segment:first-child { padding-top: 10px; }
+.lesson1-teaching-live .yt-teaching-segment:last-child { border-bottom: 0; }
+.lesson1-teaching-live .yt-teaching-segment-head { display: flex; flex-wrap: wrap; gap: 5px 10px; justify-content: space-between; align-items: baseline; margin-bottom: 14px; }
+.lesson1-teaching-live .yt-teaching-segment h3 { margin: 0; color: #21584c; font-size: 16px; line-height: 1.6; }
+.lesson1-teaching-live .yt-teaching-segment-head small { color: #74877d; font-size: 11px; }
+.lesson1-teaching-live .yt-teaching-segment-section { margin: 14px 0; }
+.lesson1-teaching-live .yt-teaching-segment-section h4 { margin: 0 0 7px; color: #5c756a; font-size: 12px; font-weight: 700; }
+.lesson1-teaching-live .yt-teaching-segment-section p,
+.lesson1-teaching-live .lesson1-teaching-pane .yt-teaching-item { margin: 0 0 9px; color: #324e43; font-size: 14px; line-height: 1.95; white-space: pre-wrap; }
+.lesson1-teaching-live .yt-teaching-questions { padding: 12px; border: 1px solid #e1ece5; border-radius: 10px; background: #f3f8f5; }
+.lesson1-teaching-live .yt-teaching-questions p { color: #245b48; font-weight: 600; }
+.lesson1-teaching-live .yt-teaching-segment-summary { padding: 12px; border-left: 3px solid #74ab95; border-radius: 0 9px 9px 0; background: #faf9f1; }
+.lesson1-teaching-live .yt-teaching-segment-summary h4 { color: #7a7654; }
+.lesson1-teaching-live .yt-teaching-segment-summary p { color: #55583f; }
+
+/* Roster remains full-width and secondary, with natural page height. */
+.lesson1-teaching-live .shell .students-panel,
+.lesson1-teaching-live .shell.preview-collapsed .students-panel {
+  grid-column: 1 / -1 !important;
+  grid-row: 3 !important;
+  width: 100%;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  align-self: start !important;
+  overflow: visible !important;
+  overscroll-behavior: auto !important;
+  touch-action: auto !important;
+  scrollbar-gutter: auto !important;
+  box-shadow: none !important;
+}
+.lesson1-teaching-live .students-panel .section { padding: 16px 18px !important; gap: 10px !important; }
+.lesson1-teaching-live .students-panel .student-status-head { flex-wrap: wrap; gap: 10px; }
+.lesson1-teaching-live .students-panel .student-status-head h2 { font-size: 16px !important; }
+.lesson1-teaching-live .students-panel .student-status-head .presence-strip { flex-wrap: wrap; gap: 12px !important; max-width: 100%; }
+.lesson1-teaching-live .students-panel .student-grid { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
+
+/* Hide only the preview: navigation, interactions and guide switch survive. */
+.lesson1-teaching-live .shell.preview-collapsed .classroom-side .preview-panel { display: none !important; }
+
+/* Preserve the original optional fixed modal, including a scaleable stage. */
+.lesson1-teaching-live .shell.preview-expanded:after { position: fixed; z-index: 80; inset: 0; background: #122a2780; content: ""; }
+.lesson1-teaching-live .shell.preview-expanded .classroom-side .preview-panel {
+  position: fixed !important;
+  z-index: 81 !important;
+  inset: auto !important;
+  left: 50% !important;
+  top: 50% !important;
+  display: flex !important;
+  flex-direction: column;
+  width: min(1400px, calc(100vw - 32px)) !important;
+  height: calc(100dvh - 32px) !important;
+  max-height: 1100px;
+  transform: translate(-50%, -50%) !important;
+  box-shadow: 0 24px 70px #0a231f4d !important;
+}
+.lesson1-teaching-live .shell.preview-expanded .preview-head,
+.lesson1-teaching-live .shell.preview-expanded .l1-pages { flex: none; }
+.lesson1-teaching-live .shell.preview-expanded .classroom-side .preview-panel .stage { flex: 1 1 0; height: auto !important; min-height: 0 !important; aspect-ratio: auto !important; }
+
+/* Interaction dialog supplied by the classroom script. */
+.lesson1-teaching-live dialog.l1-activity-dialog {
+  width: min(620px, calc(100vw - 28px));
+  max-width: calc(100vw - 28px);
+  max-height: calc(100dvh - 36px);
+  margin: auto;
+  padding: 22px;
+  border: 1px solid #c5dfd5;
+  border-radius: 18px;
+  background: #fcfefd;
+  color: #234b43;
+  box-shadow: 0 24px 70px #173d3440;
+  overflow: auto;
+  overflow-wrap: anywhere;
+}
+.lesson1-teaching-live .l1-activity-dialog::backdrop { background: #15352e80; }
+.lesson1-teaching-live .l1-activity-dialog h2 { margin: 0 0 15px; color: #17695a; font-size: 20px; }
+.lesson1-teaching-live .l1-activity-dialog .form,
+.lesson1-teaching-live .l1-activity-dialog form { display: grid; gap: 12px; min-width: 0; }
+.lesson1-teaching-live .l1-activity-dialog label { display: grid; gap: 6px; font-size: 13px; }
+.lesson1-teaching-live .l1-activity-dialog :is(input:not([type="checkbox"]):not([type="radio"]), textarea, select) { box-sizing: border-box; width: 100%; min-width: 0; padding: 10px 12px; border: 1px solid #cbded5; border-radius: 9px; background: #fff; color: #284d43; font: inherit; }
+.lesson1-teaching-live .l1-activity-dialog textarea { min-height: 100px; resize: vertical; }
+.lesson1-teaching-live .l1-activity-dialog button { min-height: 36px; padding: 7px 13px; border: 1px solid #bddbcf; border-radius: 9px; background: #eef8f2; color: #176b58; font: inherit; cursor: pointer; }
+.lesson1-teaching-live .l1-activity-dialog :is(button[type="submit"], .primary) { border-color: #168677; background: #168677; color: #fff; }
+.lesson1-teaching-live .l1-activity-list { display: grid; gap: 9px; padding: 0; list-style: none; }
+.lesson1-teaching-live .l1-activity-list > * { min-width: 0; padding: 11px 12px; border: 1px solid #d9e8df; border-radius: 10px; background: #f5faf7; }
+.lesson1-teaching-live .l1-status { color: #547c6e; font-size: 12px; }
+.lesson1-teaching-live .classroom-side > .l1-page-count { margin: -2px 2px 0; padding: 0; line-height: 1.7; overflow-wrap: anywhere; }
+.lesson1-teaching-live .classroom-side > .l1-status { padding: 0 3px; line-height: 1.7; }
+.lesson1-teaching-live .l1-status > small { color: #7b8e86; font-size: 11px; }
+.lesson1-teaching-live .l1-active-activity { display: flex; flex-wrap: wrap; align-items: center; gap: 7px 10px; margin-top: 8px; padding: 11px 12px; border: 1px solid #cce2d7; border-radius: 10px; background: #f0f9f4; }
+.lesson1-teaching-live .l1-active-activity b { color: #236b58; overflow-wrap: anywhere; }
+.lesson1-teaching-live .l1-active-activity span { flex: 1 1 auto; color: #658477; font-size: 11px; }
+.lesson1-teaching-live .l1-active-activity button { min-height: 31px; padding: 5px 9px; border: 1px solid #c2dbcf; border-radius: 7px; background: #fff; color: #276d59; font: inherit; font-size: 11px; cursor: pointer; }
+.lesson1-teaching-live .l1-pages button[aria-pressed="true"] { border-color: #6bb6a2; background: #e7f5ef; color: #106b5c; font-weight: 700; }
+
+@media (max-width: 1180px) {
+  .lesson1-teaching-live .control-inner { grid-template-columns: 100px 228px minmax(0, 1fr) !important; gap: 8px !important; }
+  .lesson1-teaching-live .students-panel .student-grid { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+}
+@media (max-width: 960px) {
+  .lesson1-teaching-live .shell,
+  .lesson1-teaching-live .shell.preview-collapsed { grid-template-columns: minmax(0, 1fr) !important; grid-template-rows: auto auto auto auto !important; padding: 12px !important; gap: 12px !important; }
+  .lesson1-teaching-live .shell .classroom-side,
+  .lesson1-teaching-live .shell.preview-collapsed .classroom-side { grid-column: 1 !important; grid-row: 2 !important; }
+  .lesson1-teaching-live .shell #lesson1TeachingPane { grid-column: 1 !important; grid-row: 3 !important; }
+  .lesson1-teaching-live .shell .students-panel,
+  .lesson1-teaching-live .shell.preview-collapsed .students-panel { grid-row: 4 !important; }
+  .lesson1-teaching-live.l1-guide-hidden .shell .students-panel { grid-row: 3 !important; }
+  .lesson1-teaching-live .control-inner { grid-template-columns: minmax(95px, .3fr) minmax(0, .7fr) !important; }
+  .lesson1-teaching-live .control-inner > .section { grid-column: 1 / -1 !important; grid-row: 2 !important; }
+  .lesson1-teaching-live .control-panel .flow { grid-template-columns: repeat(6, minmax(0, 1fr)) !important; }
+  .lesson1-teaching-live .students-panel .student-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+}
+@media (max-width: 540px) {
+  .lesson1-teaching-live .top { flex-wrap: wrap; padding: 8px 10px; gap: 7px; }
+  .lesson1-teaching-live .top-actions { gap: 5px; }
+  .lesson1-teaching-live .top-actions > * { padding: 5px 7px; font-size: 10px; }
+  .lesson1-teaching-live .shell,
+  .lesson1-teaching-live .shell.preview-collapsed { padding: 8px !important; gap: 10px !important; }
+  .lesson1-teaching-live .control-panel-head { padding: 7px 10px !important; }
+  .lesson1-teaching-live .control-panel-head > div { gap: 5px !important; }
+  .lesson1-teaching-live .control-panel-head #classroomMeta { white-space: normal; line-height: 1.4; }
+  .lesson1-teaching-live .control-inner { grid-template-columns: 82px minmax(0, 1fr) !important; padding: 9px !important; }
+  .lesson1-teaching-live .control-inner > .course-head h1 { font-size: 14px !important; }
+  .lesson1-teaching-live .control-inner > .timers { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+  .lesson1-teaching-live .timer b { font-size: 11px !important; }
+  .lesson1-teaching-live .timer-actions { grid-column: 1 / -1 !important; grid-row: 2 !important; flex-direction: row !important; }
+  .lesson1-teaching-live .control-inner > .section { padding: 7px 4px !important; }
+  .lesson1-teaching-live .control-panel .flow { gap: 2px !important; }
+  .lesson1-teaching-live .control-panel .flow button b,
+  .lesson1-teaching-live .control-panel .flow button.on b { font-size: 10px !important; }
+  .lesson1-teaching-live .l1-tools { gap: 5px; }
+  .lesson1-teaching-live .l1-tools button { flex: 1 1 calc(50% - 5px); min-height: 36px; padding: 6px; font-size: 11px; }
+  .lesson1-teaching-live .l1-tools .l1-guide-toggle { margin-left: 0; }
+  .lesson1-teaching-live .action-dock button { flex: 1 1 auto; padding: 8px 10px !important; font-size: 12px !important; }
+  .lesson1-teaching-live .action-dock #next { min-width: 0; }
+  .lesson1-teaching-live .l1-page-count { flex: 1 0 100%; }
+  .lesson1-teaching-live .students-panel .section { padding: 13px !important; }
+  .lesson1-teaching-live .students-panel .student-grid { grid-template-columns: minmax(0, 1fr) !important; }
+  .lesson1-teaching-live .students-panel .student-status-head .presence-strip { gap: 9px !important; }
+  .lesson1-teaching-live .shell.preview-expanded .classroom-side .preview-panel { width: calc(100vw - 16px) !important; height: calc(100dvh - 16px) !important; }
+  .lesson1-teaching-live dialog.l1-activity-dialog { padding: 16px; }
+}
