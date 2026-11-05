@@ -200,6 +200,8 @@ var previewExpanded=false,expandPreview=document.getElementById('previewExpand')
 var previewPreferenceKey='yunting-teacher-preview-collapsed:'+String(querySession||state().sessionId||'no-session'),collapsed=sessionStorage.getItem(previewPreferenceKey)==='1',toggle=document.getElementById('previewToggle');function applyCollapse(){shell.classList.toggle('preview-collapsed',collapsed);toggle.textContent=collapsed?'显示平板预览':'隐藏平板预览';toggle.setAttribute('aria-expanded',collapsed?'false':'true');setTimeout(fitPreview,260)}toggle.onclick=function(){collapsed=!collapsed;sessionStorage.setItem(previewPreferenceKey,collapsed?'1':'0');applyCollapse()};applyCollapse();
 document.addEventListener('keydown',function(e){if(e.key==='Escape'&&previewExpanded){previewExpanded=false;applyPreviewExpand()}});
 var last='';YTClassroomDemo.subscribe(function(){var s=state(),sig=[s.sessionId,s.active,s.status,s.stage,s.teacherPreviewStage,s.studentStage,s.paused,s.updatedAt].join('|');if(!s.active){returnToRecords(s);return}if(sig!==last){last=sig;render()}});setInterval(tick,1000);render();if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js?v=59').catch(function(){})}
+window.YTTeacherSlideNavigation={read:state,fit:fitPreview,show:function(stage,patch){setStage(state(),stage,null,patch)}};
 })();
 </script>
+<link rel="stylesheet" href="assets/teacher-slide-nav.css"><script src="assets/teacher-slide-nav.js"></script>
 </body></html>
